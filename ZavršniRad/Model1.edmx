@@ -1,0 +1,1480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Stomatoloska_MLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dijagnozas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="IzvrsenaUslugas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cijena" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PregledId" Type="int" Nullable="false" />
+          <Property Name="UslugaId" Type="int" Nullable="false" />
+          <Property Name="ZubId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Korisniks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar(max)" />
+          <Property Name="Prezime" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Mobitel" Type="nvarchar(max)" />
+          <Property Name="Adresa" Type="nvarchar(max)" />
+          <Property Name="KorisnickoIme" Type="nvarchar(max)" />
+          <Property Name="Lozinka" Type="nvarchar(max)" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="Aktivan" Type="bit" Nullable="false" />
+          <Property Name="LozinkaHash" Type="nvarchar(max)" />
+          <Property Name="LozinkaSalt" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Lijeks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Materijals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar(max)" />
+          <Property Name="Cijena" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ocjenas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DatumOcjenjivanja" Type="datetime" Nullable="false" />
+          <Property Name="OcjenaInt" Type="int" Nullable="false" />
+          <Property Name="UslugaId" Type="int" Nullable="false" />
+          <Property Name="PacijentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Osobljes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Titula" Type="nvarchar(max)" />
+          <Property Name="JMBG" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Pacijents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="JMBG" Type="nvarchar(max)" />
+          <Property Name="AddedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Porukas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PacijentId" Type="int" Nullable="false" />
+          <Property Name="StomatologId" Type="int" Nullable="false" />
+          <Property Name="From" Type="int" Nullable="false" />
+          <Property Name="To" Type="int" />
+          <Property Name="TekstPoruke" Type="nvarchar(max)" />
+          <Property Name="Datum" Type="datetime" Nullable="false" />
+          <Property Name="Procitana" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PotroseniMaterijals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kolicina" Type="int" Nullable="false" />
+          <Property Name="Datum" Type="datetime" Nullable="false" />
+          <Property Name="OsobljeId" Type="int" Nullable="false" />
+          <Property Name="MaterijalId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pregleds">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DatumPregleda" Type="datetime" Nullable="false" />
+          <Property Name="VrijemePregleda" Type="datetime" Nullable="false" />
+          <Property Name="PacijentId" Type="int" Nullable="false" />
+          <Property Name="StomatologId" Type="int" Nullable="false" />
+          <Property Name="TerminId" Type="int" Nullable="false" />
+          <Property Name="IsObavljen" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Racuns">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Uplaćeno" Type="bit" Nullable="false" />
+          <Property Name="Cijena" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Datum" Type="datetime" Nullable="false" />
+          <Property Name="OsobljeId" Type="int" />
+          <Property Name="PacijentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Stomatologs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Titula" Type="nvarchar(max)" />
+          <Property Name="JMBG" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Terapijas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vrsta" Type="int" Nullable="false" />
+          <Property Name="Količina" Type="int" Nullable="false" />
+          <Property Name="PregledId" Type="int" Nullable="false" />
+          <Property Name="LijekId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Termins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Datum" Type="datetime" Nullable="false" />
+          <Property Name="Vrijeme" Type="datetime" Nullable="false" />
+          <Property Name="Odobren" Type="bit" Nullable="false" />
+          <Property Name="PacijentId" Type="int" Nullable="false" />
+          <Property Name="RazlogPosjete" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Uslugas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vrsta" Type="nvarchar(max)" />
+          <Property Name="Slika" Type="varbinary(max)" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UspostavljenaDijagnozas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Intenzitet" Type="int" Nullable="false" />
+          <Property Name="Napomena" Type="nvarchar(max)" />
+          <Property Name="PregledId" Type="int" Nullable="false" />
+          <Property Name="DijagnozaId" Type="int" Nullable="false" />
+          <Property Name="ZubId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zubs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrojZuba" Type="int" Nullable="false" />
+          <Property Name="NazivZuba" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId">
+          <End Role="Pregleds" Type="Self.Pregleds" Multiplicity="1" />
+          <End Role="IzvrsenaUslugas" Type="Self.IzvrsenaUslugas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregleds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IzvrsenaUslugas">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IzvrsenaUslugas_dbo_Uslugas_UslugaId">
+          <End Role="Uslugas" Type="Self.Uslugas" Multiplicity="1" />
+          <End Role="IzvrsenaUslugas" Type="Self.IzvrsenaUslugas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uslugas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IzvrsenaUslugas">
+              <PropertyRef Name="UslugaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IzvrsenaUslugas_dbo_Zubs_ZubId">
+          <End Role="Zubs" Type="Self.Zubs" Multiplicity="1" />
+          <End Role="IzvrsenaUslugas" Type="Self.IzvrsenaUslugas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zubs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IzvrsenaUslugas">
+              <PropertyRef Name="ZubId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Ocjenas_dbo_Pacijents_PacijentId">
+          <End Role="Pacijents" Type="Self.Pacijents" Multiplicity="1" />
+          <End Role="Ocjenas" Type="Self.Ocjenas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ocjenas">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Ocjenas_dbo_Uslugas_UslugaId">
+          <End Role="Uslugas" Type="Self.Uslugas" Multiplicity="1" />
+          <End Role="Ocjenas" Type="Self.Ocjenas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uslugas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ocjenas">
+              <PropertyRef Name="UslugaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Osobljes_dbo_Korisniks_Id">
+          <End Role="Korisniks" Type="Self.Korisniks" Multiplicity="1" />
+          <End Role="Osobljes" Type="Self.Osobljes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisniks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Osobljes">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pacijents_dbo_Korisniks_Id">
+          <End Role="Korisniks" Type="Self.Korisniks" Multiplicity="1" />
+          <End Role="Pacijents" Type="Self.Pacijents" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisniks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Porukas_dbo_Pacijents_PacijentId">
+          <End Role="Pacijents" Type="Self.Pacijents" Multiplicity="1" />
+          <End Role="Porukas" Type="Self.Porukas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Porukas">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Porukas_dbo_Stomatologs_StomatologId">
+          <End Role="Stomatologs" Type="Self.Stomatologs" Multiplicity="1" />
+          <End Role="Porukas" Type="Self.Porukas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stomatologs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Porukas">
+              <PropertyRef Name="StomatologId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PotroseniMaterijals_dbo_Materijals_MaterijalId">
+          <End Role="Materijals" Type="Self.Materijals" Multiplicity="1" />
+          <End Role="PotroseniMaterijals" Type="Self.PotroseniMaterijals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijals">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PotroseniMaterijals">
+              <PropertyRef Name="MaterijalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PotroseniMaterijals_dbo_Osobljes_OsobljeId">
+          <End Role="Osobljes" Type="Self.Osobljes" Multiplicity="1" />
+          <End Role="PotroseniMaterijals" Type="Self.PotroseniMaterijals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osobljes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PotroseniMaterijals">
+              <PropertyRef Name="OsobljeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pregleds_dbo_Pacijents_PacijentId">
+          <End Role="Pacijents" Type="Self.Pacijents" Multiplicity="1" />
+          <End Role="Pregleds" Type="Self.Pregleds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pregleds">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pregleds_dbo_Stomatologs_StomatologId">
+          <End Role="Stomatologs" Type="Self.Stomatologs" Multiplicity="1" />
+          <End Role="Pregleds" Type="Self.Pregleds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stomatologs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pregleds">
+              <PropertyRef Name="StomatologId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pregleds_dbo_Termins_TerminId">
+          <End Role="Termins" Type="Self.Termins" Multiplicity="1" />
+          <End Role="Pregleds" Type="Self.Pregleds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pregleds">
+              <PropertyRef Name="TerminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Racuns_dbo_Osobljes_OsobljeId">
+          <End Role="Osobljes" Type="Self.Osobljes" Multiplicity="0..1" />
+          <End Role="Racuns" Type="Self.Racuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osobljes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Racuns">
+              <PropertyRef Name="OsobljeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Racuns_dbo_Pacijents_PacijentId">
+          <End Role="Pacijents" Type="Self.Pacijents" Multiplicity="0..1" />
+          <End Role="Racuns" Type="Self.Racuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Racuns">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Stomatologs_dbo_Korisniks_Id">
+          <End Role="Korisniks" Type="Self.Korisniks" Multiplicity="1" />
+          <End Role="Stomatologs" Type="Self.Stomatologs" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisniks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stomatologs">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Terapijas_dbo_Lijeks_LijekId">
+          <End Role="Lijeks" Type="Self.Lijeks" Multiplicity="1" />
+          <End Role="Terapijas" Type="Self.Terapijas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lijeks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Terapijas">
+              <PropertyRef Name="LijekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Terapijas_dbo_Pregleds_PregledId">
+          <End Role="Pregleds" Type="Self.Pregleds" Multiplicity="1" />
+          <End Role="Terapijas" Type="Self.Terapijas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregleds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Terapijas">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Termins_dbo_Pacijents_PacijentId">
+          <End Role="Pacijents" Type="Self.Pacijents" Multiplicity="1" />
+          <End Role="Termins" Type="Self.Termins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Termins">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UspostavljenaDijagnozas_dbo_Dijagnozas_DijagnozaId">
+          <End Role="Dijagnozas" Type="Self.Dijagnozas" Multiplicity="1" />
+          <End Role="UspostavljenaDijagnozas" Type="Self.UspostavljenaDijagnozas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dijagnozas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UspostavljenaDijagnozas">
+              <PropertyRef Name="DijagnozaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId">
+          <End Role="Pregleds" Type="Self.Pregleds" Multiplicity="1" />
+          <End Role="UspostavljenaDijagnozas" Type="Self.UspostavljenaDijagnozas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregleds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UspostavljenaDijagnozas">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UspostavljenaDijagnozas_dbo_Zubs_ZubId">
+          <End Role="Zubs" Type="Self.Zubs" Multiplicity="1" />
+          <End Role="UspostavljenaDijagnozas" Type="Self.UspostavljenaDijagnozas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zubs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UspostavljenaDijagnozas">
+              <PropertyRef Name="ZubId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Stomatoloska_MLModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dijagnozas" EntityType="Self.Dijagnozas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IzvrsenaUslugas" EntityType="Self.IzvrsenaUslugas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Korisniks" EntityType="Self.Korisniks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lijeks" EntityType="Self.Lijeks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materijals" EntityType="Self.Materijals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ocjenas" EntityType="Self.Ocjenas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Osobljes" EntityType="Self.Osobljes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pacijents" EntityType="Self.Pacijents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Porukas" EntityType="Self.Porukas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PotroseniMaterijals" EntityType="Self.PotroseniMaterijals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pregleds" EntityType="Self.Pregleds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Racuns" EntityType="Self.Racuns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stomatologs" EntityType="Self.Stomatologs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Terapijas" EntityType="Self.Terapijas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Termins" EntityType="Self.Termins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uslugas" EntityType="Self.Uslugas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UspostavljenaDijagnozas" EntityType="Self.UspostavljenaDijagnozas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zubs" EntityType="Self.Zubs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId" Association="Self.FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId">
+            <End Role="Pregleds" EntitySet="Pregleds" />
+            <End Role="IzvrsenaUslugas" EntitySet="IzvrsenaUslugas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IzvrsenaUslugas_dbo_Uslugas_UslugaId" Association="Self.FK_dbo_IzvrsenaUslugas_dbo_Uslugas_UslugaId">
+            <End Role="Uslugas" EntitySet="Uslugas" />
+            <End Role="IzvrsenaUslugas" EntitySet="IzvrsenaUslugas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IzvrsenaUslugas_dbo_Zubs_ZubId" Association="Self.FK_dbo_IzvrsenaUslugas_dbo_Zubs_ZubId">
+            <End Role="Zubs" EntitySet="Zubs" />
+            <End Role="IzvrsenaUslugas" EntitySet="IzvrsenaUslugas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Ocjenas_dbo_Pacijents_PacijentId" Association="Self.FK_dbo_Ocjenas_dbo_Pacijents_PacijentId">
+            <End Role="Pacijents" EntitySet="Pacijents" />
+            <End Role="Ocjenas" EntitySet="Ocjenas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Ocjenas_dbo_Uslugas_UslugaId" Association="Self.FK_dbo_Ocjenas_dbo_Uslugas_UslugaId">
+            <End Role="Uslugas" EntitySet="Uslugas" />
+            <End Role="Ocjenas" EntitySet="Ocjenas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Osobljes_dbo_Korisniks_Id" Association="Self.FK_dbo_Osobljes_dbo_Korisniks_Id">
+            <End Role="Korisniks" EntitySet="Korisniks" />
+            <End Role="Osobljes" EntitySet="Osobljes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pacijents_dbo_Korisniks_Id" Association="Self.FK_dbo_Pacijents_dbo_Korisniks_Id">
+            <End Role="Korisniks" EntitySet="Korisniks" />
+            <End Role="Pacijents" EntitySet="Pacijents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Porukas_dbo_Pacijents_PacijentId" Association="Self.FK_dbo_Porukas_dbo_Pacijents_PacijentId">
+            <End Role="Pacijents" EntitySet="Pacijents" />
+            <End Role="Porukas" EntitySet="Porukas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Porukas_dbo_Stomatologs_StomatologId" Association="Self.FK_dbo_Porukas_dbo_Stomatologs_StomatologId">
+            <End Role="Stomatologs" EntitySet="Stomatologs" />
+            <End Role="Porukas" EntitySet="Porukas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PotroseniMaterijals_dbo_Materijals_MaterijalId" Association="Self.FK_dbo_PotroseniMaterijals_dbo_Materijals_MaterijalId">
+            <End Role="Materijals" EntitySet="Materijals" />
+            <End Role="PotroseniMaterijals" EntitySet="PotroseniMaterijals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PotroseniMaterijals_dbo_Osobljes_OsobljeId" Association="Self.FK_dbo_PotroseniMaterijals_dbo_Osobljes_OsobljeId">
+            <End Role="Osobljes" EntitySet="Osobljes" />
+            <End Role="PotroseniMaterijals" EntitySet="PotroseniMaterijals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pregleds_dbo_Pacijents_PacijentId" Association="Self.FK_dbo_Pregleds_dbo_Pacijents_PacijentId">
+            <End Role="Pacijents" EntitySet="Pacijents" />
+            <End Role="Pregleds" EntitySet="Pregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pregleds_dbo_Stomatologs_StomatologId" Association="Self.FK_dbo_Pregleds_dbo_Stomatologs_StomatologId">
+            <End Role="Stomatologs" EntitySet="Stomatologs" />
+            <End Role="Pregleds" EntitySet="Pregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pregleds_dbo_Termins_TerminId" Association="Self.FK_dbo_Pregleds_dbo_Termins_TerminId">
+            <End Role="Termins" EntitySet="Termins" />
+            <End Role="Pregleds" EntitySet="Pregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Racuns_dbo_Osobljes_OsobljeId" Association="Self.FK_dbo_Racuns_dbo_Osobljes_OsobljeId">
+            <End Role="Osobljes" EntitySet="Osobljes" />
+            <End Role="Racuns" EntitySet="Racuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Racuns_dbo_Pacijents_PacijentId" Association="Self.FK_dbo_Racuns_dbo_Pacijents_PacijentId">
+            <End Role="Pacijents" EntitySet="Pacijents" />
+            <End Role="Racuns" EntitySet="Racuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Stomatologs_dbo_Korisniks_Id" Association="Self.FK_dbo_Stomatologs_dbo_Korisniks_Id">
+            <End Role="Korisniks" EntitySet="Korisniks" />
+            <End Role="Stomatologs" EntitySet="Stomatologs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Terapijas_dbo_Lijeks_LijekId" Association="Self.FK_dbo_Terapijas_dbo_Lijeks_LijekId">
+            <End Role="Lijeks" EntitySet="Lijeks" />
+            <End Role="Terapijas" EntitySet="Terapijas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Terapijas_dbo_Pregleds_PregledId" Association="Self.FK_dbo_Terapijas_dbo_Pregleds_PregledId">
+            <End Role="Pregleds" EntitySet="Pregleds" />
+            <End Role="Terapijas" EntitySet="Terapijas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Termins_dbo_Pacijents_PacijentId" Association="Self.FK_dbo_Termins_dbo_Pacijents_PacijentId">
+            <End Role="Pacijents" EntitySet="Pacijents" />
+            <End Role="Termins" EntitySet="Termins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UspostavljenaDijagnozas_dbo_Dijagnozas_DijagnozaId" Association="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Dijagnozas_DijagnozaId">
+            <End Role="Dijagnozas" EntitySet="Dijagnozas" />
+            <End Role="UspostavljenaDijagnozas" EntitySet="UspostavljenaDijagnozas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId" Association="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId">
+            <End Role="Pregleds" EntitySet="Pregleds" />
+            <End Role="UspostavljenaDijagnozas" EntitySet="UspostavljenaDijagnozas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UspostavljenaDijagnozas_dbo_Zubs_ZubId" Association="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Zubs_ZubId">
+            <End Role="Zubs" EntitySet="Zubs" />
+            <End Role="UspostavljenaDijagnozas" EntitySet="UspostavljenaDijagnozas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Stomatoloska_MLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dijagnoza">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UspostavljenaDijagnozas" Relationship="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Dijagnozas_DijagnozaId" FromRole="Dijagnozas" ToRole="UspostavljenaDijagnozas" />
+        </EntityType>
+        <EntityType Name="IzvrsenaUsluga">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cijena" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PregledId" Type="Int32" Nullable="false" />
+          <Property Name="UslugaId" Type="Int32" Nullable="false" />
+          <Property Name="ZubId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pregled" Relationship="Self.FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId" FromRole="IzvrsenaUslugas" ToRole="Pregleds" />
+          <NavigationProperty Name="Usluga" Relationship="Self.FK_dbo_IzvrsenaUslugas_dbo_Uslugas_UslugaId" FromRole="IzvrsenaUslugas" ToRole="Uslugas" />
+          <NavigationProperty Name="Zub" Relationship="Self.FK_dbo_IzvrsenaUslugas_dbo_Zubs_ZubId" FromRole="IzvrsenaUslugas" ToRole="Zubs" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Prezime" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mobitel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Adresa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="KorisnickoIme" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lozinka" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="Aktivan" Type="Boolean" Nullable="false" />
+          <Property Name="LozinkaHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LozinkaSalt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Osoblje" Relationship="Self.FK_dbo_Osobljes_dbo_Korisniks_Id" FromRole="Korisniks" ToRole="Osobljes" />
+          <NavigationProperty Name="Pacijent" Relationship="Self.FK_dbo_Pacijents_dbo_Korisniks_Id" FromRole="Korisniks" ToRole="Pacijents" />
+          <NavigationProperty Name="Stomatolog" Relationship="Self.FK_dbo_Stomatologs_dbo_Korisniks_Id" FromRole="Korisniks" ToRole="Stomatologs" />
+        </EntityType>
+        <EntityType Name="Lijek">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Terapijas" Relationship="Self.FK_dbo_Terapijas_dbo_Lijeks_LijekId" FromRole="Lijeks" ToRole="Terapijas" />
+        </EntityType>
+        <EntityType Name="Materijal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cijena" Type="Double" Nullable="false" />
+          <NavigationProperty Name="PotroseniMaterijals" Relationship="Self.FK_dbo_PotroseniMaterijals_dbo_Materijals_MaterijalId" FromRole="Materijals" ToRole="PotroseniMaterijals" />
+        </EntityType>
+        <EntityType Name="Ocjena">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatumOcjenjivanja" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OcjenaInt" Type="Int32" Nullable="false" />
+          <Property Name="UslugaId" Type="Int32" Nullable="false" />
+          <Property Name="PacijentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pacijent" Relationship="Self.FK_dbo_Ocjenas_dbo_Pacijents_PacijentId" FromRole="Ocjenas" ToRole="Pacijents" />
+          <NavigationProperty Name="Usluga" Relationship="Self.FK_dbo_Ocjenas_dbo_Uslugas_UslugaId" FromRole="Ocjenas" ToRole="Uslugas" />
+        </EntityType>
+        <EntityType Name="Osoblje">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Titula" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JMBG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.FK_dbo_Osobljes_dbo_Korisniks_Id" FromRole="Osobljes" ToRole="Korisniks" />
+          <NavigationProperty Name="PotroseniMaterijals" Relationship="Self.FK_dbo_PotroseniMaterijals_dbo_Osobljes_OsobljeId" FromRole="Osobljes" ToRole="PotroseniMaterijals" />
+          <NavigationProperty Name="Racuns" Relationship="Self.FK_dbo_Racuns_dbo_Osobljes_OsobljeId" FromRole="Osobljes" ToRole="Racuns" />
+        </EntityType>
+        <EntityType Name="Pacijent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="JMBG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.FK_dbo_Pacijents_dbo_Korisniks_Id" FromRole="Pacijents" ToRole="Korisniks" />
+          <NavigationProperty Name="Ocjenas" Relationship="Self.FK_dbo_Ocjenas_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Ocjenas" />
+          <NavigationProperty Name="Porukas" Relationship="Self.FK_dbo_Porukas_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Porukas" />
+          <NavigationProperty Name="Pregleds" Relationship="Self.FK_dbo_Pregleds_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Pregleds" />
+          <NavigationProperty Name="Racuns" Relationship="Self.FK_dbo_Racuns_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Racuns" />
+          <NavigationProperty Name="Termins" Relationship="Self.FK_dbo_Termins_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Termins" />
+        </EntityType>
+        <EntityType Name="Poruka">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PacijentId" Type="Int32" Nullable="false" />
+          <Property Name="StomatologId" Type="Int32" Nullable="false" />
+          <Property Name="From" Type="Int32" Nullable="false" />
+          <Property Name="To" Type="Int32" />
+          <Property Name="TekstPoruke" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Procitana" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Pacijent" Relationship="Self.FK_dbo_Porukas_dbo_Pacijents_PacijentId" FromRole="Porukas" ToRole="Pacijents" />
+          <NavigationProperty Name="Stomatolog" Relationship="Self.FK_dbo_Porukas_dbo_Stomatologs_StomatologId" FromRole="Porukas" ToRole="Stomatologs" />
+        </EntityType>
+        <EntityType Name="PotroseniMaterijal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kolicina" Type="Int32" Nullable="false" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OsobljeId" Type="Int32" Nullable="false" />
+          <Property Name="MaterijalId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Materijal" Relationship="Self.FK_dbo_PotroseniMaterijals_dbo_Materijals_MaterijalId" FromRole="PotroseniMaterijals" ToRole="Materijals" />
+          <NavigationProperty Name="Osoblje" Relationship="Self.FK_dbo_PotroseniMaterijals_dbo_Osobljes_OsobljeId" FromRole="PotroseniMaterijals" ToRole="Osobljes" />
+        </EntityType>
+        <EntityType Name="Pregled">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatumPregleda" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VrijemePregleda" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PacijentId" Type="Int32" Nullable="false" />
+          <Property Name="StomatologId" Type="Int32" Nullable="false" />
+          <Property Name="TerminId" Type="Int32" Nullable="false" />
+          <Property Name="IsObavljen" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="IzvrsenaUslugas" Relationship="Self.FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId" FromRole="Pregleds" ToRole="IzvrsenaUslugas" />
+          <NavigationProperty Name="Pacijent" Relationship="Self.FK_dbo_Pregleds_dbo_Pacijents_PacijentId" FromRole="Pregleds" ToRole="Pacijents" />
+          <NavigationProperty Name="Stomatolog" Relationship="Self.FK_dbo_Pregleds_dbo_Stomatologs_StomatologId" FromRole="Pregleds" ToRole="Stomatologs" />
+          <NavigationProperty Name="Termin" Relationship="Self.FK_dbo_Pregleds_dbo_Termins_TerminId" FromRole="Pregleds" ToRole="Termins" />
+          <NavigationProperty Name="Terapijas" Relationship="Self.FK_dbo_Terapijas_dbo_Pregleds_PregledId" FromRole="Pregleds" ToRole="Terapijas" />
+          <NavigationProperty Name="UspostavljenaDijagnozas" Relationship="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId" FromRole="Pregleds" ToRole="UspostavljenaDijagnozas" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uplaćeno" Type="Boolean" Nullable="false" />
+          <Property Name="Cijena" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OsobljeId" Type="Int32" />
+          <Property Name="PacijentId" Type="Int32" />
+          <NavigationProperty Name="Osoblje" Relationship="Self.FK_dbo_Racuns_dbo_Osobljes_OsobljeId" FromRole="Racuns" ToRole="Osobljes" />
+          <NavigationProperty Name="Pacijent" Relationship="Self.FK_dbo_Racuns_dbo_Pacijents_PacijentId" FromRole="Racuns" ToRole="Pacijents" />
+        </EntityType>
+        <EntityType Name="Stomatolog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Titula" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JMBG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.FK_dbo_Stomatologs_dbo_Korisniks_Id" FromRole="Stomatologs" ToRole="Korisniks" />
+          <NavigationProperty Name="Porukas" Relationship="Self.FK_dbo_Porukas_dbo_Stomatologs_StomatologId" FromRole="Stomatologs" ToRole="Porukas" />
+          <NavigationProperty Name="Pregleds" Relationship="Self.FK_dbo_Pregleds_dbo_Stomatologs_StomatologId" FromRole="Stomatologs" ToRole="Pregleds" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Terapija">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vrsta" Type="Int32" Nullable="false" />
+          <Property Name="Količina" Type="Int32" Nullable="false" />
+          <Property Name="PregledId" Type="Int32" Nullable="false" />
+          <Property Name="LijekId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lijek" Relationship="Self.FK_dbo_Terapijas_dbo_Lijeks_LijekId" FromRole="Terapijas" ToRole="Lijeks" />
+          <NavigationProperty Name="Pregled" Relationship="Self.FK_dbo_Terapijas_dbo_Pregleds_PregledId" FromRole="Terapijas" ToRole="Pregleds" />
+        </EntityType>
+        <EntityType Name="Termin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Vrijeme" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Odobren" Type="Boolean" Nullable="false" />
+          <Property Name="PacijentId" Type="Int32" Nullable="false" />
+          <Property Name="RazlogPosjete" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pacijent" Relationship="Self.FK_dbo_Termins_dbo_Pacijents_PacijentId" FromRole="Termins" ToRole="Pacijents" />
+          <NavigationProperty Name="Pregleds" Relationship="Self.FK_dbo_Pregleds_dbo_Termins_TerminId" FromRole="Termins" ToRole="Pregleds" />
+        </EntityType>
+        <EntityType Name="Usluga">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vrsta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Slika" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IzvrsenaUslugas" Relationship="Self.FK_dbo_IzvrsenaUslugas_dbo_Uslugas_UslugaId" FromRole="Uslugas" ToRole="IzvrsenaUslugas" />
+          <NavigationProperty Name="Ocjenas" Relationship="Self.FK_dbo_Ocjenas_dbo_Uslugas_UslugaId" FromRole="Uslugas" ToRole="Ocjenas" />
+        </EntityType>
+        <EntityType Name="UspostavljenaDijagnoza">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Intenzitet" Type="Int32" Nullable="false" />
+          <Property Name="Napomena" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PregledId" Type="Int32" Nullable="false" />
+          <Property Name="DijagnozaId" Type="Int32" Nullable="false" />
+          <Property Name="ZubId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dijagnoza" Relationship="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Dijagnozas_DijagnozaId" FromRole="UspostavljenaDijagnozas" ToRole="Dijagnozas" />
+          <NavigationProperty Name="Pregled" Relationship="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId" FromRole="UspostavljenaDijagnozas" ToRole="Pregleds" />
+          <NavigationProperty Name="Zub" Relationship="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Zubs_ZubId" FromRole="UspostavljenaDijagnozas" ToRole="Zubs" />
+        </EntityType>
+        <EntityType Name="Zub">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrojZuba" Type="Int32" Nullable="false" />
+          <Property Name="NazivZuba" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IzvrsenaUslugas" Relationship="Self.FK_dbo_IzvrsenaUslugas_dbo_Zubs_ZubId" FromRole="Zubs" ToRole="IzvrsenaUslugas" />
+          <NavigationProperty Name="UspostavljenaDijagnozas" Relationship="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Zubs_ZubId" FromRole="Zubs" ToRole="UspostavljenaDijagnozas" />
+        </EntityType>
+        <Association Name="FK_dbo_UspostavljenaDijagnozas_dbo_Dijagnozas_DijagnozaId">
+          <End Role="Dijagnozas" Type="Self.Dijagnoza" Multiplicity="1" />
+          <End Role="UspostavljenaDijagnozas" Type="Self.UspostavljenaDijagnoza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dijagnozas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UspostavljenaDijagnozas">
+              <PropertyRef Name="DijagnozaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId">
+          <End Role="Pregleds" Type="Self.Pregled" Multiplicity="1" />
+          <End Role="IzvrsenaUslugas" Type="Self.IzvrsenaUsluga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregleds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IzvrsenaUslugas">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IzvrsenaUslugas_dbo_Uslugas_UslugaId">
+          <End Role="Uslugas" Type="Self.Usluga" Multiplicity="1" />
+          <End Role="IzvrsenaUslugas" Type="Self.IzvrsenaUsluga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uslugas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IzvrsenaUslugas">
+              <PropertyRef Name="UslugaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IzvrsenaUslugas_dbo_Zubs_ZubId">
+          <End Role="Zubs" Type="Self.Zub" Multiplicity="1" />
+          <End Role="IzvrsenaUslugas" Type="Self.IzvrsenaUsluga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zubs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IzvrsenaUslugas">
+              <PropertyRef Name="ZubId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Osobljes_dbo_Korisniks_Id">
+          <End Role="Korisniks" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Osobljes" Type="Self.Osoblje" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisniks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Osobljes">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pacijents_dbo_Korisniks_Id">
+          <End Role="Korisniks" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Pacijents" Type="Self.Pacijent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisniks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Stomatologs_dbo_Korisniks_Id">
+          <End Role="Korisniks" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Stomatologs" Type="Self.Stomatolog" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Korisniks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stomatologs">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Terapijas_dbo_Lijeks_LijekId">
+          <End Role="Lijeks" Type="Self.Lijek" Multiplicity="1" />
+          <End Role="Terapijas" Type="Self.Terapija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lijeks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Terapijas">
+              <PropertyRef Name="LijekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PotroseniMaterijals_dbo_Materijals_MaterijalId">
+          <End Role="Materijals" Type="Self.Materijal" Multiplicity="1" />
+          <End Role="PotroseniMaterijals" Type="Self.PotroseniMaterijal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijals">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PotroseniMaterijals">
+              <PropertyRef Name="MaterijalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Ocjenas_dbo_Pacijents_PacijentId">
+          <End Role="Pacijents" Type="Self.Pacijent" Multiplicity="1" />
+          <End Role="Ocjenas" Type="Self.Ocjena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ocjenas">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Ocjenas_dbo_Uslugas_UslugaId">
+          <End Role="Uslugas" Type="Self.Usluga" Multiplicity="1" />
+          <End Role="Ocjenas" Type="Self.Ocjena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uslugas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ocjenas">
+              <PropertyRef Name="UslugaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PotroseniMaterijals_dbo_Osobljes_OsobljeId">
+          <End Role="Osobljes" Type="Self.Osoblje" Multiplicity="1" />
+          <End Role="PotroseniMaterijals" Type="Self.PotroseniMaterijal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osobljes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PotroseniMaterijals">
+              <PropertyRef Name="OsobljeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Racuns_dbo_Osobljes_OsobljeId">
+          <End Role="Osobljes" Type="Self.Osoblje" Multiplicity="0..1" />
+          <End Role="Racuns" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osobljes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Racuns">
+              <PropertyRef Name="OsobljeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Porukas_dbo_Pacijents_PacijentId">
+          <End Role="Pacijents" Type="Self.Pacijent" Multiplicity="1" />
+          <End Role="Porukas" Type="Self.Poruka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Porukas">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pregleds_dbo_Pacijents_PacijentId">
+          <End Role="Pacijents" Type="Self.Pacijent" Multiplicity="1" />
+          <End Role="Pregleds" Type="Self.Pregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pregleds">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Racuns_dbo_Pacijents_PacijentId">
+          <End Role="Pacijents" Type="Self.Pacijent" Multiplicity="0..1" />
+          <End Role="Racuns" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Racuns">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Termins_dbo_Pacijents_PacijentId">
+          <End Role="Pacijents" Type="Self.Pacijent" Multiplicity="1" />
+          <End Role="Termins" Type="Self.Termin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Termins">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Porukas_dbo_Stomatologs_StomatologId">
+          <End Role="Stomatologs" Type="Self.Stomatolog" Multiplicity="1" />
+          <End Role="Porukas" Type="Self.Poruka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stomatologs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Porukas">
+              <PropertyRef Name="StomatologId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pregleds_dbo_Stomatologs_StomatologId">
+          <End Role="Stomatologs" Type="Self.Stomatolog" Multiplicity="1" />
+          <End Role="Pregleds" Type="Self.Pregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stomatologs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pregleds">
+              <PropertyRef Name="StomatologId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pregleds_dbo_Termins_TerminId">
+          <End Role="Termins" Type="Self.Termin" Multiplicity="1" />
+          <End Role="Pregleds" Type="Self.Pregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pregleds">
+              <PropertyRef Name="TerminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Terapijas_dbo_Pregleds_PregledId">
+          <End Role="Pregleds" Type="Self.Pregled" Multiplicity="1" />
+          <End Role="Terapijas" Type="Self.Terapija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregleds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Terapijas">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId">
+          <End Role="Pregleds" Type="Self.Pregled" Multiplicity="1" />
+          <End Role="UspostavljenaDijagnozas" Type="Self.UspostavljenaDijagnoza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregleds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UspostavljenaDijagnozas">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UspostavljenaDijagnozas_dbo_Zubs_ZubId">
+          <End Role="Zubs" Type="Self.Zub" Multiplicity="1" />
+          <End Role="UspostavljenaDijagnozas" Type="Self.UspostavljenaDijagnoza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zubs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UspostavljenaDijagnozas">
+              <PropertyRef Name="ZubId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Stomatoloska_MLEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="Dijagnozas" EntityType="Self.Dijagnoza" />
+          <EntitySet Name="IzvrsenaUslugas" EntityType="Self.IzvrsenaUsluga" />
+          <EntitySet Name="Korisniks" EntityType="Self.Korisnik" />
+          <EntitySet Name="Lijeks" EntityType="Self.Lijek" />
+          <EntitySet Name="Materijals" EntityType="Self.Materijal" />
+          <EntitySet Name="Ocjenas" EntityType="Self.Ocjena" />
+          <EntitySet Name="Osobljes" EntityType="Self.Osoblje" />
+          <EntitySet Name="Pacijents" EntityType="Self.Pacijent" />
+          <EntitySet Name="Porukas" EntityType="Self.Poruka" />
+          <EntitySet Name="PotroseniMaterijals" EntityType="Self.PotroseniMaterijal" />
+          <EntitySet Name="Pregleds" EntityType="Self.Pregled" />
+          <EntitySet Name="Racuns" EntityType="Self.Racun" />
+          <EntitySet Name="Stomatologs" EntityType="Self.Stomatolog" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Terapijas" EntityType="Self.Terapija" />
+          <EntitySet Name="Termins" EntityType="Self.Termin" />
+          <EntitySet Name="Uslugas" EntityType="Self.Usluga" />
+          <EntitySet Name="UspostavljenaDijagnozas" EntityType="Self.UspostavljenaDijagnoza" />
+          <EntitySet Name="Zubs" EntityType="Self.Zub" />
+          <AssociationSet Name="FK_dbo_UspostavljenaDijagnozas_dbo_Dijagnozas_DijagnozaId" Association="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Dijagnozas_DijagnozaId">
+            <End Role="Dijagnozas" EntitySet="Dijagnozas" />
+            <End Role="UspostavljenaDijagnozas" EntitySet="UspostavljenaDijagnozas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId" Association="Self.FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId">
+            <End Role="Pregleds" EntitySet="Pregleds" />
+            <End Role="IzvrsenaUslugas" EntitySet="IzvrsenaUslugas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IzvrsenaUslugas_dbo_Uslugas_UslugaId" Association="Self.FK_dbo_IzvrsenaUslugas_dbo_Uslugas_UslugaId">
+            <End Role="Uslugas" EntitySet="Uslugas" />
+            <End Role="IzvrsenaUslugas" EntitySet="IzvrsenaUslugas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IzvrsenaUslugas_dbo_Zubs_ZubId" Association="Self.FK_dbo_IzvrsenaUslugas_dbo_Zubs_ZubId">
+            <End Role="Zubs" EntitySet="Zubs" />
+            <End Role="IzvrsenaUslugas" EntitySet="IzvrsenaUslugas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Osobljes_dbo_Korisniks_Id" Association="Self.FK_dbo_Osobljes_dbo_Korisniks_Id">
+            <End Role="Korisniks" EntitySet="Korisniks" />
+            <End Role="Osobljes" EntitySet="Osobljes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pacijents_dbo_Korisniks_Id" Association="Self.FK_dbo_Pacijents_dbo_Korisniks_Id">
+            <End Role="Korisniks" EntitySet="Korisniks" />
+            <End Role="Pacijents" EntitySet="Pacijents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Stomatologs_dbo_Korisniks_Id" Association="Self.FK_dbo_Stomatologs_dbo_Korisniks_Id">
+            <End Role="Korisniks" EntitySet="Korisniks" />
+            <End Role="Stomatologs" EntitySet="Stomatologs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Terapijas_dbo_Lijeks_LijekId" Association="Self.FK_dbo_Terapijas_dbo_Lijeks_LijekId">
+            <End Role="Lijeks" EntitySet="Lijeks" />
+            <End Role="Terapijas" EntitySet="Terapijas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PotroseniMaterijals_dbo_Materijals_MaterijalId" Association="Self.FK_dbo_PotroseniMaterijals_dbo_Materijals_MaterijalId">
+            <End Role="Materijals" EntitySet="Materijals" />
+            <End Role="PotroseniMaterijals" EntitySet="PotroseniMaterijals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Ocjenas_dbo_Pacijents_PacijentId" Association="Self.FK_dbo_Ocjenas_dbo_Pacijents_PacijentId">
+            <End Role="Pacijents" EntitySet="Pacijents" />
+            <End Role="Ocjenas" EntitySet="Ocjenas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Ocjenas_dbo_Uslugas_UslugaId" Association="Self.FK_dbo_Ocjenas_dbo_Uslugas_UslugaId">
+            <End Role="Uslugas" EntitySet="Uslugas" />
+            <End Role="Ocjenas" EntitySet="Ocjenas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PotroseniMaterijals_dbo_Osobljes_OsobljeId" Association="Self.FK_dbo_PotroseniMaterijals_dbo_Osobljes_OsobljeId">
+            <End Role="Osobljes" EntitySet="Osobljes" />
+            <End Role="PotroseniMaterijals" EntitySet="PotroseniMaterijals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Racuns_dbo_Osobljes_OsobljeId" Association="Self.FK_dbo_Racuns_dbo_Osobljes_OsobljeId">
+            <End Role="Osobljes" EntitySet="Osobljes" />
+            <End Role="Racuns" EntitySet="Racuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Porukas_dbo_Pacijents_PacijentId" Association="Self.FK_dbo_Porukas_dbo_Pacijents_PacijentId">
+            <End Role="Pacijents" EntitySet="Pacijents" />
+            <End Role="Porukas" EntitySet="Porukas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pregleds_dbo_Pacijents_PacijentId" Association="Self.FK_dbo_Pregleds_dbo_Pacijents_PacijentId">
+            <End Role="Pacijents" EntitySet="Pacijents" />
+            <End Role="Pregleds" EntitySet="Pregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Racuns_dbo_Pacijents_PacijentId" Association="Self.FK_dbo_Racuns_dbo_Pacijents_PacijentId">
+            <End Role="Pacijents" EntitySet="Pacijents" />
+            <End Role="Racuns" EntitySet="Racuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Termins_dbo_Pacijents_PacijentId" Association="Self.FK_dbo_Termins_dbo_Pacijents_PacijentId">
+            <End Role="Pacijents" EntitySet="Pacijents" />
+            <End Role="Termins" EntitySet="Termins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Porukas_dbo_Stomatologs_StomatologId" Association="Self.FK_dbo_Porukas_dbo_Stomatologs_StomatologId">
+            <End Role="Stomatologs" EntitySet="Stomatologs" />
+            <End Role="Porukas" EntitySet="Porukas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pregleds_dbo_Stomatologs_StomatologId" Association="Self.FK_dbo_Pregleds_dbo_Stomatologs_StomatologId">
+            <End Role="Stomatologs" EntitySet="Stomatologs" />
+            <End Role="Pregleds" EntitySet="Pregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pregleds_dbo_Termins_TerminId" Association="Self.FK_dbo_Pregleds_dbo_Termins_TerminId">
+            <End Role="Termins" EntitySet="Termins" />
+            <End Role="Pregleds" EntitySet="Pregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Terapijas_dbo_Pregleds_PregledId" Association="Self.FK_dbo_Terapijas_dbo_Pregleds_PregledId">
+            <End Role="Pregleds" EntitySet="Pregleds" />
+            <End Role="Terapijas" EntitySet="Terapijas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId" Association="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId">
+            <End Role="Pregleds" EntitySet="Pregleds" />
+            <End Role="UspostavljenaDijagnozas" EntitySet="UspostavljenaDijagnozas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UspostavljenaDijagnozas_dbo_Zubs_ZubId" Association="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Zubs_ZubId">
+            <End Role="Zubs" EntitySet="Zubs" />
+            <End Role="UspostavljenaDijagnozas" EntitySet="UspostavljenaDijagnozas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Stomatoloska_MLModelStoreContainer" CdmEntityContainer="Stomatoloska_MLEntities1">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dijagnozas">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Dijagnoza">
+              <MappingFragment StoreEntitySet="Dijagnozas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IzvrsenaUslugas">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.IzvrsenaUsluga">
+              <MappingFragment StoreEntitySet="IzvrsenaUslugas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+                <ScalarProperty Name="PregledId" ColumnName="PregledId" />
+                <ScalarProperty Name="UslugaId" ColumnName="UslugaId" />
+                <ScalarProperty Name="ZubId" ColumnName="ZubId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Korisniks">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Korisnik">
+              <MappingFragment StoreEntitySet="Korisniks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobitel" ColumnName="Mobitel" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
+                <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="Aktivan" ColumnName="Aktivan" />
+                <ScalarProperty Name="LozinkaHash" ColumnName="LozinkaHash" />
+                <ScalarProperty Name="LozinkaSalt" ColumnName="LozinkaSalt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lijeks">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Lijek">
+              <MappingFragment StoreEntitySet="Lijeks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materijals">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Materijal">
+              <MappingFragment StoreEntitySet="Materijals">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ocjenas">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Ocjena">
+              <MappingFragment StoreEntitySet="Ocjenas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DatumOcjenjivanja" ColumnName="DatumOcjenjivanja" />
+                <ScalarProperty Name="OcjenaInt" ColumnName="OcjenaInt" />
+                <ScalarProperty Name="UslugaId" ColumnName="UslugaId" />
+                <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Osobljes">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Osoblje">
+              <MappingFragment StoreEntitySet="Osobljes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Titula" ColumnName="Titula" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pacijents">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Pacijent">
+              <MappingFragment StoreEntitySet="Pacijents">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Porukas">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Poruka">
+              <MappingFragment StoreEntitySet="Porukas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+                <ScalarProperty Name="StomatologId" ColumnName="StomatologId" />
+                <ScalarProperty Name="From" ColumnName="From" />
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="TekstPoruke" ColumnName="TekstPoruke" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Procitana" ColumnName="Procitana" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PotroseniMaterijals">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.PotroseniMaterijal">
+              <MappingFragment StoreEntitySet="PotroseniMaterijals">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="OsobljeId" ColumnName="OsobljeId" />
+                <ScalarProperty Name="MaterijalId" ColumnName="MaterijalId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pregleds">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Pregled">
+              <MappingFragment StoreEntitySet="Pregleds">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DatumPregleda" ColumnName="DatumPregleda" />
+                <ScalarProperty Name="VrijemePregleda" ColumnName="VrijemePregleda" />
+                <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+                <ScalarProperty Name="StomatologId" ColumnName="StomatologId" />
+                <ScalarProperty Name="TerminId" ColumnName="TerminId" />
+                <ScalarProperty Name="IsObavljen" ColumnName="IsObavljen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Racuns">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Racun">
+              <MappingFragment StoreEntitySet="Racuns">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Uplaćeno" ColumnName="Uplaćeno" />
+                <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="OsobljeId" ColumnName="OsobljeId" />
+                <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stomatologs">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Stomatolog">
+              <MappingFragment StoreEntitySet="Stomatologs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Titula" ColumnName="Titula" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Terapijas">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Terapija">
+              <MappingFragment StoreEntitySet="Terapijas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="Količina" ColumnName="Količina" />
+                <ScalarProperty Name="PregledId" ColumnName="PregledId" />
+                <ScalarProperty Name="LijekId" ColumnName="LijekId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Termins">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Termin">
+              <MappingFragment StoreEntitySet="Termins">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Vrijeme" ColumnName="Vrijeme" />
+                <ScalarProperty Name="Odobren" ColumnName="Odobren" />
+                <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+                <ScalarProperty Name="RazlogPosjete" ColumnName="RazlogPosjete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uslugas">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Usluga">
+              <MappingFragment StoreEntitySet="Uslugas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UspostavljenaDijagnozas">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.UspostavljenaDijagnoza">
+              <MappingFragment StoreEntitySet="UspostavljenaDijagnozas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Intenzitet" ColumnName="Intenzitet" />
+                <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+                <ScalarProperty Name="PregledId" ColumnName="PregledId" />
+                <ScalarProperty Name="DijagnozaId" ColumnName="DijagnozaId" />
+                <ScalarProperty Name="ZubId" ColumnName="ZubId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zubs">
+            <EntityTypeMapping TypeName="Stomatoloska_MLModel.Zub">
+              <MappingFragment StoreEntitySet="Zubs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BrojZuba" ColumnName="BrojZuba" />
+                <ScalarProperty Name="NazivZuba" ColumnName="NazivZuba" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

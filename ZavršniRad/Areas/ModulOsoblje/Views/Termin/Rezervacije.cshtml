@@ -1,0 +1,271 @@
+﻿@using ZavršniRad.Areas.ModulStomatolog.Models
+@model AktivniTerminiVM
+@{
+    ViewBag.Title = "Rezervacije";
+    Layout = "~/Areas/ModulOsoblje/Views/Shared/_OsobljeLayout.cshtml";
+}
+
+<br />
+<br />
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-2">
+                @if (Model._Ponedjeljak == null)
+            {
+                    <p>
+                        Nema pregleda
+                    </p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ponedjeljak</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (AktivniTerminiVM.Ponedjeljak item in Model._Ponedjeljak)
+                            {
+                               
+                                    <tr>
+                                        <td>
+                                       @item.Vrijeme.ToString("dd/MM/yyyy HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
+                                            @if (item.Odobren == true)
+                                            {
+
+                                                <span style="color:royalblue;font-size:15px">Odobren</span>
+                                            }
+                                            else if (item.Odobren == false)
+                                            {
+
+                                                <a href='@Url.Action("Metoda",new { @id = @item.Id})'><span style="color:royalblue;font-size:15px">Neodobren</span> </a>
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw("")
+
+                                            }
+                                            <br />
+                                          </td>
+                                    </tr>
+                                
+
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+
+
+            <div class="col col-md-2">
+                @if (Model._Utorak == null)
+            {
+                    <p>
+                        Nema pregleda
+                    </p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Utorak</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (AktivniTerminiVM.Utorak item in Model._Utorak)
+                            {
+
+                                <tr>
+                                    <td>
+                                        @item.Vrijeme.ToString("dd/MM/yyyy HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
+
+                                        @if (item.Odobren == true)
+                                        {
+
+                                            <span style="color:royalblue;font-size:15px">Odobren</span>
+
+                                        }
+                                        else if (item.Odobren == false)
+                                        {
+
+                                            <a href='@Url.Action("Metoda",new { @id = @item.Id})'><span style="color:royalblue;font-size:15px">Neodobren</span> </a>
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw("")
+
+                                        } 
+                                        <br />
+                                     
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+
+            <div class="col col-md-2">
+                @if (Model._Srijeda == null)
+            {
+                    <p>
+                        Nema pregleda
+                    </p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Srijeda</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (AktivniTerminiVM.Srijeda item in Model._Srijeda)
+                            {
+                                <tr>
+                                    <td>
+                                          @item.Vrijeme.ToString("dd/MM/yyyy HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
+
+                                        @if (item.Odobren == true)
+                                        {
+
+                                            <span style="color:royalblue;font-size:15px">Odobren</span>
+
+                                        }
+                                        else if (item.Odobren == false)
+                                        {
+
+                                            <a href='@Url.Action("Metoda",new { @id = @item.Id })'><span style="color:royalblue;font-size:15px">Neodobren</span> </a>
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw("")
+
+                                        }
+                                        <br />
+                                     
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+            <div class="col col-md-2">
+                @if (Model._Cetvrtak == null)
+            {
+                    <p>
+                        Nema pregleda
+                    </p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Četvrtak</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (AktivniTerminiVM.Cetvrtak item in Model._Cetvrtak)
+                            {
+                                <tr>
+                                    <td>  @item.Vrijeme.ToString("dd/MM/yyyy HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
+
+                                        @if (item.Odobren == true)
+                                        {
+
+                                            <span style="color:royalblue;font-size:15px">Odobren</span>
+
+                                        }
+                                        else if (item.Odobren == false)
+                                        {
+
+                                            <a href='@Url.Action("Metoda",new { @id = @item.Id })'><span style="color:royalblue;font-size:15px">Neodobren</span> </a>
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw("")
+
+                                        }
+                                    <br />
+                                     
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+            <div class="col col-md-2">
+                @if (Model._Petak == null)
+            {
+                    <p>
+                        Nema pregleda
+                    </p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Petak</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (AktivniTerminiVM.Petak item in Model._Petak)
+                            {
+
+                                <tr>
+                                    <td>
+                                          @item.Vrijeme.ToString("dd/MM/yyyy HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
+
+                                        @if (item.Odobren == true)
+                                        {
+
+                                            <span style="color:royalblue;font-size:15px">Odobren</span>
+
+                                        }
+                                        else if (item.Odobren == false)
+                                        {
+
+                                            <a href='@Url.Action("Metoda",new { @id = @item.Id })'><span style="color:royalblue;font-size:15px">Neodobren</span> </a>
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw("")
+
+                                        }
+                                        <br />
+                                       
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+          
+        </div>
+    </div>
+<br />
+<br /><br /><br /><br /><br /><br /><br /><br />

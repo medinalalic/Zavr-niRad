@@ -1,0 +1,105 @@
+﻿@using ZavršniRad.Models;
+
+@model ZavršniRad.Areas.ModulAdministrator.Models.StomatologIzmijeniVM
+@{
+    ViewBag.Title = "Izmijeni";
+    Layout = null;
+}
+
+
+
+
+<form action="/ModulAdministrator/Stomatolog/Snimi" class="form-horizontal">
+@*@using (Ajax.BeginForm("Snimi", "Stomatolog", new AjaxOptions { UpdateTargetId = "ajaxdiv" }))
+{*@
+    @Html.HiddenFor(model => model.Id)
+    <br /><br />
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Ime</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.Ime, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Ime)
+           
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Prezime</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.Prezime, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Prezime)
+          
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Mobitel</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.Mobitel, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Mobitel)
+       </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Adresa</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.Adresa, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Adresa)
+       </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Titula</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.Titula, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Titula)
+       </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">JMBG</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.JMBG, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.JMBG)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">User</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.KorisnickoIme, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.KorisnickoIme)
+       </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Lozinka</label>
+        <div class="col-sm-10">
+            @Html.PasswordFor(model => model.Lozinka, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Lozinka)
+        </div>
+    </div>
+
+ <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-info">Snimi</button>
+        </div>
+    </div>
+    <div>
+        @Html.ValidationSummary()
+    </div>
+@*}*@
+
+</form>
+
+
+
+
+

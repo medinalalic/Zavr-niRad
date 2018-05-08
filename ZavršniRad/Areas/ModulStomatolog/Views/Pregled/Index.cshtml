@@ -1,0 +1,87 @@
+﻿@using ZavršniRad.Areas.ModulStomatolog.Models
+@model PregledVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ModulStomatolog/Views/Shared/_StomatologLayout.cshtml";
+}
+<div class="row" style="margin-left:20px">
+
+  <br />
+
+    <div style="font-size:18px;color:royalblue;">
+        <p>
+            Datum pregleda:@Html.TextBoxFor(model => model.DatumPregleda, "{0:dd-MM-yyyy}", new { @class = "form-control", @readonly = "readonly" })
+        </p>
+        <p>
+            Vrijeme pregleda:@Html.TextBoxFor(model => model.VrijemePregleda, "{0:HH:mm}", new { @class = "form-control", @readonly = "readonly" })
+        </p>
+    </div>
+    <hr />
+</div>
+<br />
+<div class="container">
+    <table style="margin-left:40px;">
+        <thead>
+            <tr>
+                <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Izvršena usluga</td>
+                <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Uspostavljena dijagnoza</td>
+                <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Terapija</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding:20px 20px 20px 20px;background-color:lightblue">
+                  
+                       
+                            <div class="form-group">
+                                Usluga:   @Html.TextBoxFor(model => model.NazivUsluge, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="form-group">
+                                Cijena (KM):   @Html.TextBoxFor(m => m.CijenaUsluge, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="form-group">
+                                Zub:   @Html.TextBoxFor(m => m.NazivZuba, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        
+                  
+
+                </td>
+
+                <td style="padding:20px 20px 20px 20px;background-color:lightblue">
+                  
+                    
+                            <div class="form-group">
+                                Dijagnoza:    @Html.TextBoxFor(m => m.Dijagnoza, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="form-group">
+                                Napomena:    @Html.TextAreaFor(m => m.Napomena, new { @class = "form-control", @readonly = "readonly", @row = "4" })
+                            </div>
+                       
+                   
+
+                </td>
+
+
+
+
+                <td style="padding:20px 20px 20px 20px;background-color:lightblue">
+                    
+                       
+                            <div class="form-group">
+                                Lijek: @Html.TextBoxFor(m => m.Lijek, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="form-group">
+                                Količina: @Html.TextBoxFor(m => m.Kolicina, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                       
+                    
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</div>
+
+

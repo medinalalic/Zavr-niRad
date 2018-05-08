@@ -1,0 +1,42 @@
+﻿@using ZavršniRad.Areas.ModulOsoblje.Models;
+@model ZavršniRad.Areas.ModulOsoblje.Models.DijagnozaDodajVM
+@{
+    ViewBag.Title = "Uredi";
+    Layout = null;
+}
+
+@using (Html.BeginForm("Snimi", "Dijagnoza", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.Id);
+
+    <div class="row">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });
+
+        }
+
+        <div class="col-md-10" style="margin:20px 20px">
+
+            <label class="control-label">@Html.DisplayNameFor(m => m.Naziv)</label>
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Naziv, new { @class = "form-control" })
+
+            </div>
+        </div>
+
+
+
+
+        <div class="col col-md-12" style="margin:20px 20px">
+            <div class="form-group">
+                <input type="submit" value="Spasi" class="btn btn-info" style="width:115px;height:45px;" />
+            </div>
+        </div>
+    </div>
+
+
+
+}
+
+

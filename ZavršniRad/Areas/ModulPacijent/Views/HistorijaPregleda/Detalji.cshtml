@@ -1,0 +1,96 @@
+﻿@using ZavršniRad.Areas.ModulPacijent.Models
+@model HistorijaVM
+@{
+    Layout = null;
+}
+<div class="container">
+  <table style="margin-left:40px;">
+      <thead>
+          <tr><td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Izvršena usluga</td>
+          <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Uspostavljena dijagnoza</td>
+          <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Terapija</td></tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td style="padding:20px 20px 20px 20px;background-color:lightblue">
+                  @if (Model.IzvUsluga == null)
+                  {
+                      <p>Nema izvršene usluge</p>
+                  }
+                  else
+                  {
+                      foreach (var item in Model.IzvUsluga)
+                      {
+                          <div class="form-group">
+                              Usluga:   @Html.TextBoxFor(m => item.Naziv, new { @class = "form-control", @readonly = "readonly" })
+                          </div>
+                          <div class="form-group">
+                              Cijena (KM):   @Html.TextBoxFor(m => item.Cijena, new { @class = "form-control", @readonly = "readonly" })
+                          </div>
+                          <div class="form-group">
+                              Zub:   @Html.TextBoxFor(m => item.NazivZuba, new { @class = "form-control", @readonly = "readonly" })
+                          </div>
+                      }
+                  }
+
+              </td>
+
+              <td style="padding:20px 20px 20px 20px;background-color:lightblue">
+                  @if (Model.UspDijagnoza == null)
+            {
+                      <p>
+                          Dijagnoza nije evidentirana
+                      </p>
+                  }
+                  else
+                  {
+                      foreach (var item in Model.UspDijagnoza)
+                      {
+                          <div class="form-group">
+                          Dijagnoza:    @Html.TextBoxFor(m => item.Naziv, new { @class = "form-control", @readonly = "readonly" })
+                          </div>
+                        <div class="form-group">
+                            Napomena:    @Html.TextAreaFor(m => item.Napomena, new { @class = "form-control", @readonly = "readonly", @row="4" })
+                        </div>
+                      }
+                  }
+
+              </td>
+
+
+
+
+              <td style="padding:20px 20px 20px 20px;background-color:lightblue">
+                  @if (Model.Lijek == null)
+            {
+                      <p>
+                          Terapija nije evidentirana
+                      </p>
+                  }
+                  else
+                  {
+                      foreach (var item in Model.Lijek)
+                      {
+                          <div class="form-group">
+                           Lijek: @Html.TextBoxFor(m => item.Lijek, new { @class = "form-control", @readonly = "readonly" })
+                          </div>
+                        <div class="form-group">
+                            Količina: @Html.TextBoxFor(m => item.Kolicina, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                      }
+                  }
+              </td>
+          </tr>
+
+      </tbody>
+      </table>
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+</div>
+
+
+
+
+
+
+

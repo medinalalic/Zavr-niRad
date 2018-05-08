@@ -1,0 +1,102 @@
+﻿@using ZavršniRad.Areas.ModulPacijent.Models
+@using PagedList.Mvc;
+@model HistorijaVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ModulPacijent/Views/Shared/_PacijentLayout.cshtml";
+}
+
+<div class="pretragaheadermala" style="margin:20px 20px">
+    <div class="container">
+
+        @using (Html.BeginForm("Index", "HistorijaPregleda", FormMethod.Get))
+        {
+            <br />
+            <div class="input-group">
+                <h4>Pretraga po datumu:</h4>
+                <table style="border-spacing: 20px;border-collapse: separate;">
+                    <tr>
+                        <td>
+                            <input type="date" id="from" name="from" class="form-control" placeholder="OD" /><br />
+                          
+                        </td>
+                        <td><input type="date" id="to" name="to" class="form-control" placeholder="DO" /><br />
+                        </td>
+                        <td>
+                            <input type="submit" name="submit" value="Pretraga" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+
+
+
+
+<br />
+    <div class="container" style="margin:20px 20px;">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Datum pregleda</th>
+                <th>Vrijeme pregleda</th>
+                <th>Detalji</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.PregledList.Count() == 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div class="nemarezultatapretrage">
+                            Nema rezultata pretrage
+
+                        </div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+
+                foreach (var x in Model.PregledList)
+                {
+                    <tr>
+                        <td> @x.DatumPregleda.ToString("dd/MM/yyy")</td>
+                        <td> @x.VrijemePregleda.ToString("HH:mm")</td>
+                       
+                    
+
+                    <td style='white-space: nowrap'>
+                        @Ajax.ActionLink("Detalji", "Detalji", "HistorijaPregleda", new { pregledID=Model.PregledList.FirstOrDefault().Id }, new AjaxOptions() { UpdateTargetId = "detalji" }, new { @class = "btn btn-info" })
+
+
+
+
+                    </td>
+                </tr>
+                }
+            }
+      
+    </tbody>
+    </table>
+
+        <div class="text-center">
+    @Html.PagedListPager(Model.PregledList, page => Url.Action("Index", new
+   {
+       page,
+       from = Request.QueryString["from"],
+       to = Request.QueryString["to"]
+   }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+
+
+
+</div>
+</div>
+<div class="panel panel-body">
+    <div id="detalji"></div>
+</div>

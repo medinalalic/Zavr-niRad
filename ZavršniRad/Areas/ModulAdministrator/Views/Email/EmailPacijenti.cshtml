@@ -1,0 +1,50 @@
+﻿@using ZavršniRad.Areas.ModulAdministrator.Models
+@model EmailSendVM
+@{
+    ViewBag.Title = "SendEmailPacijenti";
+    Layout = "~/Areas/ModulAdministrator/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("SnimiPacijenti", "Email"))
+{
+
+    @Html.HiddenFor(model => model.Id)
+    if (!ViewData.ModelState.IsValid)
+    {
+        @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });
+
+    }
+    if (Model.Successed)
+    {
+        <p>Uspješno ste poslali e-mail</p>
+    }
+    <div class="row">
+
+        <div class="col col-md-6">
+
+            <div class="form-group">
+                <label>  @Html.DisplayNameFor(model => model.To)</label>
+                @Html.TextBoxFor(model => model.To, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.To, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label>  @Html.DisplayNameFor(model => model.Subject)</label>
+                @Html.TextBoxFor(model => model.Subject, new { @class = "form-control", @Value="Registracija" })
+                @Html.ValidationMessageFor(model => model.Subject, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label>  @Html.DisplayNameFor(model => model.Body)</label>
+
+              
+                @Html.TextAreaFor(model => model.Body, new { @class = "form-control"
+                     })
+                @Html.ValidationMessageFor(model => model.Body, string.Empty, new { @class = "text-danger" })
+            </div>
+
+            <input type="submit" value="Pošalji email" class="btn btn-info" />
+        </div>
+
+    </div>
+
+}

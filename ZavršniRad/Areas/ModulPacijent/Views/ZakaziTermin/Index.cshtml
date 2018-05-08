@@ -1,0 +1,187 @@
+﻿@using ZavršniRad.Areas.ModulPacijent.Models;
+@using PagedList.Mvc;
+@model ZavršniRad.Areas.ModulPacijent.Models.TerminListaVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ModulPacijent/Views/Shared/_PacijentLayout.cshtml";
+}
+
+@*<style type="text/css">
+    table th,td{
+    width:40px
+    }
+ 
+</style>
+<br />
+    <div style="margin:10px 200px 20px 20px;" class="container">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+
+                    <th>Datum</th>
+                    <th>Vrijeme</th>
+                    <th>Razlog</th>
+                    <th>Odobren</th>
+                    <th>Otkaži termin</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ZakaziTerminVM.TerminInfo x in Model.termin)
+            {
+                    <tr>
+
+
+                        <td> @x.Datum.ToString("dd/MM/yyyy")</td>
+                        <td> @x.Vrijeme.ToShortTimeString() h</td>
+                        <td> @x.Razlog</td>
+                        <td>
+                            @if (x.Odobren == true)
+                            { @Html.Raw("DA")}
+                            else
+                            { @Html.Raw("NE")}
+                        </td>
+
+                        <td>
+                            @if (((x.Datum == DateTime.Now.Date)) && x.Odobren == false && (x.Vrijeme.Hour > DateTime.Now.Hour))
+                            {
+                                <a href="/ModulPacijent/ZakaziTermin/Obrisi?TerminID=@x.Id" class="btn btn-info">Otkaži</a>
+                            }
+                           
+                            @if (((x.Datum > DateTime.Now.Date)) && x.Odobren == false)
+                            {
+                                <a href="/ModulPacijent/ZakaziTermin/Obrisi?TerminID=@x.Id" class="btn btn-info">Otkaži</a>
+                            }
+
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+<div style="margin:10px 60px 20px 20px;">
+    @Ajax.ActionLink("Zakaži termin", "Dodaj", "ZakaziTermin", new { }, new AjaxOptions() { UpdateTargetId = "termin" }, new { @class = "btn btn-info" })
+
+</div>
+<div class="panel-body">
+    <div id="termin"></div>
+</div>*@
+
+<div class="pretragaheadermala" style="margin:20px 20px">
+    <div class="container">
+
+        @using (Html.BeginForm("Index", "ZakaziTermin", FormMethod.Get))
+        {
+            <br />
+            <div class="input-group">
+                <h4>Pretraga po datumu:</h4>
+                <table style="border-spacing: 20px;border-collapse: separate;">
+                    <tr>
+                        <td>
+                            <input type="date" id="from" name="from" class="form-control" placeholder="OD" /><br />
+
+                        </td>
+                        <td>
+                            <input type="date" id="to" name="to" class="form-control" placeholder="DO" /><br />
+                        </td>
+                        <td>
+                            <input type="submit" name="submit" value="Pretraga" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+
+
+
+
+<br />
+<div class="container" style="margin:20px 20px;">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Vrijeme</th>
+                <th>Razlog</th>
+                <th>Odobren</th>
+                <th>Otkaži termin</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.TerminList.Count() == 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div class="nemarezultatapretrage">
+                            Nema rezultata pretrage
+
+                        </div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+
+                foreach (var x in Model.TerminList)
+                {
+                    <tr>
+
+                        <td> @x.Datum.ToString("dd/MM/yyyy")</td>
+                        <td> @x.Vrijeme.ToShortTimeString() h</td>
+                        <td> @x.RazlogPosjete</td>
+                        <td>
+                            @if (x.Odobren == true)
+                            { @Html.Raw("DA")}
+                            else
+                            { @Html.Raw("NE")}
+                        </td>
+
+                        <td>
+                            @if (((x.Datum == DateTime.Now.Date)) && x.Odobren == false && (x.Vrijeme.Hour > DateTime.Now.Hour))
+                            {
+                                <a href="/ModulPacijent/ZakaziTermin/Obrisi?TerminID=@x.Id" class="btn btn-info">Otkaži</a>
+                            }
+
+                            @if (((x.Datum > DateTime.Now.Date)) && x.Odobren == false)
+                            {
+                                <a href="/ModulPacijent/ZakaziTermin/Obrisi?TerminID=@x.Id" class="btn btn-info">Otkaži</a>
+                            }
+
+
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        @Html.PagedListPager(Model.TerminList, page => Url.Action("Index", new
+{
+    page,
+    from = Request.QueryString["from"],
+    to = Request.QueryString["to"]
+}), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+
+
+
+    </div>
+</div>
+
+
+<div style="margin-left:40px;">
+    @Ajax.ActionLink("Zakaži termin", "Dodaj", "ZakaziTermin", new { }, new AjaxOptions() { UpdateTargetId = "termin" }, new { @class = "btn btn-info" })
+
+</div>
+<div class="panel-body">
+    <div id="termin"></div>
+</div>

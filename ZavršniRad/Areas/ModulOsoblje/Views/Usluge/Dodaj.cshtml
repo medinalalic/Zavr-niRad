@@ -1,0 +1,83 @@
+﻿@using ZavršniRad.Areas.ModulOsoblje.Models;
+@model ZavršniRad.Areas.ModulOsoblje.Models.UslugeUrediVM
+@{
+    ViewBag.Title = "Uredi";
+    Layout = null;
+}
+
+@using (Html.BeginForm("Snimi", "Usluge", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    <br /><br />
+    <div class="row">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });
+
+        }
+
+        <div class="col-md-4">
+
+            <label class="control-label">@Html.DisplayNameFor(m => m.Vrsta)</label>
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Vrsta, new { @class = "form-control" })
+
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <label for="photo" class="control-label">@Html.DisplayNameFor(m => m.Slika)</label>
+            <div class="form-group">
+                <input type="file" name="photo" id="photo" class="btn btn-default" />
+              
+            </div>
+        </div>
+      
+       
+
+        <div class="col col-md-12">
+            <div class="form-group">
+                <input type="submit" value="Spasi" class="btn btn-info" style="width:115px;height:45px;" />
+            </div>
+        </div>
+    </div>
+
+
+
+}
+       <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        function loadDate(date) {
+            alert(date);
+
+        }
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+
+                }
+                $("#NewIdTest").text(input.files[0].name);
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+
+
+        function ChangeImg() {
+            $("#imgInp").click();
+        }
+
+
+
+    })
+        </script>
+

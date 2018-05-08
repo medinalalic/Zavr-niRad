@@ -1,0 +1,51 @@
+﻿
+@model ZavršniRad.Areas.ModulOsoblje.Models.MaterijalzmijeniVM
+@{
+    ViewBag.Title = "Izmijeni";
+    Layout = null;
+}
+<br /><br />
+@using (Html.BeginForm("Snimi", "Materijal",new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.Id)
+    <br />
+   
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" style="margin-right:10px">Materijal</label>
+        <div class="col-sm-10" style="margin-bottom:20px">
+            @Html.DropDownListFor(model => model.MaterijalId, Model.materijal, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaterijalId)
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label class="col-sm-2 control-label" style="margin-right:10px">Količina</label>
+        <div class="col-sm-10" style="margin-bottom:20px">
+            @Html.TextBoxFor(model => model.Kolicina, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Kolicina)
+        </div>
+    </div><br />
+        <div class="form-group">
+            <label class="col-sm-2 control-label" style="margin-right:10px">Datum</label>
+            <div class="col-sm-10" style="margin-bottom:20px">
+                @Html.TextBoxFor(model => model.Datum, "{0:dd-MM-yyyy}", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Datum)
+            </div>
+        </div>
+
+        <br />
+       
+
+        <br />
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-info">Snimi</button>
+            </div>
+        </div>
+
+
+
+}
+

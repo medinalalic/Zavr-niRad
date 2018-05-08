@@ -1,0 +1,91 @@
+﻿@model ZavršniRad.Areas.ModulOsoblje.Models.LijekPrikazVM
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ModulOsoblje/Views/Shared/_OsobljeLayout.cshtml";
+}
+<div class="pretragaheadermala" style="margin:20px 20px">
+    <div class="container">
+
+        @using (Html.BeginForm("Index", "Lijek", FormMethod.Get))
+        {
+            <div class="input-group">
+                <table style="border-spacing: 20px;border-collapse: separate;">
+                    <tr>
+                        <td>
+                            @Html.TextBox("search", null, new { placeholder = "Unesite naziv lijeka", @class = "form-control" })
+                        </td>
+                        <td>
+                            <input type="submit" name="submit" value="Pretraga" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+
+    </div>
+</div>
+<div class="container-fluid" style="margin:10px 10px 10px 10px;">
+    <table class="table table-hover" style="margin:10px 10px 10px 10px;">
+        <thead>
+            <tr>
+                <th style="text-align:center">Naziv</th>
+                <th style="text-align:center">Akcija</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.LijekList.Count() == 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div class="nemarezultatapretrage">
+                            Nema rezultata pretrage
+
+                        </div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+
+                foreach (var x in Model.LijekList)
+                {
+                    <tr>
+                        <td> @x.Naziv</td>
+                        <td style="text-align:center">
+                            @Html.ActionLink("Obriši", "Obrisi", "Lijek", new { id = x.Id }, new { @class = "btn btn-info" })
+                            @Ajax.ActionLink("Uredi", "Uredi", "Lijek", new { id = x.Id }, new AjaxOptions() { UpdateTargetId = "lijekajax" }, new { @class = "btn btn-info" })
+
+
+</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+    <div class="text-center">
+        @Html.PagedListPager((IPagedList)Model.LijekList, page => Url.Action("Index", new
+   {
+       page,
+       search = Request.QueryString["search"],
+       uslugaid = Request.QueryString["lijekid"]
+   }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+
+
+
+    </div>
+</div>
+<div style="margin:10px 60px 20px 60px;">
+
+    @Ajax.ActionLink("Dodaj novi", "Dodaj", "Lijek", new { }, new AjaxOptions() { UpdateTargetId = "lijekajax" }, new { @class = "btn btn-info" })
+
+
+</div>
+<br />
+<div class="panel-body">
+    <div id="lijekajax"></div>
+</div>

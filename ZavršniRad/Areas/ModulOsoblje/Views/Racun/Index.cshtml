@@ -1,0 +1,51 @@
+﻿@using ZavršniRad.Areas.ModulOsoblje.Models
+@model ZavršniRad.Areas.ModulOsoblje.Models.RacunPrikaz
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ModulOsoblje/Views/Shared/_OsobljeLayout.cshtml";
+}
+
+
+<div style="margin:20px 20px;" class="container">
+    <h3>Lista računa za pacijenta: @Model.p</h3><br />
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Pacijent</th>
+                <th>Uplaćeno</th>
+                <th>Cijena</th>
+                <th>Datum</th>
+
+                <th>Akcija</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (RacunPrikaz.RacunInfo x in Model.racun)
+            {
+                <tr>
+                    <td>@x.Pacijent</td>
+                    <td> @x.Uplaćeno</td>
+
+                    <td> @x.Cijena</td>
+
+                    <td>@x.Datum.ToShortDateString()</td>
+                   
+
+                    <td>
+                        @Ajax.ActionLink("Uredi", "Izmijeni", "Racun", new { racunID = x.Id }, new AjaxOptions() { UpdateTargetId = "racun" }, new { @class = "btn btn-info" })
+
+
+                    </td>
+
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="panel panel-body">
+    <div id="racun"></div>
+</div>

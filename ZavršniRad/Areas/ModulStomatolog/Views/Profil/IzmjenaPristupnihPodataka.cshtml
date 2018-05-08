@@ -1,0 +1,45 @@
+﻿@using ZavršniRad.Areas.ModulStomatolog.Models
+@model UrediProfilVM
+@{
+    ViewBag.Title = "IzmjenaPristupnihPodataka";
+    Layout = "~/Areas/ModulStomatolog/Views/Shared/_StomatologLayout.cshtml";
+}
+<br />
+<div class="row" style="margin-left:20px">
+    @if (TempData["Success"] != null)
+    {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+    }
+</div><br />
+<div class="row" style="margin-left:20px">
+
+
+    @using (Html.BeginForm("SnimiPristupniPodaci", "Profil"))
+    {
+        if (!ViewData.ModelState.IsValid)
+        {
+            @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });
+
+        }
+        <div class="">
+            <div class="col col-md-4">
+                <div class="form-group">
+                    <label>@Html.DisplayNameFor(m => m.Lozinka)</label>
+                    @Html.PasswordFor(m => m.Lozinka, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Lozinka, string.Empty, new { @class = "text-danger" })
+                    <br />
+                </div>
+                <div class="form-group">
+                    <label>@Html.DisplayNameFor(m => m.PotvrdaLozinke)</label>
+                    @Html.PasswordFor(m => m.PotvrdaLozinke, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.PotvrdaLozinke, string.Empty, new { @class = "text-danger" })
+                    <br />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Spasi promjene" class="btn btn-info" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

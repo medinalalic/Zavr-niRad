@@ -1,0 +1,116 @@
+﻿@model ZavršniRad.Areas.ModulStomatolog.Models.ZakazaniTermini
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ModulStomatolog/Views/Shared/_StomatologLayout.cshtml";
+    var culture = new System.Globalization.CultureInfo("bs");
+    var day = culture.DateTimeFormat.GetDayName(DateTime.Today.DayOfWeek);
+}
+<br /><br />
+
+
+<div class="input-group">
+    <table style="border-spacing: 20px;border-collapse: separate;">
+        <tr>
+            <td><h4 style="color:royalblue;margin-left:20px">Kartoni pacijenata</h4>
+            </td>
+            <td>
+               @Html.ActionLink("Detalji", "Index", "Pacijent", new { }, new { @class = "btn btn-default" }) 
+            </td>
+        </tr>
+    </table>
+</div>
+
+<br />
+<h4 style="color:royalblue;margin-left:20px">Aktivni termini za:</h4>
+<div style="float:left">
+    <span style="font-size:20px;color:royalblue;margin-left:20px">@day.ToUpper() /  @DateTime.Now.Date.ToString("dd/MM/yyyy")</span>
+   <br />
+</div>
+
+<div class="container">
+    <table class="table table-hover" style="margin:10px 10px 10px 10px;">
+        <thead>
+            <tr>
+                <th>Vrijeme</th>
+                <th>Pacijent</th>
+                <th>Razlog</th>
+                <th>Odobri termin</th>
+                <th>Pregled</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model.termin)
+            {
+
+                    <tr>
+                        <td>@x.Vrijeme.ToShortTimeString()</td>
+                        <td>@x.Pacijent</td>
+                        <td>@x.Razlog</td>
+                        <td>
+                            @if (x.Odobren == true)
+                            {
+
+                                @Html.Raw("Odobren")
+                            }
+                            else if (x.Odobren == false)
+                            {
+
+                                <a href='@Url.Action("Metoda", new { @id = @x.Id })'>Neodobren </a>
+                            }
+                           
+                        </td>
+                        <td>
+                          
+                            <div class="col col-md-2">
+
+                                <table class="table">
+                                    <thead>
+
+                                    </thead>
+                                    <tbody><tr>
+    @if (x.Obavljen && x.Odobren == true)
+    {
+
+        <td onclick="location.href = '@(Url.Action("Index", "Pregled", new { id = x.Id,pacijentId = x.PacijentId }))'">Detalji pregleda</td>
+
+
+    }
+    else
+    {
+
+        if (x.Odobren == true && (x.Datum >= DateTime.Now.Date) && (x.Vrijeme.Hour >= DateTime.Now.Hour))
+        {
+            <td onclick="location.href = '@(Url.Action("PregledNovi", "Pregled", new { id = x.Id, pacijentId = x.PacijentId }))'">Evidentiraj pregled</td>
+        }
+        @*else
+        {
+            <td></td>}*@
+
+    }
+</tr>
+
+
+
+                                       
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                    
+
+
+                    </tr>
+
+
+
+
+
+
+            }
+
+        </tbody>
+
+    </table>
+</div>

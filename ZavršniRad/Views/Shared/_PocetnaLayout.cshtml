@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>@Page.Title</title>
+        @RenderSection("head", required: false)
+        <title>Stomatološka ordinacija dr. Kebo</title>
+        <!-- for-mobile-apps -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Dental Clinic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+        <script type="application/x-javascript">
+            addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+                   function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!-- //for-mobile-apps -->
+        <link href=@Url.Content("/Content/css/bootstrap.css") rel="stylesheet" type="text/css" media="all" />
+        <link href=@Url.Content("/Content/css/style.css") rel="stylesheet" type="text/css" media="all" />
+        <!-- js -->
+        <script src=@Url.Content("/Content/js/jquery-1.11.1.min.js")></script>
+        <!-- //js -->
+        <!-- start-smoth-scrolling -->
+        <script type="text/javascript" src=@Url.Content("/Content/js/move-top.js")></script>
+        <script type="text/javascript" src=@Url.Content("/Content/js/easing.js")></script>
+        <script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+        </script>
+        <!-- start-smoth-scrolling -->
+    </head>
+<body>
+    <!-- header -->
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="@Url.Action("Index", "Home", new { area = "" })">Stomatološka ordinacija dr. Kebo</a>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="header-bottom">
+        <div class="container">
+            <div class="header-bottom-right">
+                <ul>
+                    <li class="mail"><a @*href="mailto:info@example.com"*@>036/550-332</a></li>
+
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!-- //header -->
+    <!-- banner -->
+    <div class="banner">
+        <div class="container">
+            <div class="banner-nav">
+                <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="@Url.Action("Index", "Home", new { area = "" })">Naslovna</a></li>
+                            <li><a href="@Url.Action("Onama", "Home", new { area = "" })">O nama</a></li>
+                            <li><a href="@Url.Action("Usluge", "Home", new { area = "" })">Usluge</a></li>
+                        
+                            <li><a href="@Url.Action("Savjeti", "Home", new { area = "" })">Savjeti</a></li>
+                            <li><a href="@Url.Action("Index", "Login", new { area = "" })">Prijava</a></li>
+                        </ul>
+                      
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+                <!-- Slider-starts-Here -->
+                <script src=@Url.Content("/Content/js/responsiveslides.min.js")></script>
+                <script>
+				    // You can also use "$(window).load(function() {"
+				    $(function () {
+				      // Slideshow 4
+				      $("#slider3").responsiveSlides({
+				        auto: true,
+				        pager: true,
+				        nav: false,
+				        speed: 500,
+				        namespace: "callbacks",
+				        before: function () {
+				          $('.events').append("<li>before event fired.</li>");
+				        },
+				        after: function () {
+				          $('.events').append("<li>after event fired.</li>");
+				        }
+				      });
+
+				    });
+                </script>
+                <!--//End-slider-script -->
+                <div id="top" class="callbacks_container wow fadeInUp" data-wow-delay="0.5s">
+                    <ul class="rslides" id="slider3">
+                        <li>
+                            <div class="banner-info">
+                                <h1>Blistav osmijeh je savršen poklon!</h1>
+                                <p>
+                                    Na prvom mjestu uvijek nam je pacijent i njegovi zahtjevi.<br />
+                                    Garantujemo Vam brz,bezbolan i siguran put do Vašeg savršenog osmijeha.<br />
+                                    Za zdrave i lijepe zube nikad nije kasno.
+                                </p>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="banner-info">
+                                <h1>Zašto mi? </h1>
+                                <p>
+                                    Posjedujemo i odlično se služimo najnovijom stomatološkom tehnologijom.<br />
+                                    Osigurali smo Vam opuštajuću atmosferu u našoj ordinaciji.<br />
+                                    Iskustvo našeg osoblja ima izuzetnu brzinu rada.
+                                </p>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="banner-info">
+                                <h1>Zakažite svoj termin</h1>
+                                <p>
+                                    Naš sistem zakazivanja termina je odličan, nikad nećete dugo čekati na red.<br />
+                                    Najbolji način sprječavanja pojave bolesti zuba jeste razvijanje pravilnih navika zubne njege.
+                                </p>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- //banner -->
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-grids">
+                <div class="col-md-3 footer-grid">
+                    <h3>dr. Izudin Kebo</h3>
+
+                    <ul>
+
+                        <li><a>Stomatološka ordinacija</a></li>
+                        <li><img src="~/Content/images/logo-icon.png" /></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-grid">
+                    <h3>Kontakt / Adresa</h3>
+
+                    <ul>
+
+                        <li><a>036/550-332</a></li>
+                        <li><a>BRAĆE LAKIŠIĆA 68B</a></li>
+                        <li><a>88000 Mostar</a></li>
+                       
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-grid">
+                    <h3>Zdravlje zuba</h3>
+                    <ul>
+                        <li><a>Kako pravilno prati zube</a></li>
+                        <li><a>Savjeti za djecu</a></li>
+                        <li><a>Savjeti opšte stomatologije</a></li>
+                        <li><a href="@Url.Action("Savjeti", "Home", new { area = "" })">Pogledajte -></a></li>
+
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-grid">
+                    <h3>O nama</h3>
+                    <ul>
+                        <li>
+                            <a>
+                                Ljubazno i stručno osoblje, te kvalitetna i savremena usluga.
+                                Ordinacija "dr. Kebo" je uvijek prvi izbor.
+                            </a>
+                        </li>
+                        <li><a href="@Url.Action("Onama", "Home", new { area = "" })">Pogledajte -></a></li>
+                    </ul>
+                </div>
+
+                <div class="clearfix"> </div>
+            </div>
+            <div class="footer-grds">
+
+                <p>Copyright © 2018 | Designed by Medina Lalić
+            </div>
+        </div>
+    </div>
+    <!-- //footer -->
+    <!-- here stars scrolling icon -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+            */
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <!-- //here ends scrolling icon -->
+    <!-- for bootstrap working -->
+    @*<script src=@Url.Content("/Content/js/bootstrap.js")> </script>*@
+    <script src="~/scripts/bootstrap.js"></script>
+    <!-- //for bootstrap working -->
+
+</body>
+
+</html>

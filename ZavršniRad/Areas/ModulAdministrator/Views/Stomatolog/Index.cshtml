@@ -1,0 +1,101 @@
+﻿@using ZavršniRad.Areas.ModulAdministrator.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model ZavršniRad.Areas.ModulAdministrator.Models.StomatologPagingVM
+    <div id="ajaxdiv">
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Areas/ModulAdministrator/Views/Shared/_AdminLayout.cshtml";
+    
+    }
+
+    <div class="pretragaheadermala" style="margin:20px 20px">
+        <div class="container">
+
+            @using (Html.BeginForm("Index", "Stomatolog", FormMethod.Get))
+            {
+                <br />
+                <div class="input-group">
+                    <table style="border-spacing: 20px;border-collapse: separate;">
+                        <tr>
+                            <td>
+                                @Html.TextBox("search", null, new { placeholder = "Unesite ime", @class = "form-control" })
+
+                            </td>
+                            <td>
+                                @Html.TextBox("search2", null, new { placeholder = "Unesite prezime", @class = "form-control" })
+                            </td>
+                            <td>
+                                <input type="submit" name="submit" value="Pretraga" class="btn btn-info" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="container-fluid" style="margin:10px 10px 10px 10px;">
+        <table class="table table-hover" style="margin:10px 10px 10px 10px;">
+            <thead>
+                <tr>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Email</th>
+                    <th>Adresa</th>
+                    <th>Status</th>
+                    <th>Akcija</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.StomatologList.Count() == 0)
+            {
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            <div class="nemarezultatapretrage">
+                                Nema rezultata pretrage
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+
+                    foreach (var x in Model.StomatologList)
+                    {
+                        <tr>
+                            <td> @x.Korisnik.Ime</td>
+                            <td> @x.Korisnik.Prezime</td>
+                            <td> @x.Korisnik.Email</td>
+                            <td> @x.Korisnik.Adresa</td>
+                            <td> @x.Korisnik.Aktivan</td>
+
+                            <td style='white-space: nowrap'>
+
+                                @Html.ActionLink("Deaktiviraj", "Deaktiviraj", "Stomatolog", new { stomatologId = x.Id }, new { @class = "btn btn-info" })
+                                @Html.ActionLink("Obriši", "Obrisi", "Stomatolog", new { StomatologID = x.Id }, new { @class = "btn btn-info" })
+
+
+
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+    <div style="margin:20px 50px 20px 60px">
+        @Ajax.ActionLink("Dodaj", "Dodaj", "Stomatolog", new { }, new AjaxOptions() { UpdateTargetId = "stomatolog" }, new { @class = "btn btn-info" })
+
+
+    </div>
+    <div class="panel panel-body">
+        <div id="stomatolog"></div>
+    </div>
+</div>

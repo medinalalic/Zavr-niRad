@@ -1,0 +1,63 @@
+﻿@using ZavršniRad.Models;
+@model ZavršniRad.Areas.ModulOsoblje.Models.RacunIzmijeni
+@{
+    ViewBag.Title = "IzdajRacun";
+    Layout = "~/Areas/ModulOsoblje/Views/Shared/_OsobljeLayout.cshtml"; 
+}
+
+
+
+<form action="/ModulOsoblje/Racun/Snimi" class="form-horizontal">
+    @Html.HiddenFor(model => model.Id)
+    <br /><br />
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Uplaćen</label>
+        <div class="col-sm-10">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(model => model.Uplaćeno)
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Cijena</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.Cijena, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Cijena)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Datum</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.Datum, "{0:dd-MM-yyyy}", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Datum)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Pacijent</label>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(model => model.pacijentID, Model.pacijenti, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.pacijentID)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Snimi</button>
+        </div>
+    </div>
+
+    <p id="error"></p>
+
+
+</form>
+
+
+
+
+
+
+

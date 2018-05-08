@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PocetnaLayout.cshtml";
+
+}
+
+
+ <!-- banner-bottom -->
+
+  <!-- banner-bottom -->
+    <div class="banner-bottom">
+        <div class="container">
+@using (Html.BeginForm("Provjera", "Login"))
+{
+            <div class="banner-bottom-grids">
+                <div class="banner-bottom-grid-left">
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/1.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/1.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/2.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/2.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/3.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/3.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/4.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/4.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="clearfix"> </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/5.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/5.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/6.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/6.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/7.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/7.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/8.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/8.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="clearfix"> </div>
+                <div class="banner-bottom-grid-right">
+                    <div class="banner-bottom-grid-right-grid">
+                        <h3>Prijavite se</h3>
+
+                        <form>
+                           
+                            <input type="text" value="Korisničko ime" id="KorisnickoIme" name="KorisnickoIme" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Korisničko ime';}" required="">
+                            <input type="password" style="border:1px solid #f4f4f4;
+	outline:none;
+	padding:14px 10px;
+	background:none;
+	color:#fff;
+	font-size:14px;
+	width:100%;" value="Lozinka" id="Lozinka" name="Lozinka" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Lozinka';}" required="">
+                            <input type="submit" value="Spasi">
+                           
+                        </form>
+                    </div>
+                </div>
+                <link rel="stylesheet" href=@Url.Content("/Content/css/swipebox.css")>
+                <script src=@Url.Content("/Content/js/jquery.swipebox.min.js")></script>
+                <script type="text/javascript">
+								jQuery(function($) {
+									$(".swipebox").swipebox();
+								});
+                </script>
+            </div>
+}
+        </div>
+    </div>
+    <!-- //banner-bottom -->

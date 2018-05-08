@@ -1,0 +1,229 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PocetnaLayout.cshtml";
+  
+}
+<html>
+<body>
+    
+             
+    <!-- banner-bottom -->
+    <div class="banner-bottom">
+        <div class="container">
+            <div class="banner-bottom-grids">
+                <div class="banner-bottom-grid-left">
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/1.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/1.jpg")  class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/2.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/2.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/3.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/3.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/4.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/4.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="clearfix"> </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/5.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/5.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/6.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/6.jpg")  class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/7.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/7.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="banner-bottom-grid-left-grid">
+                        <a href=@Url.Content("/Content/images/8.jpg") class="b-link-stripe b-animate-go1   swipebox" title="">
+                            <img src=@Url.Content("/Content/images/8.jpg") class="img-responsive" />
+                        </a>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="clearfix"> </div>
+                <div class="banner-bottom-grid-right">
+                    <div class="banner-bottom-grid-right-grid">
+                        <h3>Registrujte se</h3>
+                       
+                        
+                        
+@using (Html.BeginForm("Dodaj", "Registracija", FormMethod.Post@*, new { @class = "form-horizontal", role = "form" }*@))
+{
+    @model ZavršniRad.Areas.ModulPacijent.Models.RegistracijaVM
+    
+    <input type="text" value=Ime name="Ime" id="Ime" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Ime';}" required="">
+        <input type="text" value="Prezime" name="Prezime" id="Prezime" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Prezime';}" required="">
+        <input type="email" value="Email" name="Email" id="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+        <input type="text" value="Korisničko ime" name="KorisnickoIme" id="KorisnickoIme" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'KorisnickoIme';}" required="">
+        <input type="password" style="border:1px solid #f4f4f4;
+	outline:none;
+	padding:14px 10px;
+	background:none;
+	color:#fff;
+	font-size:14px;
+	width:100%;" value="Lozinka" name="Lozinka" id="Lozinka" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Lozinka';}" required="">
+ <input type="submit" value="Spasi">
+}
+                      
+         <h4 style="color:deeppink">Provjerite svoj e-mail!</h4>       
+                    </div>
+                </div>
+                <link rel="stylesheet" href=@Url.Content("/Content/css/swipebox.css")>
+                <script src=@Url.Content("/Content/js/jquery.swipebox.min.js")></script>
+                <script type="text/javascript">
+								jQuery(function($) {
+									$(".swipebox").swipebox();
+								});
+                </script>
+            </div>
+        </div>
+    </div>
+    <!-- //banner-bottom -->
+    <!-- banner-bottom-video -->
+    <div class="banner-bottom-video">
+        <div class="container">
+            <div class="banner-bottom-video-grids">
+                <div class="banner-bottom-video-grid-left">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Ortodoncija
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    Ortodoncija se bavi prevencijom, dijagnostikovanjem i ispravljanjem loše postavljenih zuba i okolnih struktura. Ne postoji starosno ograničenje za početak ortodontske terapije. Ortodont, nakon što je obavio dijagnostičke preglede i napravio plan ortodontske terapije, pacijentu preporučuje odgovarajući tip aparata i plan terapije.
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Implantologija
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">
+                                    Implantologija (oralna implantologija) je grana stomatologije koja se bavi ugradnjom zubnih implantata. Zubni implantat se ugrađuje u viličnu kost i nakon određenog vremena stvara čvrstu vezu sa kosti. Na implantat se zatim postavlja krunica ili može da služi kao nosač mosta ili kao sidrište proteze. 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFour">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                      Oralna hirurgija
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body">
+                                    Intervencija vađenja zuba spada u rutinske metode. Iako se trudimo da do vađenja zuba ne dođe, nekada je to, ipak, neizbježno. Najčešći uzroci gubitka zuba su karijes i parodontopatija. Intervencija se izvodi u lokalnoj anesteziji i uglavnom je bezbolna.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFive">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        Estetska stomatologija
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                <div class="panel-body">
+                                    Tretman je potpuno bezbolan i efikasan a sprovodi se pomoću lampe. Cjelokupan tretman traje oko 90-tak minuta i uključuje slijedeće radnje:<br />
+                                    • profesionalno čišćenje kamenca i poliranje zuba<br />
+                                    • pjeskarenje zuba<br />
+                                    • 3 tretmana izbjeljivanja za redom po 15 minuta sa nanošenjem gela i osvjetljavanjem<br />
+                                    • uklanjanje gela za izbjeljivanje, nanošenje zaštitnog gela sa kalcijem preko obrađenih površina zuba.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingSix">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        Dječija i preventivna stomatologija
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                                <div class="panel-body">
+                                    Ako vaše dijete posjeduje bilo koji problem koji se tiče zuba, stomatološka ordinacija dr Konatar i naš dječiji stomatolog stoji Vam na raspolaganju. Nudimo rješenje djetetovog problema na što je više moguće bezbolan način. U našoj ordinaciji uz prijatnu atmosferu, druženje i igranje, zubići vaših mališana biće zdravi.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingSeven">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                       Mobilna protetika
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                                <div class="panel-body">
+                                    Stomatološka protetika je grana stomatologije kojom nadomještamo izgubljene zube ili estetski korigiramo postojeće. Ukratko poboljšavamo funkciju i estetski izgled zuba, a samim tim poboljšavamo kvalitetu Vašeg života. Ne misleći pri tome samo na ljepotu nego i zdravlje.
+                                    U mobilnu protetiku spadaju parcijalne i totalne proteze koje pacijent sam vadi i stavlja u usta. 
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="banner-bottom-video-grid-right">
+                    <h4>Usluge</h4>
+                    <div class="banner-bottom-video-grid-rgt">
+                        <img src=@Url.Content("/Content/images/7.jpg") class="img-responsive" />
+                        <div class="caption">
+                            <br />
+                            <p>
+                               Obratite nam se sa povjerenjem. Nudimo veliki broj usluga, te vodimo računa da Vam svo vrijeme tretmana bude što ugodnije i da uz našu pomoć savladate strah od stomatoloških intervencija.
+                            </p>
+                         
+                        </div>
+                    </div>
+                    <div class="banner-bottom-video-grid-rgt">
+                        <h4>Radno vrijeme</h4>
+                        <ul>
+                            <li><a href="#">9:00  - 13:00 h</a></li>
+                            <li><a href="#">PAUZA 13:00 - 15:00 h</a></li>
+                            <li><a href="#">15:00 - 17:00 h</a></li>
+                            <li><a href="#">Vikendom i praznicima ne radimo </a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+   
+  
+   
+</body>
+</html>
+

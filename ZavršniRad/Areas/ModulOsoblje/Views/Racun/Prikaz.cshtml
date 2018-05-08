@@ -1,0 +1,79 @@
+﻿@using ZavršniRad.Areas.ModulOsoblje.Models
+@model ZavršniRad.Areas.ModulOsoblje.Models.RacunPrikaz
+
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ModulOsoblje/Views/Shared/_OsobljeLayout.cshtml";
+}
+
+<div class="pretragaheadermala" style="margin:20px 20px">
+    <div class="container">
+        <h3>Računi za pacijenta:</h3>
+        @using (Html.BeginForm("Prikaz", "Racun", FormMethod.Get))
+        {
+            <div class="input-group">
+                <table style="border-spacing: 20px;border-collapse: separate;">
+                    <tr>
+                        <td>
+                            @Html.TextBox("search", null, new { placeholder = "Unesite ime pacijenta", @class = "form-control" })
+                        </td>
+                        <td>
+                            <input type="submit" name="submit" value="Pretraga" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+
+    </div>
+</div>
+<div style="margin:10px 10px;" class="container">
+   
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Pacijent</th>
+                <th>Cijena</th>
+                <th>Datum</th>
+                <th>Uplaćen</th>
+           
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (RacunPrikaz.RacunInfo x in Model.racun)
+            {
+                <tr>
+                    <td>@x.Pacijent</td>
+
+                    <td> @x.Cijena KM</td>
+
+                    <td>@x.Datum.ToShortDateString()</td>
+                    <td>@x.Uplaćeno</td>
+
+                   
+                        @*@Ajax.ActionLink("Uredi", "Izmijeni", "Racun", new { racunID = x.Id }, new AjaxOptions() { UpdateTargetId = "racun" }, new { @class = "btn btn-info" })*@
+
+
+
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div style="margin:10px 60px 20px 60px;">
+
+    @Html.ActionLink("Izdaj novi račun", "IzdajRacun", "Racun", new { }, new { @class = "btn btn-info" })
+
+
+</div>
+<br />
+<div class="panel panel-body">
+    <div id="racun"></div>
+</div>

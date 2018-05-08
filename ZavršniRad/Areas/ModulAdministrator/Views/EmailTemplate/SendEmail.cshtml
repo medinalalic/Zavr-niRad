@@ -1,0 +1,44 @@
+﻿@model ZavršniRad.Areas.ModulAdministrator.Models.SendEmail
+@{
+    ViewBag.Title = "SendEmail";
+    //Layout = "~/Areas/ModulAdministrator/Views/Shared/_AdminLayout.cshtml";
+    Layout = null;
+}
+
+@using (Html.BeginForm("SendEmail", "EmailTemplate", FormMethod.Post, new { role = "form" }))
+{
+  
+
+
+   @Html.HiddenFor(model=>model.pacijentId)
+    @Html.AntiForgeryToken();
+    <div class="row" style="margin-left:20px">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });
+
+        }
+        <br />
+        <div class="row" style="margin-left:20px">
+
+           
+            <label style="font-size:18px;margin-left:20px">Slanje emaila za:</label><br />
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control",@readonly="readonly" })
+                @Html.ValidationMessageFor(model => model.Email)
+
+            </div>
+
+
+        </div>
+       <br />
+
+        <div class="col col-md-12" style="margin-left:20px">
+            <div class="form-group">
+                <input type="submit" value="Pošalji" class="btn btn-info" style="width:115px;height:45px;" />
+            </div>
+        </div>
+    </div>
+
+}
+

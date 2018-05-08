@@ -1,0 +1,119 @@
+﻿@model ZavršniRad.Areas.ModulOsoblje.Models.MaterijalPrikazVM
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ModulOsoblje/Views/Shared/_OsobljeLayout.cshtml";
+}
+
+
+
+<div class="pretragaheadermala">
+    <div class="container">
+        <br />
+        @using (Html.BeginForm("Index", "Materijal", FormMethod.Get))
+        {
+            <div class="input-group">
+                <table style="border-spacing: 20px;border-collapse: separate;">
+                    <tr>
+                        <td>
+                            @Html.TextBox("search", null, new { placeholder = "Unesite naziv materijala", @class = "form-control" })
+                        </td>
+                        <td>
+                            <input type="submit" name="submit" value="Pretraga" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+
+
+<div class="container" style="margin:10px 10px 10px 10px;">
+
+    <br />
+        <br />
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Količina</th>
+                    <th>Datum</th>
+                  
+
+                    <th>Akcija</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.ListaPotrošenih.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            <div class="nemarezultatapretrage">
+                                Nema rezultata pretrage
+                               
+                            </div>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var x in Model.ListaPotrošenih)
+                    {
+                        <tr>
+                            <td>@x.Materijal.Naziv</td>
+                            <td>@x.Kolicina</td>
+                            <td>@x.Datum.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                @Ajax.ActionLink("Izmijeni", "Izmijeni", "Materijal", new { MaterijalId=x.Id }, new AjaxOptions() { UpdateTargetId = "materijal" }, new { @class = "btn btn-info" })
+
+
+                                @Html.ActionLink("Obriši", "Obrisi", "Materijal", new { MaterijalId = x.Id }, new { @class = "btn btn-info" })
+
+
+
+                            </td>
+
+                        </tr>
+                    }
+                }
+
+
+            </tbody>
+
+
+        </table>
+    
+
+
+
+    <div class="text-center">
+        @Html.PagedListPager((IPagedList)Model.ListaPotrošenih, page => Url.Action("Index", new
+   {
+       page,
+       search = Request.QueryString["search"],
+       matid = Request.QueryString["matId"]
+   }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+
+  </div>
+
+</div>
+<div style="margin:10px 60px 20px 60px;">
+
+    @*@Html.ActionLink("Dodaj novi", "Dodaj", "Materijal", new { }, new { @class = "btn btn-info" })*@
+    @Ajax.ActionLink("Dodaj novi", "Dodaj", "Materijal", new { }, new AjaxOptions() { UpdateTargetId = "materijal" }, new { @class = "btn btn-info" })
+
+
+
+
+</div>
+
+<div class="panel panel-body">
+    <div id="materijal"></div>
+</div>

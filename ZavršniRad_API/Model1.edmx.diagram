@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fea7ce9989ac413392925d025d3e6ec7" Name="Diagram1">
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Dijagnoza" Width="1.5" PointX="7.5" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.IzvrsenaUsluga" Width="1.5" PointX="9.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Korisnik" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Lijek" Width="1.5" PointX="10.5" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Materijal" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Ocjena" Width="1.5" PointX="8.25" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Osoblje" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Pacijent" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Poruka" Width="1.5" PointX="5.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.PotroseniMaterijal" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Pregled" Width="1.5" PointX="7.5" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Racun" Width="1.5" PointX="5.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Stomatolog" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Terapija" Width="1.5" PointX="12.75" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Termin" Width="1.5" PointX="5.25" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Usluga" Width="1.5" PointX="6" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.UspostavljenaDijagnoza" Width="1.5" PointX="9.75" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stomatoloska_MLModel.Zub" Width="1.5" PointX="7.5" PointY="25.125" IsExpanded="true" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_UspostavljenaDijagnozas_dbo_Dijagnozas_DijagnozaId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_IzvrsenaUslugas_dbo_Uslugas_UslugaId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_IzvrsenaUslugas_dbo_Zubs_ZubId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Osobljes_dbo_Korisniks_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Pacijents_dbo_Korisniks_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Stomatologs_dbo_Korisniks_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Terapijas_dbo_Lijeks_LijekId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_PotroseniMaterijals_dbo_Materijals_MaterijalId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Ocjenas_dbo_Pacijents_PacijentId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Ocjenas_dbo_Uslugas_UslugaId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_PotroseniMaterijals_dbo_Osobljes_OsobljeId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Racuns_dbo_Osobljes_OsobljeId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Porukas_dbo_Pacijents_PacijentId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Pregleds_dbo_Pacijents_PacijentId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Racuns_dbo_Pacijents_PacijentId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Termins_dbo_Pacijents_PacijentId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Porukas_dbo_Stomatologs_StomatologId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Pregleds_dbo_Stomatologs_StomatologId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Pregleds_dbo_Termins_TerminId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Terapijas_dbo_Pregleds_PregledId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_UspostavljenaDijagnozas_dbo_Zubs_ZubId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

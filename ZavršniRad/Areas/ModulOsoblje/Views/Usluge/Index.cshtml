@@ -1,0 +1,171 @@
+﻿
+@model ZavršniRad.Areas.ModulOsoblje.Models.UslugePagingVM
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ModulOsoblje/Views/Shared/_OsobljeLayout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.min.css" />
+
+<div class="pretragaheadermala" style="margin:20px 20px">
+    <div class="container">
+       
+        @using (Html.BeginForm("Index", "Usluge", FormMethod.Get))
+        {
+            <div class="input-group">
+                <table style="border-spacing: 20px;border-collapse: separate;">
+                    <tr>
+                        <td>
+                            @Html.TextBox("search", null, new { placeholder = "Unesite naziv usluge", @class = "form-control" })
+                    </td><td>
+    <input type="submit" name="submit" value="Pretraga" class="btn btn-info" />
+</td>
+                </tr>
+            </table>
+        </div>
+        }
+
+    </div>
+</div>
+<div class="container" style="margin:10px 10px 10px 10px;">
+    <table class="table table-hover" style="margin:10px 10px 10px 10px;">
+        <thead>
+            <tr>
+                <th>Naziv</th>
+                <th>Slika</th>
+                <th>Akcija</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.UslugeList.Count() == 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div class="nemarezultatapretrage">
+                            Nema rezultata pretrage
+                           
+                        </div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+
+            foreach (var x in Model.UslugeList)
+            {
+                <tr>
+                    <td> @x.Vrsta</td>
+                    <td> 
+                        <img id="blah" style="width:100px;height:100px;" alt="UslugeImg" src='@Url.Action("Show", "Usluge", new { id = x.Id })' />
+                    
+                    <td style='white-space: nowrap'>
+                        
+                                @*@Html.ActionLink("Uredi", "Uredi", "Usluge", new { UslugaID = x.Id }, new { @class = "btn btn-info" })*@
+                        @Ajax.ActionLink("Uredi", "Uredi", "Usluge", new { UslugaID = x.Id }, new AjaxOptions() { UpdateTargetId = "usluga" }, new { @class = "btn btn-info" })
+
+
+                        @Html.ActionLink("Obriši", "Obrisi", "Usluge", new { UslugaID = x.Id }, new { onclick = "return confirm('Da li ste sigurni da želite izbrisati uslugu?');", @class="btn btn-info" })
+                       
+                        @*<button data-id='@x.Id' class="btn btn-info small MyAction">Obriši</button>*@
+
+                             </td>
+                </tr>
+            }}
+        </tbody>
+    </table>
+
+
+    <div class="text-center">
+        @Html.PagedListPager(Model.UslugeList, page => Url.Action("Index", new
+   {
+       page,
+       search = Request.QueryString["search"],
+       uslugaid = Request.QueryString["uslugaid"]
+   }),new PagedListRenderOptions() { Display=PagedListDisplayMode.IfNeeded})
+
+
+       
+    </div>
+    <div style="margin:10px 60px 20px 60px;">
+
+        @Ajax.ActionLink("Dodaj uslugu", "Dodaj", "Usluge", new { }, new AjaxOptions() { UpdateTargetId = "usluga" }, new { @class = "btn btn-info" })
+
+
+</div>
+<div class="col-md-10" style="padding-left:4%;">
+    <div id="usluga" class="form-wrapper">
+ </div>
+</div>
+
+
+    <script src="~/scripts/jquery-3.3.1.js"></script>
+    @*<script src="~/scripts/jquery-3.3.1.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.min.js"></script>
+</div>
+
+
+@*<script type="text/javascript">
+    $(function () {
+        var baseUrl = window.location.origin + '/api/Delete';
+        $('.MyAction').click(function () {
+
+            var $button = $(this);
+            var ok = $button.data('ok');
+            var title = $button.data('title');
+            var fail = $button.data('fail');
+            var question = $button.data('question');
+            var confirm = $button.data('confirm');
+            var cancel = $button.data('cancel');
+            var id = $(this).attr('data-id');
+            swal({
+                title: "Da li ste sigurni?",
+                text: "Usluga više neće biti dostupna.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Da",
+                cancelButtonText: "Ne",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }).then(
+  function (isConfirm) {
+      if (isConfirm) {
+          $.post(baseUrl + '/DeleteUsluge/Obrisi/' + id)
+                    .done(function () {
+                        var doneConfig = {
+                            title: title,
+                            type: 'success',
+                            confirmButtonText: ok
+                        };
+                        swal({
+                            title: "Obrisano",
+                            text: "Uspješno ste obrisali uslugu",
+                            type: "success",
+                            showCancelButton: false,
+
+                            confirmButtonText: "Da"
+                        },
+ function (isConfirm) {
+     if (isConfirm) {
+         window.location.reload();
+     }
+ })
+                    })
+                    .fail(function () {
+                        sweetAlert('Oops...', fail, 'error');
+                    });
+      } 
+  });
+        });
+    });
+
+</script>*@
+
+
+
+
+
+
+

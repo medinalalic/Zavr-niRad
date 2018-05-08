@@ -1,0 +1,55 @@
+﻿@using ZavršniRad.Areas.ModulAdministrator.Models;
+@model ZavršniRad.Areas.ModulAdministrator.Models.PacijentPrikazVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ModulAdministrator/Views/Shared/_AdminLayout.cshtml";
+}
+<br /><br />
+<div class="container-fluid">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th style="width:200px">Email</th>
+                <th>Aktiviraj</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (PacijentPrikazVM.PacijentInfo x in Model.pacijent)
+            {
+                <tr>
+                    <td> @x.Ime</td>
+
+                    <td> @x.Prezime</td>
+
+                    <td>@x.Email</td>
+
+
+                   
+                <td>
+
+                  
+
+                    @Ajax.ActionLink("Pošalji e-mail", "SendEmail", "EmailTemplate", new { pacijentId = x.Id, email = x.Email }, new AjaxOptions() { UpdateTargetId = "izlaz" },new { @class="btn btn-info"})
+
+
+
+                </td>
+
+
+            </tr>
+
+
+            }
+
+        </tbody>
+
+    </table>
+</div>
+
+<div class="panel-body">
+    <div id="izlaz"></div>
+</div>
+
+
