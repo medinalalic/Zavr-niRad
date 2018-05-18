@@ -76,7 +76,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Uredi", usluge);
+                return View("Dodaj", usluge);
             }
             else
             {

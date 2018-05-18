@@ -63,13 +63,13 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
                 Naziv=l.Naziv
 
             };
-            return View("Dodaj", model);
+            return View("Uredi", model);
         }
         public ActionResult Snimi(LijekDodajVM lijek)
         {
             if (!ModelState.IsValid)
             {
-                return View("Dodaj", lijek);
+                return View("Uredi", lijek);
             }
             else
             {

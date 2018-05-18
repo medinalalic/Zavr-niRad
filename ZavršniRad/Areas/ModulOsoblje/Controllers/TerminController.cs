@@ -151,7 +151,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
             Termin p = ctx.Termins.Find(id);
             p.Odobren = true;
             ctx.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Rezervacije");
         }
 
        

@@ -1,4 +1,4 @@
-﻿@using ZavršniRad.Models;
+﻿
 @model ZavršniRad.Areas.ModulPacijent.Models.TerminIzmijeniVM
 @{
     ViewBag.Title = "Dodaj";
@@ -17,78 +17,93 @@
 
 <body>
 
+
+    <div style="float:left">
+
+        @using (Ajax.BeginForm("Snimi", "ZakaziTermin", new AjaxOptions() { UpdateTargetId = "termin" }))
+        {
+            <br />
+            <div class="row">
+                @if (TempData["TerminZauzet"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage">@TempData["TerminZauzet"]</p>
+                }
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });
+
+                }
+            </div>
+
+            @Html.HiddenFor(model => model.Id)
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Zakaži termin
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label>@Html.DisplayNameFor(m => m.Razlog)</label>
+                                        @Html.TextBoxFor(model => model.Razlog, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Razlog)
+                                        @*<p class="help-block">Example block-level help text here.</p>*@
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Datum</label>
+                                        @Html.TextBoxFor(model => model.Datum, new { @id = "datum", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Datum)
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Vrijeme</label>
+                                        @Html.DropDownListFor(m => m.Vrijeme, new List<SelectListItem>
+                                {
+                                new SelectListItem{ Text="09:00", Value = "09:00" },
+                                new SelectListItem{ Text="09:30", Value = "09:30" },
+                                new SelectListItem{ Text="10:00", Value = "10:00" },
+                                new SelectListItem{ Text="10:30", Value = "10:30" },
+                                new SelectListItem{ Text="11:00", Value = "11:00" },
+                                new SelectListItem{ Text="11:30", Value = "11:30" },
+                                new SelectListItem{ Text="12:00", Value = "12:00" },
+                                new SelectListItem{ Text="12:30", Value = "12:30" },
+                                new SelectListItem{ Text="13:00", Value = "13:00" },
+                                new SelectListItem{ Text="15:00", Value = "15:00" },
+                                new SelectListItem{ Text="15:30", Value = "15:30" },
+                                new SelectListItem{ Text="16:00", Value = "16:00" },
+                                new SelectListItem{ Text="16:30", Value = "16:30" }
+                              }, new { @class = "form-control" })
+                                    </div>
+
+
+                                    <button type="submit" class="btn btn-info">Snimi</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p id="error"></p>
+            <br />
+
+        <!-- /.col-lg-6 (nested) -->
+        }
+
+
+    </div>
+    <div style="display:inline-block">
+       @{ Html.RenderAction("ZauzetiTermini", "ZakaziTermin"); }
+
+    </div>
    
 
 
-@using(Html.BeginForm("Snimi", "ZakaziTermin", new { @class = "form-horizontal" }))
-{
-    <br />
-    <div class="row">
-        @if (TempData["TerminZauzet"] != null)
-        {
-            <p class="alert alert-success" id="successMessage">@TempData["TerminZauzet"]</p>
-        }
-    </div>
-    <br />
-    @Html.HiddenFor(model => model.Id)
-    <br />
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Razlog</label>
-        <div class="col-sm-10" style="margin-bottom:20px">
-            @Html.TextBoxFor(model => model.Razlog, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Razlog)
+<script src="~/scripts/jquery-3.3.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+<script src="~/Content/js/pikaday.js"></script>
 
-        </div>
-    </div>
-    <br />
-    <div class="form-group">
-       
-        <label class="col-sm-2 control-label">Datum</label>
-        <div class="col-sm-10" style="margin-bottom:20px">
-           
-            @Html.TextBoxFor(model=>model.Datum, new { @id="datum", @class="form-control" })
-            @Html.ValidationMessageFor(model => model.Datum)
-            
-        </div>
-    </div>
-    <br />
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Vrijeme</label>
-       
-        <div class="col-sm-10" style="margin-bottom:20px">
-           @Html.TextBoxFor(model => model.Vrijeme, "{0:HH:mm}", new {@id="timepicker", @class = "form-control" })
-
-    @Html.ValidationMessageFor(model => model.Vrijeme)
-            
-            </div>
-
-        </div>
-
-
-    <br />
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-info">Snimi</button>
-        </div>
-    </div>
-
-    <p id="error"></p>
-    <br />
-    
-
-
-}
-
-
-
-
-
-
-    <script src="~/scripts/jquery-3.3.1.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-    <script src="~/Content/js/pikaday.js"></script>
-  
-    <script type="text/javascript">
+<script type="text/javascript">
 
 
         var disable = false, picker = new Pikaday({
@@ -100,17 +115,17 @@
                return (date.getDay() === 0 || date.getDay() === 6);
            },
            format: 'DD/MM/YYYY',
-         
+
 
 
         });
 
-      
-      
-    </script>
 
-    <script type="text/javascript">
-      
+
+</script>
+
+<script type="text/javascript">
+
         $('#timepicker').timepicker({
             timeFormat: 'HH:mm',
             showDuration:true,
@@ -123,11 +138,9 @@
             dropdown: true,
             scrollbar: true,
            use24hours: true,
-        
+
         });
 
-    </script>
-   
-</body>
+</script>
+    </body>
 </html>
-

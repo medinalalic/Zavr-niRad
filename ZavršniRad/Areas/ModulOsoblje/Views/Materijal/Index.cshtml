@@ -34,7 +34,7 @@
 
 
 
-<div class="container" style="margin:10px 10px 10px 10px;">
+@*<div class="container" style="margin:10px 10px 10px 10px;">
 
     <br />
         <br />
@@ -103,6 +103,86 @@
 
   </div>
 
+</div>*@
+
+ <!-- /.row -->
+<div class="row" style="margin:15px 15px;">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Lista materijala
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Naziv</th>
+                                <th>Količina</th>
+                                <th>Datum</th>
+
+
+                                <th>Akcija</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ListaPotrošenih.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center">
+                                        <div class="nemarezultatapretrage">
+                                            Nema rezultata pretrage
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var x in Model.ListaPotrošenih)
+                                {
+                                    <tr>
+                                        <td>@x.Materijal.Naziv</td>
+                                        <td>@x.Kolicina</td>
+                                        <td>@x.Datum.ToString("dd/MM/yyyy")</td>
+                                        <td style='white-space: nowrap'>
+                                            @Ajax.ActionLink("Izmijeni", "Izmijeni", "Materijal", new { MaterijalId = x.Id }, new AjaxOptions() { UpdateTargetId = "materijal" }, new { @class = "btn btn-info" })
+
+
+                                            @Html.ActionLink("Obriši", "Obrisi", "Materijal", new { MaterijalId = x.Id }, new { onclick = "return confirm('Da li ste sigurni da želite izbrisati materijal?');", @class = "btn btn-info" })
+
+
+
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="text-center">
+                    @Html.PagedListPager((IPagedList)Model.ListaPotrošenih, page => Url.Action("Index", new
+   {
+       page,
+       search = Request.QueryString["search"],
+       matid = Request.QueryString["matId"]
+   }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-6 -->
+
+
+
 </div>
 <div style="margin:10px 60px 20px 60px;">
 
@@ -113,7 +193,8 @@
 
 
 </div>
-
+<br />
+<hr />
 <div class="panel panel-body">
     <div id="materijal"></div>
 </div>

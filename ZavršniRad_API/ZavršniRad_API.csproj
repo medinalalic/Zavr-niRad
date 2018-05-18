@@ -160,7 +160,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AutentifikacijaController.cs" />
     <Compile Include="Controllers\KorisnikController.cs" />
+    <Compile Include="Controllers\OcjenaController.cs" />
+    <Compile Include="Controllers\PacijentController.cs" />
+    <Compile Include="Controllers\PorukaController.cs" />
     <Compile Include="Controllers\PregledController.cs" />
+    <Compile Include="Controllers\TerminController.cs" />
     <Compile Include="Controllers\UslugaController.cs" />
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -239,9 +243,34 @@
     <Compile Include="UspostavljenaDijagnoza.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Neocjenjene_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_PacijentiAll_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Pacijent_ByIme_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_SlikaPrikaz_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_TerminiPretraga_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Usluge_All_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Usluge_ByNaziv_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Zubi_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\KorisniciVM.cs" />
     <Compile Include="ViewModel\PacijentVM.cs" />
     <Compile Include="ViewModel\PregledVM.cs" />
+    <Compile Include="ViewModel\TerminVM.cs" />
     <Compile Include="ViewModel\UslugaVM.cs" />
     <Compile Include="Zub.cs">
       <DependentUpon>Model1.tt</DependentUpon>

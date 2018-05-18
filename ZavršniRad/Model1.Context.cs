@@ -12,6 +12,8 @@ namespace ZavršniRad
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Stomatoloska_MLEntities1 : DbContext
     {
@@ -45,5 +47,32 @@ namespace ZavršniRad
         public virtual DbSet<Usluga> Uslugas { get; set; }
         public virtual DbSet<UspostavljenaDijagnoza> UspostavljenaDijagnozas { get; set; }
         public virtual DbSet<Zub> Zubs { get; set; }
+    
+        public virtual ObjectResult<usp_Usluge_All_Result> usp_Usluge_All()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Usluge_All_Result>("usp_Usluge_All");
+        }
+    
+        public virtual ObjectResult<usp_Usluge_ByNaziv_Result> usp_Usluge_ByNaziv(string naziv)
+        {
+            var nazivParameter = naziv != null ?
+                new ObjectParameter("Naziv", naziv) :
+                new ObjectParameter("Naziv", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Usluge_ByNaziv_Result>("usp_Usluge_ByNaziv", nazivParameter);
+        }
+    
+        public virtual ObjectResult<usp_Zubi_Result> usp_Zubi(Nullable<int> pacijentId, Nullable<int> brojZuba)
+        {
+            var pacijentIdParameter = pacijentId.HasValue ?
+                new ObjectParameter("PacijentId", pacijentId) :
+                new ObjectParameter("PacijentId", typeof(int));
+    
+            var brojZubaParameter = brojZuba.HasValue ?
+                new ObjectParameter("BrojZuba", brojZuba) :
+                new ObjectParameter("BrojZuba", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Zubi_Result>("usp_Zubi", pacijentIdParameter, brojZubaParameter);
+        }
     }
 }

@@ -158,9 +158,12 @@
                         <li>
                             <a href="@Url.Action("Index", "Usluge", new { area = "ModulOsoblje" })">Evidencija usluga</a>
                         </li>
-                        <li>
+                        @*<li>
                             @Html.ActionLink("Račun", "Prikaz", "Racun", new { area = "ModulOsoblje" }, new { })
-  </li>
+  </li>*@
+                        <li>
+                            @Html.ActionLink("Evidencija računa", "Index", "ListaRacuna", new { area = "ModulOsoblje" }, new { })
+                        </li>
                         <li>
                             @Html.ActionLink("Evidencija materijala", "Index", "Materijal", new { area = "ModulOsoblje" }, new { })
 
@@ -205,7 +208,8 @@
     <!-- /#page-wrapper -->
     <!-- /#wrapper -->
     <!-- jQuery -->
-    <script src=@Url.Content("/Content/Admin/vendor/jquery/jquery.min.js")></script>
+    @*<script src=@Url.Content("/Content/Admin/vendor/jquery/jquery.min.js")></script>*@
+    <script src="~/Content/Admin/vendor/jquery/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src=@Url.Content("/Content/Admin/vendor/bootstrap/js/bootstrap.min.js")></script>
 
@@ -215,8 +219,10 @@
     <script src=@Url.Content("/Content/Admin/vendor/metisMenu/metisMenu.min.js")></script>
     <!-- Morris Charts JavaScript -->
     <script src=@Url.Content("/Content/Admin/vendor/raphael/raphael.min.js")></script>
-    <script src=@Url.Content("/Content/Admin/vendor/morrisjs/morris.min.js")></script>
-    <script src=@Url.Content("/Content/Admin/data/morris-data.js")></script>
+    @*<script src=@Url.Content("/Content/Admin/vendor/morrisjs/morris.min.js")></script>*@
+    <script src="~/Content/Admin/vendor/morrisjs/morris.min.js"></script>
+    @*<script src=@Url.Content("/Content/Admin/data/morris-data.js")></script>*@
+    <script src="~/Content/Admin/data/morris-data.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src=@Url.Content("/Content/Admin/dist/js/sb-admin-2.js")></script>
 

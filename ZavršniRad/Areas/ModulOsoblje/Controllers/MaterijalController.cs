@@ -46,12 +46,13 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
             Model.materijal = UcitajMaterijale();
             Model.OsobljeId = k.Osoblje.Id;
             Model.Datum = DateTime.Now;
+            Session["Model"] = Model;
             return View("Dodaj", Model);
         }
         private List<SelectListItem> UcitajMaterijale()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
-            lista.Add(new SelectListItem { Value = null, Text = "Odaberite materijal" });
+            lista.Add(new SelectListItem { Value = 0.ToString(), Text = "Odaberite materijal" });
             lista.AddRange(ctx.Materijals.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Naziv }).ToList());
 
             return lista;
@@ -63,7 +64,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
             Korisnik k = Autentifikacija.GetLogiraniKorisnik(HttpContext);
             if (!ModelState.IsValid)
             {
-                return View("Izmijeni", stavke);
+                return PartialView("Dodaj", stavke);
             }
             else
             {

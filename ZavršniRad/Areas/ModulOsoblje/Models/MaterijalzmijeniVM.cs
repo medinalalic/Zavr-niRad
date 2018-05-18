@@ -16,7 +16,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Models
         public int Kolicina { get; set; }
         public DateTime Datum { get; set; }
         public int? OsobljeId { get; set; }
-        [Required]
+   
         public int? MaterijalId { get; set; }
     }
 }

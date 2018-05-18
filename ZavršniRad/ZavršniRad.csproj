@@ -666,12 +666,20 @@
     <Content Include="Content\Admin\less\variables.less" />
     <Content Include="Content\fonts\Comfortaa-Regular.ttf" />
     <Content Include="Content\fonts\Lato-Regular.ttf" />
+    <Content Include="Areas\ModulPacijent\Views\ZakaziTermin\ZauzetiTermini.cshtml" />
+    <Content Include="Areas\ModulOsoblje\Views\Lijek\Uredi.cshtml" />
+    <Content Include="Areas\ModulOsoblje\Views\Dijagnoza\Uredi.cshtml" />
+    <Content Include="Areas\ModulOsoblje\Views\ListaRacuna\Index.cshtml" />
+    <Content Include="Areas\ModulOsoblje\Views\ListaRacuna\Pregledi.cshtml" />
+    <Content Include="Areas\ModulOsoblje\Views\ListaRacuna\UnosRacuna.cshtml" />
+    <Content Include="Areas\ModulOsoblje\Views\ListaRacuna\PregledajRacune.cshtml" />
     <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy %285%29.pubxml" />
     <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy %286%29.pubxml" />
     <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy %287%29.pubxml" />
+    <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy %288%29.pubxml" />
     <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy.pubxml" />
     <None Include="scripts\jquery-3.3.1-vsdoc.js" />
     <Content Include="scripts\jquery-3.3.1.js" />
@@ -809,6 +817,7 @@
     <Compile Include="Areas\ModulOsoblje\Controllers\DijagnozaController.cs" />
     <Compile Include="Areas\ModulOsoblje\Controllers\HomeOController.cs" />
     <Compile Include="Areas\ModulOsoblje\Controllers\LijekController.cs" />
+    <Compile Include="Areas\ModulOsoblje\Controllers\ListaRacunaController.cs" />
     <Compile Include="Areas\ModulOsoblje\Controllers\MaterijalController.cs" />
     <Compile Include="Areas\ModulOsoblje\Controllers\ProfilController.cs" />
     <Compile Include="Areas\ModulOsoblje\Controllers\RacunController.cs" />
@@ -816,10 +825,12 @@
     <Compile Include="Areas\ModulOsoblje\Controllers\UslugeController.cs" />
     <Compile Include="Areas\ModulOsoblje\Models\DijagnozaDodajVM.cs" />
     <Compile Include="Areas\ModulOsoblje\Models\DijagnozaPrikazVM.cs" />
+    <Compile Include="Areas\ModulOsoblje\Models\HistorijaVM.cs" />
     <Compile Include="Areas\ModulOsoblje\Models\LijekDodajVM.cs" />
     <Compile Include="Areas\ModulOsoblje\Models\LijekPrikazVM.cs" />
     <Compile Include="Areas\ModulOsoblje\Models\MaterijalPrikazVM.cs" />
     <Compile Include="Areas\ModulOsoblje\Models\MaterijalzmijeniVM.cs" />
+    <Compile Include="Areas\ModulOsoblje\Models\PacijentPagingVM.cs" />
     <Compile Include="Areas\ModulOsoblje\Models\PrikaziUslugeVM.cs" />
     <Compile Include="Areas\ModulOsoblje\Models\RacunIzmijeni.cs" />
     <Compile Include="Areas\ModulOsoblje\Models\RacunPrikaz.cs" />
@@ -1001,6 +1012,15 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="UspostavljenaDijagnoza.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Usluge_All_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Usluge_ByNaziv_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Zubi_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Zub.cs">

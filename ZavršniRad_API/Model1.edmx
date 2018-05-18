@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Stomatoloska_MLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Stomatoloska_MLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -88,7 +88,8 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="JMBG" Type="nvarchar(max)" />
-          <Property Name="AddedOn" Type="datetime" Nullable="false" />
+          <Property Name="AddedOn" Type="datetime" />
+          <Property Name="Slika" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Porukas">
           <Key>
@@ -97,8 +98,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PacijentId" Type="int" Nullable="false" />
           <Property Name="StomatologId" Type="int" Nullable="false" />
-          <Property Name="From" Type="int" Nullable="false" />
-          <Property Name="To" Type="int" />
           <Property Name="TekstPoruke" Type="nvarchar(max)" />
           <Property Name="Datum" Type="datetime" Nullable="false" />
           <Property Name="Procitana" Type="bit" Nullable="false" />
@@ -479,6 +478,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_Neocjenjene" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
+          <Parameter Name="UslugaId" Type="int" Mode="In" />
+          <Parameter Name="PacijentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Pacijent_ByIme" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
+          <Parameter Name="Ime" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_PacijentiAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML" />
+        <Function Name="usp_SlikaPrikaz" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_TerminiPretraga" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
+          <Parameter Name="DatumOD" Type="datetime" Mode="In" />
+          <Parameter Name="DatumDO" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_Usluge_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML" />
+        <Function Name="usp_Usluge_ByNaziv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
+          <Parameter Name="Naziv" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_Zubi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
+          <Parameter Name="PacijentId" Type="int" Mode="In" />
+          <Parameter Name="BrojZuba" Type="int" Mode="In" />
+        </Function>
+        <Function Name="esp_Korisnik_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Ime" Type="nvarchar" Mode="In" />
+          <Parameter Name="Prezime" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mobitel" Type="nvarchar" Mode="In" />
+          <Parameter Name="Adresa" Type="nvarchar" Mode="In" />
+          <Parameter Name="User" Type="nvarchar" Mode="In" />
+          <Parameter Name="Lozinka" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="esp_Pacijents_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="JMBG" Type="nvarchar" Mode="In" />
+          <Parameter Name="Added" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_KorisniciPut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KorisnikID" Type="int" Mode="In" />
+          <Parameter Name="Ime" Type="nvarchar" Mode="In" />
+          <Parameter Name="Prezime" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Telefon" Type="nvarchar" Mode="In" />
+          <Parameter Name="KorisnickoIme" Type="nvarchar" Mode="In" />
+          <Parameter Name="Lozinka" Type="nvarchar" Mode="In" />
+          <Parameter Name="Adresa" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="Stomatoloska_MLModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dijagnozas" EntityType="Self.Dijagnozas" Schema="dbo" store:Type="Tables" />
@@ -593,8 +639,7 @@
             <End Role="UspostavljenaDijagnozas" EntitySet="UspostavljenaDijagnozas" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Stomatoloska_MLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -695,13 +740,14 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="JMBG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Korisnik" Relationship="Self.FK_dbo_Pacijents_dbo_Korisniks_Id" FromRole="Pacijents" ToRole="Korisniks" />
           <NavigationProperty Name="Ocjenas" Relationship="Self.FK_dbo_Ocjenas_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Ocjenas" />
           <NavigationProperty Name="Porukas" Relationship="Self.FK_dbo_Porukas_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Porukas" />
           <NavigationProperty Name="Pregleds" Relationship="Self.FK_dbo_Pregleds_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Pregleds" />
           <NavigationProperty Name="Racuns" Relationship="Self.FK_dbo_Racuns_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Racuns" />
           <NavigationProperty Name="Termins" Relationship="Self.FK_dbo_Termins_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Termins" />
+          <Property Name="Slika" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Poruka">
           <Key>
@@ -710,8 +756,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PacijentId" Type="Int32" Nullable="false" />
           <Property Name="StomatologId" Type="Int32" Nullable="false" />
-          <Property Name="From" Type="Int32" Nullable="false" />
-          <Property Name="To" Type="Int32" />
           <Property Name="TekstPoruke" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Procitana" Type="Boolean" Nullable="false" />
@@ -1231,7 +1275,110 @@
             <End Role="Zubs" EntitySet="Zubs" />
             <End Role="UspostavljenaDijagnozas" EntitySet="UspostavljenaDijagnozas" />
           </AssociationSet>
+          <FunctionImport Name="usp_Usluge_All" ReturnType="Collection(Stomatoloska_MLModel.usp_Usluge_All_Result)" />
+          <FunctionImport Name="usp_Usluge_ByNaziv" ReturnType="Collection(Stomatoloska_MLModel.usp_Usluge_ByNaziv_Result)">
+          <Parameter Name="Naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Zubi" ReturnType="Collection(Stomatoloska_MLModel.usp_Zubi_Result)">
+            <Parameter Name="PacijentId" Mode="In" Type="Int32" />
+            <Parameter Name="BrojZuba" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="esp_Korisnik_Insert" ReturnType="Collection(Decimal)">
+            <Parameter Name="Ime" Mode="In" Type="String" />
+            <Parameter Name="Prezime" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Mobitel" Mode="In" Type="String" />
+            <Parameter Name="Adresa" Mode="In" Type="String" />
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="Lozinka" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="esp_Pacijents_Insert">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="JMBG" Mode="In" Type="String" />
+            <Parameter Name="Added" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Neocjenjene" ReturnType="Collection(Stomatoloska_MLModel.usp_Neocjenjene_Result)">
+            <Parameter Name="UslugaId" Mode="In" Type="Int32" />
+            <Parameter Name="PacijentId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_KorisniciPut">
+            <Parameter Name="KorisnikID" Mode="In" Type="Int32" />
+            <Parameter Name="Ime" Mode="In" Type="String" />
+            <Parameter Name="Prezime" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Telefon" Mode="In" Type="String" />
+            <Parameter Name="KorisnickoIme" Mode="In" Type="String" />
+            <Parameter Name="Lozinka" Mode="In" Type="String" />
+            <Parameter Name="Adresa" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Pacijent_ByIme" ReturnType="Collection(Stomatoloska_MLModel.usp_Pacijent_ByIme_Result)">
+          <Parameter Name="Ime" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PacijentiAll" ReturnType="Collection(Stomatoloska_MLModel.usp_PacijentiAll_Result)" />
+          <FunctionImport Name="usp_SlikaPrikaz" ReturnType="Collection(Stomatoloska_MLModel.usp_SlikaPrikaz_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TerminiPretraga" ReturnType="Collection(Stomatoloska_MLModel.usp_TerminiPretraga_Result)">
+            <Parameter Name="DatumOD" Mode="In" Type="DateTime" />
+            <Parameter Name="DatumDO" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="usp_Usluge_All_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Vrsta" Nullable="true" />
+          <Property Type="Binary" Name="Slika" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Usluge_ByNaziv_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Vrsta" Nullable="true" />
+          <Property Type="Binary" Name="Slika" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Zubi_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="DatumPregleda" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="VrijemePregleda" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Vrsta" Nullable="true" />
+          <Property Type="Decimal" Name="Cijena" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Naziv" Nullable="true" />
+          <Property Type="String" Name="Napomena" Nullable="true" />
+          <Property Type="Int32" Name="BrojZuba" Nullable="false" />
+          <Property Type="String" Name="NazivZuba" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Neocjenjene_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Vrsta" Nullable="true" />
+          <Property Type="Binary" Name="Slika" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Pacijent_ByIme_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="JMBG" Nullable="true" />
+          <Property Type="DateTime" Name="AddedOn" Nullable="true" Precision="23" />
+          <Property Type="Binary" Name="Slika" Nullable="true" />
+          <Property Type="String" Name="Ime" Nullable="true" />
+          <Property Type="String" Name="Prezime" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_PacijentiAll_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="JMBG" Nullable="true" />
+          <Property Type="DateTime" Name="AddedOn" Nullable="true" Precision="23" />
+          <Property Type="Binary" Name="Slika" Nullable="true" />
+          <Property Type="String" Name="Ime" Nullable="true" />
+          <Property Type="String" Name="Prezime" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_SlikaPrikaz_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Binary" Name="Slika" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_TerminiPretraga_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="Datum" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Vrijeme" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="Odobren" Nullable="false" />
+          <Property Type="Int32" Name="PacijentId" Nullable="false" />
+          <Property Type="String" Name="RazlogPosjete" Nullable="true" />
+          <Property Type="String" Name="Ime" Nullable="true" />
+          <Property Type="String" Name="Prezime" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1325,6 +1472,7 @@
           <EntitySetMapping Name="Pacijents">
             <EntityTypeMapping TypeName="Stomatoloska_MLModel.Pacijent">
               <MappingFragment StoreEntitySet="Pacijents">
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="JMBG" ColumnName="JMBG" />
                 <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
@@ -1337,8 +1485,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
                 <ScalarProperty Name="StomatologId" ColumnName="StomatologId" />
-                <ScalarProperty Name="From" ColumnName="From" />
-                <ScalarProperty Name="To" ColumnName="To" />
                 <ScalarProperty Name="TekstPoruke" ColumnName="TekstPoruke" />
                 <ScalarProperty Name="Datum" ColumnName="Datum" />
                 <ScalarProperty Name="Procitana" ColumnName="Procitana" />
@@ -1455,6 +1601,97 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_Usluge_All" FunctionName="Stomatoloska_MLModel.Store.usp_Usluge_All">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_Usluge_All_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Usluge_ByNaziv" FunctionName="Stomatoloska_MLModel.Store.usp_Usluge_ByNaziv">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_Usluge_ByNaziv_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Zubi" FunctionName="Stomatoloska_MLModel.Store.usp_Zubi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_Zubi_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DatumPregleda" ColumnName="DatumPregleda" />
+                <ScalarProperty Name="VrijemePregleda" ColumnName="VrijemePregleda" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+                <ScalarProperty Name="BrojZuba" ColumnName="BrojZuba" />
+                <ScalarProperty Name="NazivZuba" ColumnName="NazivZuba" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="esp_Korisnik_Insert" FunctionName="Stomatoloska_MLModel.Store.esp_Korisnik_Insert" />
+          <FunctionImportMapping FunctionImportName="esp_Pacijents_Insert" FunctionName="Stomatoloska_MLModel.Store.esp_Pacijents_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_Neocjenjene" FunctionName="Stomatoloska_MLModel.Store.usp_Neocjenjene">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_Neocjenjene_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_KorisniciPut" FunctionName="Stomatoloska_MLModel.Store.usp_KorisniciPut" />
+          <FunctionImportMapping FunctionImportName="usp_Pacijent_ByIme" FunctionName="Stomatoloska_MLModel.Store.usp_Pacijent_ByIme">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_Pacijent_ByIme_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PacijentiAll" FunctionName="Stomatoloska_MLModel.Store.usp_PacijentiAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_PacijentiAll_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_SlikaPrikaz" FunctionName="Stomatoloska_MLModel.Store.usp_SlikaPrikaz">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_SlikaPrikaz_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TerminiPretraga" FunctionName="Stomatoloska_MLModel.Store.usp_TerminiPretraga">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_TerminiPretraga_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Vrijeme" ColumnName="Vrijeme" />
+                <ScalarProperty Name="Odobren" ColumnName="Odobren" />
+                <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+                <ScalarProperty Name="RazlogPosjete" ColumnName="RazlogPosjete" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

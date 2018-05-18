@@ -50,6 +50,8 @@ namespace ZavršniRad.Areas.ModulAdministrator.Controllers
             await EmailServices.SendEmailAsync(pacijent.Korisnik.Email, "Dobro došli", message);
 
             return View("EmailSent");
+    
+
         }
 
         [HttpGet]

@@ -21,23 +21,46 @@ namespace ZavršniRad.Areas.ModulStomatolog.Models
         public int PacijentId { get; set; }
         public int TerminId { get; set; }
         public bool IsObavljen { get; set; }
+       
 
         public List<SelectListItem> _Zub { get; set; }
+        [Required]
         public int? zubID { get; set; }
+      
+
         public List<SelectListItem> _Dijagnoza { get; set; }
+        [Required]
+
         public int? dijagnozaID { get; set; }
+       
+
         public List<SelectListItem> _Lijek { get; set; }
+        [Required]
+
         public int? lijekID { get; set; }
+       
+
         public List<SelectListItem> _Usluga { get; set; }
+        [Required]
+
         public int? uslugaID { get; set; }
 
 
-
+        [Required(ErrorMessage ="Cijena je obavezno polje")]
         public decimal Cijena { get; set; }
+        [Required]
+        [Range(1.0, 5.0)]
         public int Intenzitet { get; set; }
+        [Required]
+        [Range(1.0, 5.0)]
         public int Vrsta { get; set; }
+        [Required(ErrorMessage ="Količina je obavezno polje")]
+        [Range(1.0,5.0)]
+
 
         public int Kolicina { get; set; }
+        [Required(ErrorMessage ="Napomena je obavezno polje")]
+
 
         public string Napomena { get; set; }
 

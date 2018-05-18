@@ -72,63 +72,69 @@ namespace ZavršniRad.Areas.ModulStomatolog.Controllers
 
         //id je termin 
         public ActionResult SnimiPregled(NoviPregledVM Model)
-        {
-            var p= (NoviPregledVM)Session["Model"];
-            Pregled pregledDB;
+        { var p = (NoviPregledVM)Session["Model"];
+            if (!ModelState.IsValid)
+            {
+                return View("UnesiPregled", p);
+            }
+            else
+            {
+               
+                Pregled pregledDB;
                 pregledDB = new Pregled();
                 ctx.Pregleds.Add(pregledDB);
-           
 
-               pregledDB.DatumPregleda =p.DatumPregleda;
+
+                pregledDB.DatumPregleda = p.DatumPregleda;
                 pregledDB.VrijemePregleda = p.VrijemePregleda;
                 pregledDB.PacijentId = p.PacijentId;
-                pregledDB.StomatologId =p.StomatologId;
-            pregledDB.TerminId = p.TerminId;
-            pregledDB.IsObavljen = true;
-           
+                pregledDB.StomatologId = p.StomatologId;
+                pregledDB.TerminId = p.TerminId;
+                pregledDB.IsObavljen = true;
 
 
-          ctx.SaveChanges();
-            //ViewData["pregled"] = pregledDB;
 
-            IzvrsenaUsluga usl = new IzvrsenaUsluga();
-            usl.UslugaId = Model.uslugaID.Value;
-            usl.ZubId = Model.zubID.Value;
-            usl.Cijena = Model.Cijena;
-            usl.PregledId = ctx.Pregleds.Where(c=>c.PacijentId==p.PacijentId && c.TerminId==p.TerminId).FirstOrDefault().Id;
-            ctx.IzvrsenaUslugas.Add(usl);
-            ctx.SaveChanges();
+                ctx.SaveChanges();
+                //ViewData["pregled"] = pregledDB;
 
-            UspostavljenaDijagnoza dij = new UspostavljenaDijagnoza();
-            dij.DijagnozaId = Model.dijagnozaID.Value;
-            dij.ZubId = Model.zubID.Value;
-            dij.Intenzitet = Model.Intenzitet;
-            dij.Napomena = Model.Napomena;
-            dij.PregledId = ctx.Pregleds.Where(c => c.PacijentId == p.PacijentId && c.TerminId == p.TerminId).FirstOrDefault().Id;
-            ctx.UspostavljenaDijagnozas.Add(dij);
-            ctx.SaveChanges();
+                IzvrsenaUsluga usl = new IzvrsenaUsluga();
+                usl.UslugaId = Model.uslugaID.Value;
+                usl.ZubId = Model.zubID.Value;
+                usl.Cijena = Model.Cijena;
+                usl.PregledId = ctx.Pregleds.Where(c => c.PacijentId == p.PacijentId && c.TerminId == p.TerminId).FirstOrDefault().Id;
+                ctx.IzvrsenaUslugas.Add(usl);
+                ctx.SaveChanges();
 
-            Terapija t = new Terapija();
-            t.LijekId = Model.lijekID.Value;
-            t.Količina = Model.Kolicina;
-            t.Vrsta = Model.Vrsta;
-            t.PregledId = ctx.Pregleds.Where(c => c.PacijentId == p.PacijentId && c.TerminId == p.TerminId).FirstOrDefault().Id;
-            ctx.Terapijas.Add(t);
+                UspostavljenaDijagnoza dij = new UspostavljenaDijagnoza();
+                dij.DijagnozaId = Model.dijagnozaID.Value;
+                dij.ZubId = Model.zubID.Value;
+                dij.Intenzitet = Model.Intenzitet;
+                dij.Napomena = Model.Napomena;
+                dij.PregledId = ctx.Pregleds.Where(c => c.PacijentId == p.PacijentId && c.TerminId == p.TerminId).FirstOrDefault().Id;
+                ctx.UspostavljenaDijagnozas.Add(dij);
+                ctx.SaveChanges();
 
-             ctx.SaveChanges();
+                Terapija t = new Terapija();
+                t.LijekId = Model.lijekID.Value;
+                t.Količina = Model.Kolicina;
+                t.Vrsta = Model.Vrsta;
+                t.PregledId = ctx.Pregleds.Where(c => c.PacijentId == p.PacijentId && c.TerminId == p.TerminId).FirstOrDefault().Id;
+                ctx.Terapijas.Add(t);
 
-            return RedirectToAction("Index",new {id=p.TerminId,pacijentId=p.PacijentId });
-         
-            //TempData["Uspjeh"] = "Datum: " + pregledDB.DatumPregleda.ToString("dd/MM/yyyy") 
-            //    +"/"
-            //    + "Vrijeme: " + pregledDB.VrijemePregleda.ToShortTimeString();
+                ctx.SaveChanges();
 
+                return RedirectToAction("Index", new { id = p.TerminId, pacijentId = p.PacijentId });
+
+                //TempData["Uspjeh"] = "Datum: " + pregledDB.DatumPregleda.ToString("dd/MM/yyyy") 
+                //    +"/"
+                //    + "Vrijeme: " + pregledDB.VrijemePregleda.ToShortTimeString();
+            }
         }
 
         private List<SelectListItem> UcitajLijek()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
-            lista.Add(new SelectListItem { Value = 0.ToString(), Text = "Odaberite lijek" });
+         //   lista.Add(new SelectListItem { Value = 0.ToString(), Text = "Odaberite lijek" });
 
             lista.AddRange(ctx.Lijeks.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Naziv }).ToList());
             return lista;
@@ -137,7 +143,7 @@ namespace ZavršniRad.Areas.ModulStomatolog.Controllers
         private List<SelectListItem> UcitajUslugu()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
-            lista.Add(new SelectListItem { Value = 0.ToString(), Text = "Odaberite uslugu" });
+           // lista.Add(new SelectListItem { Value = 0.ToString(), Text = "Odaberite uslugu" });
 
             lista.AddRange(ctx.Uslugas.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Vrsta }).ToList());
             return lista;
@@ -146,7 +152,7 @@ namespace ZavršniRad.Areas.ModulStomatolog.Controllers
         private List<SelectListItem> UcitajDijagnozu()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
-            lista.Add(new SelectListItem { Value = 0.ToString(), Text = "Odaberite dijagnozu" });
+         //   lista.Add(new SelectListItem { Value = 0.ToString(), Text = "Odaberite dijagnozu" });
 
             lista.AddRange(ctx.Dijagnozas.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Naziv }).ToList());
             return lista;
@@ -155,7 +161,7 @@ namespace ZavršniRad.Areas.ModulStomatolog.Controllers
         private List<SelectListItem> UcitajZub()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
-            lista.Add(new SelectListItem { Value = 0.ToString(), Text = "Odaberite zub" });
+         //   lista.Add(new SelectListItem { Value = 0.ToString(), Text = "Odaberite zub" });
 
             lista.AddRange(ctx.Zubs.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.BrojZuba.ToString() + "-" + x.NazivZuba }).ToList());
             return lista;

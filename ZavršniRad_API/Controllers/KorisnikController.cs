@@ -35,56 +35,36 @@ namespace ZavršniRad_API.Controllers
 
             return Ok(korisnik);
         }
-
-        // PUT: api/Korisnik/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutKorisnik(int id, Korisnik korisnik)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != korisnik.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(korisnik).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!KorisnikExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
       
+      
+        // PUT: api/Korisnik/5
+       
+        [ResponseType(typeof(void))]
+        [Route("api/Korisnik/Put/{korisnik}")]
+
+        public void Put([FromBody]Korisnik korisnik)
+        {
+            db.usp_KorisniciPut(korisnik.Id, korisnik.Ime, korisnik.Prezime, korisnik.Email,
+                korisnik.Mobitel, korisnik.KorisnickoIme, korisnik.Lozinka, korisnik.Adresa);
+        }
+
         // POST: api/Korisnik
         [ResponseType(typeof(Korisnik))]
-        public IHttpActionResult PostKorisnik(Korisnik korisnik,Pacijent pacijent)
+        public IHttpActionResult PostKorisnik(Korisnik korisnik)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+
+            korisnik.Id = Convert.ToInt32(db.esp_Korisnik_Insert(korisnik.Ime,korisnik.Prezime,
+                korisnik.Email,korisnik.Mobitel,korisnik.Adresa,korisnik.KorisnickoIme,
+                korisnik.Lozinka).FirstOrDefault());
+
            
-            
-            db.Korisniks.Add(korisnik);
-            pacijent.Id = korisnik.Id;
-            db.Pacijents.Add(pacijent);
-            db.SaveChanges();
+                db.esp_Pacijents_Insert(korisnik.Id,null,DateTime.Now);
+           
 
             return CreatedAtRoute("DefaultApi", new { id = korisnik.Id }, korisnik);
         }

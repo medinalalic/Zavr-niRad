@@ -19,69 +19,90 @@
     <hr />
 </div>
 <br />
-<div class="container">
-    <table style="margin-left:40px;">
-        <thead>
-            <tr>
-                <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Izvršena usluga</td>
-                <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Uspostavljena dijagnoza</td>
-                <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Terapija</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding:20px 20px 20px 20px;background-color:lightblue">
-                  
-                       
-                            <div class="form-group">
-                                Usluga:   @Html.TextBoxFor(model => model.NazivUsluge, new { @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="form-group">
-                                Cijena (KM):   @Html.TextBoxFor(m => m.CijenaUsluge, new { @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="form-group">
-                                Zub:   @Html.TextBoxFor(m => m.NazivZuba, new { @class = "form-control", @readonly = "readonly" })
-                            </div>
-                        
-                  
+<!-- /.row -->
+<div class="row" style="margin:15px 15px;">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Detalji pregleda
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Izvršena usluga</th>
+                                <th>Uspostavljena dijagnoza</th>
+                                <th>Terapija</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:20px 20px 20px 20px;">
+                                  
+                                   
+                                            <div class="form-group">
+                                                Usluga:   @Html.TextBoxFor(m => m.NazivUsluge, new { @class = "form-control", @readonly = "readonly" })
+                                            </div>
+                                            <div class="form-group">
+                                                Cijena (KM):   @Html.TextBoxFor(m => m.CijenaUsluge, new { @class = "form-control", @readonly = "readonly" })
+                                            </div>
+                                            <div class="form-group">
+                                                Zub:   @Html.TextBoxFor(m => m.NazivZuba, new { @class = "form-control", @readonly = "readonly" })
+                                            </div>
+                                 
+                                </td>
 
-                </td>
+                                <td style="padding:20px 20px 20px 20px;">
+                                    
+                                            <div class="form-group">
+                                                Dijagnoza:    @Html.TextBoxFor(m => m.Dijagnoza, new { @class = "form-control", @readonly = "readonly" })
+                                            </div>
+                                            <div class="form-group">
+                                                Napomena:    @Html.TextAreaFor(m => m.Napomena, new { @class = "form-control", @readonly = "readonly", @row = "4" })
+                                            </div>
+                                    
 
-                <td style="padding:20px 20px 20px 20px;background-color:lightblue">
-                  
-                    
-                            <div class="form-group">
-                                Dijagnoza:    @Html.TextBoxFor(m => m.Dijagnoza, new { @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="form-group">
-                                Napomena:    @Html.TextAreaFor(m => m.Napomena, new { @class = "form-control", @readonly = "readonly", @row = "4" })
-                            </div>
-                       
-                   
-
-                </td>
+                                </td>
 
 
 
 
-                <td style="padding:20px 20px 20px 20px;background-color:lightblue">
-                    
-                       
-                            <div class="form-group">
-                                Lijek: @Html.TextBoxFor(m => m.Lijek, new { @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="form-group">
-                                Količina: @Html.TextBoxFor(m => m.Kolicina, new { @class = "form-control", @readonly = "readonly" })
-                            </div>
-                       
-                    
-                </td>
-            </tr>
+                                <td style="padding:20px 20px 20px 20px;">
+                                 
+                                       
+                                            <div class="form-group">
+                                                Lijek: @Html.TextBoxFor(m => m.Lijek, new { @class = "form-control", @readonly = "readonly" })
+                                            </div>
+                                            <div class="form-group">
+                                                Količina: @Html.TextBoxFor(m => m.Kolicina, new { @class = "form-control", @readonly = "readonly" })
+                                            </div>
+                                       
+                                   
+                                </td>
+                            </tr>
 
-        </tbody>
-    </table>
+                        </tbody>
+                    </table>
 
-    <script src="~/Scripts/bootstrap.min.js"></script>
+
+
+
+
+                </div>
+
+
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-6 -->
+
+
+
 </div>
-
+<script src="~/Scripts/bootstrap.min.js"></script>
 

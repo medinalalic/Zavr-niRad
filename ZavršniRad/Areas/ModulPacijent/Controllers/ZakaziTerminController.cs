@@ -72,7 +72,16 @@ namespace ZavršniRad.Areas.ModulPacijent.Controllers
 
         }
 
+        public ActionResult ZauzetiTermini(int? page)
+        {
+            IPagedList<Termin> op;
+             op = ctx.Termins.Where(c=>c.Odobren==true && c.Datum>=DateTime.Today).ToList().ToPagedList(page ?? 1, 3);
+            TerminListaVM model = new TerminListaVM { };
+            model.TerminList = op;
 
+
+            return View(model);
+        }
 
         public ActionResult Obrisi(int TerminID)
         {
@@ -97,7 +106,7 @@ namespace ZavršniRad.Areas.ModulPacijent.Controllers
             Termin terminDB;
             if (!ModelState.IsValid)
             {
-               return View("Dodaj", termin);
+               return PartialView("Dodaj", termin);
             }
             else
             {

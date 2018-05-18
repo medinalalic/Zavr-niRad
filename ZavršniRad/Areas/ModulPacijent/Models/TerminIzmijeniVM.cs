@@ -12,7 +12,7 @@ namespace ZavršniRad.Areas.ModulPacijent.Models
 
        
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Razlog je obavezno polje!")]
         public string Razlog { get; set; }
         public bool Odobren { get; set; }
         [Required(ErrorMessage = "Datum je obavezno polje!")]

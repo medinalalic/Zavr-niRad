@@ -35,5 +35,27 @@ namespace ZavršniRad_API.Controllers
             }).FirstOrDefault();
             return k;
         }
+
+        [HttpGet]
+        [Route("api/Autentifikacija/ProvjeraStomatolog/{username}/{lozinka}")]
+        public KorisniciVM ProvjeraStomatolog(string username, string lozinka)
+        {
+
+            KorisniciVM k = ctx.Korisniks.Where(x => x.KorisnickoIme == username && x.Lozinka == lozinka).
+                Include(x => x.Stomatolog).Select(x => new KorisniciVM
+                {
+                    Ime = x.Ime,
+                    Prezime = x.Prezime,
+                    KorisnickoIme = x.KorisnickoIme,
+                    Lozinka = x.Lozinka,
+                    Email = x.Email,
+                    Id = x.Id,
+                    Adresa = x.Adresa,
+                    Mobitel = x.Mobitel,
+                    Aktivan = x.Aktivan,
+                    IsAdmin = x.IsAdmin
+                }).FirstOrDefault();
+            return k;
+        }
     }
 }

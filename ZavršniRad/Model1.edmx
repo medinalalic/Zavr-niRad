@@ -88,7 +88,8 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="JMBG" Type="nvarchar(max)" />
-          <Property Name="AddedOn" Type="datetime" Nullable="false" />
+          <Property Name="AddedOn" Type="datetime" />
+          <Property Name="Slika" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Porukas">
           <Key>
@@ -97,8 +98,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PacijentId" Type="int" Nullable="false" />
           <Property Name="StomatologId" Type="int" Nullable="false" />
-          <Property Name="From" Type="int" Nullable="false" />
-          <Property Name="To" Type="int" />
           <Property Name="TekstPoruke" Type="nvarchar(max)" />
           <Property Name="Datum" Type="datetime" Nullable="false" />
           <Property Name="Procitana" Type="bit" Nullable="false" />
@@ -135,6 +134,7 @@
           <Property Name="Datum" Type="datetime" Nullable="false" />
           <Property Name="OsobljeId" Type="int" />
           <Property Name="PacijentId" Type="int" />
+          <Property Name="PregledId" Type="int" />
         </EntityType>
         <EntityType Name="Stomatologs">
           <Key>
@@ -203,6 +203,18 @@
           <Property Name="BrojZuba" Type="int" Nullable="false" />
           <Property Name="NazivZuba" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK__Racuns__PregledI__1F2E9E6D">
+          <End Role="Pregleds" Type="Self.Pregleds" Multiplicity="0..1" />
+          <End Role="Racuns" Type="Self.Racuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregleds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Racuns">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId">
           <End Role="Pregleds" Type="Self.Pregleds" Multiplicity="1" />
           <End Role="IzvrsenaUslugas" Type="Self.IzvrsenaUslugas" Multiplicity="*" />
@@ -479,6 +491,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_Usluge_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML" />
+        <Function Name="usp_Usluge_ByNaziv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
+          <Parameter Name="Naziv" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_Zubi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
+          <Parameter Name="PacijentId" Type="int" Mode="In" />
+          <Parameter Name="BrojZuba" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="Stomatoloska_MLModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dijagnozas" EntityType="Self.Dijagnozas" Schema="dbo" store:Type="Tables" />
@@ -500,6 +520,10 @@
           <EntitySet Name="Uslugas" EntityType="Self.Uslugas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UspostavljenaDijagnozas" EntityType="Self.UspostavljenaDijagnozas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zubs" EntityType="Self.Zubs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Racuns__PregledI__1F2E9E6D" Association="Self.FK__Racuns__PregledI__1F2E9E6D">
+            <End Role="Pregleds" EntitySet="Pregleds" />
+            <End Role="Racuns" EntitySet="Racuns" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId" Association="Self.FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId">
             <End Role="Pregleds" EntitySet="Pregleds" />
             <End Role="IzvrsenaUslugas" EntitySet="IzvrsenaUslugas" />
@@ -694,13 +718,14 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="JMBG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Korisnik" Relationship="Self.FK_dbo_Pacijents_dbo_Korisniks_Id" FromRole="Pacijents" ToRole="Korisniks" />
           <NavigationProperty Name="Ocjenas" Relationship="Self.FK_dbo_Ocjenas_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Ocjenas" />
           <NavigationProperty Name="Porukas" Relationship="Self.FK_dbo_Porukas_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Porukas" />
           <NavigationProperty Name="Pregleds" Relationship="Self.FK_dbo_Pregleds_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Pregleds" />
           <NavigationProperty Name="Racuns" Relationship="Self.FK_dbo_Racuns_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Racuns" />
           <NavigationProperty Name="Termins" Relationship="Self.FK_dbo_Termins_dbo_Pacijents_PacijentId" FromRole="Pacijents" ToRole="Termins" />
+          <Property Name="Slika" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Poruka">
           <Key>
@@ -709,8 +734,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PacijentId" Type="Int32" Nullable="false" />
           <Property Name="StomatologId" Type="Int32" Nullable="false" />
-          <Property Name="From" Type="Int32" Nullable="false" />
-          <Property Name="To" Type="Int32" />
           <Property Name="TekstPoruke" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Procitana" Type="Boolean" Nullable="false" />
@@ -746,6 +769,7 @@
           <NavigationProperty Name="Termin" Relationship="Self.FK_dbo_Pregleds_dbo_Termins_TerminId" FromRole="Pregleds" ToRole="Termins" />
           <NavigationProperty Name="Terapijas" Relationship="Self.FK_dbo_Terapijas_dbo_Pregleds_PregledId" FromRole="Pregleds" ToRole="Terapijas" />
           <NavigationProperty Name="UspostavljenaDijagnozas" Relationship="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId" FromRole="Pregleds" ToRole="UspostavljenaDijagnozas" />
+          <NavigationProperty Name="Racuns" Relationship="Stomatoloska_MLModel.FK__Racuns__PregledI__1F2E9E6D" FromRole="Pregled" ToRole="Racun" />
         </EntityType>
         <EntityType Name="Racun">
           <Key>
@@ -759,6 +783,8 @@
           <Property Name="PacijentId" Type="Int32" />
           <NavigationProperty Name="Osoblje" Relationship="Self.FK_dbo_Racuns_dbo_Osobljes_OsobljeId" FromRole="Racuns" ToRole="Osobljes" />
           <NavigationProperty Name="Pacijent" Relationship="Self.FK_dbo_Racuns_dbo_Pacijents_PacijentId" FromRole="Racuns" ToRole="Pacijents" />
+          <Property Name="PregledId" Type="Int32" />
+          <NavigationProperty Name="Pregled" Relationship="Stomatoloska_MLModel.FK__Racuns__PregledI__1F2E9E6D" FromRole="Racun" ToRole="Pregled" />
         </EntityType>
         <EntityType Name="Stomatolog">
           <Key>
@@ -1230,7 +1256,52 @@
             <End Role="Zubs" EntitySet="Zubs" />
             <End Role="UspostavljenaDijagnozas" EntitySet="UspostavljenaDijagnozas" />
           </AssociationSet>
+          <FunctionImport Name="usp_Usluge_All" ReturnType="Collection(Stomatoloska_MLModel.usp_Usluge_All_Result)" />
+          <FunctionImport Name="usp_Usluge_ByNaziv" ReturnType="Collection(Stomatoloska_MLModel.usp_Usluge_ByNaziv_Result)">
+          <Parameter Name="Naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Zubi" ReturnType="Collection(Stomatoloska_MLModel.usp_Zubi_Result)">
+            <Parameter Name="PacijentId" Mode="In" Type="Int32" />
+            <Parameter Name="BrojZuba" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <AssociationSet Name="FK__Racuns__PregledI__1F2E9E6D" Association="Stomatoloska_MLModel.FK__Racuns__PregledI__1F2E9E6D">
+            <End Role="Pregled" EntitySet="Pregleds" />
+            <End Role="Racun" EntitySet="Racuns" />
+          </AssociationSet>
         </EntityContainer>
+        <ComplexType Name="usp_Usluge_All_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Vrsta" Nullable="true" />
+          <Property Type="Binary" Name="Slika" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Usluge_ByNaziv_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Vrsta" Nullable="true" />
+          <Property Type="Binary" Name="Slika" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Zubi_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="DatumPregleda" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="VrijemePregleda" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Vrsta" Nullable="true" />
+          <Property Type="Decimal" Name="Cijena" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Naziv" Nullable="true" />
+          <Property Type="String" Name="Napomena" Nullable="true" />
+          <Property Type="Int32" Name="BrojZuba" Nullable="false" />
+          <Property Type="String" Name="NazivZuba" Nullable="true" />
+        </ComplexType>
+        <Association Name="FK__Racuns__PregledI__1F2E9E6D">
+          <End Type="Stomatoloska_MLModel.Pregled" Role="Pregled" Multiplicity="0..1" />
+          <End Type="Stomatoloska_MLModel.Racun" Role="Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregled">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1324,6 +1395,7 @@
           <EntitySetMapping Name="Pacijents">
             <EntityTypeMapping TypeName="Stomatoloska_MLModel.Pacijent">
               <MappingFragment StoreEntitySet="Pacijents">
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="JMBG" ColumnName="JMBG" />
                 <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
@@ -1336,8 +1408,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
                 <ScalarProperty Name="StomatologId" ColumnName="StomatologId" />
-                <ScalarProperty Name="From" ColumnName="From" />
-                <ScalarProperty Name="To" ColumnName="To" />
                 <ScalarProperty Name="TekstPoruke" ColumnName="TekstPoruke" />
                 <ScalarProperty Name="Datum" ColumnName="Datum" />
                 <ScalarProperty Name="Procitana" ColumnName="Procitana" />
@@ -1371,6 +1441,7 @@
           <EntitySetMapping Name="Racuns">
             <EntityTypeMapping TypeName="Stomatoloska_MLModel.Racun">
               <MappingFragment StoreEntitySet="Racuns">
+                <ScalarProperty Name="PregledId" ColumnName="PregledId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Uplaćeno" ColumnName="Uplaćeno" />
                 <ScalarProperty Name="Cijena" ColumnName="Cijena" />
@@ -1454,6 +1525,39 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_Usluge_All" FunctionName="Stomatoloska_MLModel.Store.usp_Usluge_All">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_Usluge_All_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Usluge_ByNaziv" FunctionName="Stomatoloska_MLModel.Store.usp_Usluge_ByNaziv">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_Usluge_ByNaziv_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Zubi" FunctionName="Stomatoloska_MLModel.Store.usp_Zubi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_Zubi_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DatumPregleda" ColumnName="DatumPregleda" />
+                <ScalarProperty Name="VrijemePregleda" ColumnName="VrijemePregleda" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+                <ScalarProperty Name="BrojZuba" ColumnName="BrojZuba" />
+                <ScalarProperty Name="NazivZuba" ColumnName="NazivZuba" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

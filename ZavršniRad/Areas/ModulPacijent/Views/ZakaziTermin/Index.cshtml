@@ -103,85 +103,106 @@
 
 
 
-<br />
-<div class="container" style="margin:20px 20px;">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Datum</th>
-                <th>Vrijeme</th>
-                <th>Razlog</th>
-                <th>Odobren</th>
-                <th>Otkaži termin</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.TerminList.Count() == 0)
+
+
+<!-- /.row -->
+<div class="row" style="margin:15px 15px;">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Lista termina
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Datum</th>
+                                <th>Vrijeme</th>
+                                <th>Razlog</th>
+                                <th>Odobren</th>
+                                <th>Otkaži termin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.TerminList.Count() == 0)
             {
-                <tr>
-                    <td colspan="6" class="text-center">
-                        <div class="nemarezultatapretrage">
-                            Nema rezultata pretrage
+                                <tr>
+                                    <td colspan="6" class="text-center">
+                                        <div class="nemarezultatapretrage">
+                                            Nema rezultata pretrage
 
-                        </div>
-                    </td>
-                </tr>
-            }
-            else
-            {
-
-                foreach (var x in Model.TerminList)
-                {
-                    <tr>
-
-                        <td> @x.Datum.ToString("dd/MM/yyyy")</td>
-                        <td> @x.Vrijeme.ToShortTimeString() h</td>
-                        <td> @x.RazlogPosjete</td>
-                        <td>
-                            @if (x.Odobren == true)
-                            { @Html.Raw("DA")}
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
                             else
-                            { @Html.Raw("NE")}
-                        </td>
-
-                        <td>
-                            @if (((x.Datum == DateTime.Now.Date)) && x.Odobren == false && (x.Vrijeme.Hour > DateTime.Now.Hour))
                             {
-                                <a href="/ModulPacijent/ZakaziTermin/Obrisi?TerminID=@x.Id" class="btn btn-info">Otkaži</a>
+
+                                foreach (var x in Model.TerminList)
+                                {
+                                    <tr>
+
+                                        <td> @x.Datum.ToString("dd/MM/yyyy")</td>
+                                        <td> @x.Vrijeme.ToString("HH:mm")</td>
+                                        <td> @x.RazlogPosjete</td>
+                                        <td>
+                                            @if (x.Odobren == true)
+                                            { @Html.Raw("DA")}
+                                            else
+                                            { @Html.Raw("NE")}
+                                        </td>
+
+                                        <td>
+                                            @if (((x.Datum == DateTime.Now.Date)) && x.Odobren == false && (x.Vrijeme.Hour > DateTime.Now.Hour))
+                                            {
+                                                <a href="/ModulPacijent/ZakaziTermin/Obrisi?TerminID=@x.Id" class="btn btn-info">Otkaži</a>
+                                            }
+
+                                            @if (((x.Datum > DateTime.Now.Date)) && x.Odobren == false)
+                                            {
+                                                <a href="/ModulPacijent/ZakaziTermin/Obrisi?TerminID=@x.Id" class="btn btn-info">Otkaži</a>
+                                            }
+
+
+                                        </td>
+                                    </tr>
+                                }
                             }
 
-                            @if (((x.Datum > DateTime.Now.Date)) && x.Odobren == false)
-                            {
-                                <a href="/ModulPacijent/ZakaziTermin/Obrisi?TerminID=@x.Id" class="btn btn-info">Otkaži</a>
-                            }
+                        </tbody>
+                    </table>
 
-
-                        </td>
-                    </tr>
-                }
-            }
-
-        </tbody>
-    </table>
-
-    <div class="text-center">
-        @Html.PagedListPager(Model.TerminList, page => Url.Action("Index", new
-{
-    page,
-    from = Request.QueryString["from"],
-    to = Request.QueryString["to"]
-}), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+                </div>
+                <div class="text-center">
+                    @Html.PagedListPager(Model.TerminList, page => Url.Action("Index", new
+   {
+       page,
+       from = Request.QueryString["from"],
+       to = Request.QueryString["to"]
+   }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
 
 
 
+                </div>
+
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
     </div>
-</div>
+    <!-- /.col-lg-6 -->
 
+
+
+</div>
 
 <div style="margin-left:40px;">
     @Ajax.ActionLink("Zakaži termin", "Dodaj", "ZakaziTermin", new { }, new AjaxOptions() { UpdateTargetId = "termin" }, new { @class = "btn btn-info" })
 
-</div>
+</div><br /><hr />
 <div class="panel-body">
     <div id="termin"></div>
 </div>

@@ -26,8 +26,7 @@ namespace ZavršniRad.Areas.ModulAdministrator.Models
         [RegularExpression("([06]{2}[0,1,2,3,4][0-9]{3}[0-9]{3,4})", ErrorMessage = "Broj mobitela nije validan!")]
         public string Mobitel { get; set; }
         [Required(ErrorMessage = "Adresa je obavezno polje!")]
-        [RegularExpression("^[A-ZČĆŽŠĐa-zčćžšđ]{3,}", ErrorMessage = "Adresa smije sadržavati samo slova!")]
-
+      
         public string Adresa { get; set; }
         [Required(ErrorMessage = "JMBG je obavezno polje!")]
         [RegularExpression("^[0-9]{13}", ErrorMessage = "JMBG može sadržavati samo brojeve!")]

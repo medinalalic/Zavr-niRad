@@ -26,7 +26,8 @@ namespace ZavršniRad_API
     
         public int Id { get; set; }
         public string JMBG { get; set; }
-        public System.DateTime AddedOn { get; set; }
+        public Nullable<System.DateTime> AddedOn { get; set; }
+        public byte[] Slika { get; set; }
     
         public virtual Korisnik Korisnik { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

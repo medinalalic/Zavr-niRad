@@ -4,13 +4,6 @@
     ViewBag.Title = "UnesiPregled";
     Layout = "~/Areas/ModulStomatolog/Views/Shared/_StomatologLayout.cshtml";
 }
-<style type="text/css">
-    table, th, td {
-    border: 2px solid royalblue;
-}
-</style>
-<br />
-<h2 style="margin-left:20px">Unos pregleda</h2>
 <br />
 <div class="row" style="margin-left:20px">
 
@@ -28,96 +21,119 @@
     <hr />
 </div>
 
-<div class="container">
-    @using (Html.BeginForm("SnimiPregled", "Pregled", FormMethod.Post, new { @class = "form-horizontal" }))
-    {
 
- <table style="margin-left:10px;">
-            <thead>
-                <tr>
-                    <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Zub</td>
 
-                    <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Izvršena usluga</td>
-                    <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Uspostavljena dijagnoza</td>
-                    <td style="font-size:18px;color:black;padding:20px 20px 20px 20px">Terapija</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="padding:20px 20px 20px 20px;">
-                        <br />
 
-                        <div class="form-group">
-                            @Html.DropDownListFor(m => m.zubID, Model._Zub, new { @class = "form-control" })
+@using (Html.BeginForm("SnimiPregled", "Pregled", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="row" style="margin:10px 10px">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });
+
+        }
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Dodaj pregled
+                </div>
+                <div class="panel-body">
+                    <div class="row" style="padding:10px">
+                        <div class="col-lg-10">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>Zub</label>
+                                    @Html.DropDownListFor(m => m.zubID, Model._Zub, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.zubID, string.Empty, new { @class = "text-danger" })
+
+
+
+
+                               </div>
+                                <div class="form-group">
+                                    <label>Usluga</label>
+                                    @Html.DropDownListFor(m => m.uslugaID, Model._Usluga, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.uslugaID, string.Empty, new { @class = "text-danger" })
+
+
+
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Cijena</label>
+                                    @Html.TextBoxFor(m => m.Cijena, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Cijena, string.Empty, new { @class = "text-danger" })
+
+
+
+
+                                </div>
+                             
+                                <div class="form-group">
+                                  <label>Dijagnoza</label>  
+                                      @Html.DropDownListFor(m => m.dijagnozaID, Model._Dijagnoza, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.dijagnozaID, string.Empty, new { @class = "text-danger" })
+
+
+                                 </div>
+                                <div class="form-group">
+                                    <label>Intenzitet</label>
+                                    @Html.DropDownListFor(m => m.Intenzitet, new List<SelectListItem>
+                                {
+                                new SelectListItem{ Text="1", Value = "1" },
+                                new SelectListItem{ Text="2", Value = "2" },
+                                new SelectListItem{ Text="3", Value = "3" },
+                                new SelectListItem{ Text="4", Value = "4" },
+                                new SelectListItem{ Text="5", Value = "5" }
+
+                                }, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Intenzitet, string.Empty, new { @class = "text-danger" })
+
+
+                                    @*@Html.TextBoxFor(m => m.Intenzitet, new { @class = "form-control" })*@
+                                </div>
+                                <div class="form-group">
+                                    <label>  Napomena</label>
+                                      @Html.TextAreaFor(m => m.Napomena, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Napomena, string.Empty, new { @class = "text-danger" })
+
+
+                                </div>
+                                <div class="form-group">
+                                   <label>Lijek</label> 
+                                      @Html.DropDownListFor(m => m.lijekID, Model._Lijek, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.lijekID, string.Empty, new { @class = "text-danger" })
+
+
+                                </div>
+                                <div class="form-group">
+                                   <label>Količina</label> 
+                                      @Html.TextBoxFor(m => m.Kolicina, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Kolicina, string.Empty, new { @class = "text-danger" })
+
+
+                                 </div>
+                                <div class="form-group">
+                                 <label>Vrsta</label>   
+                                      @Html.TextBoxFor(m => m.Vrsta, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Vrsta, string.Empty, new { @class = "text-danger" })
+
+
+                                </div>
+
+
+                                <button type="submit" class="btn btn-info">Snimi</button>
+                            </form>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- /.col-lg-6 (nested) -->
+}
 
-                        <br />
-
-
-                    </td>
-                    <td style="padding:20px 20px 20px 20px;">
-
-                        <br />
-
-
-                        Usluga:  <div class="form-group">@Html.DropDownListFor(m => m.uslugaID, Model._Usluga, new { @class = "form-control" })</div>
-                        Cijena:  <div class="form-group">@Html.TextBoxFor(m => m.Cijena, new { @class = "form-control" })</div>
-
-
-
-                        <br />
-
-
-                    </td>
-                    <td style="padding:20px 20px 20px 20px;">
-
-                        <br />
-
-
-                        <div class="form-group">
-                            Dijagnoza:  @Html.DropDownListFor(m => m.dijagnozaID, Model._Dijagnoza, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            Intenzitet:  @Html.TextBoxFor(m => m.Intenzitet, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            Napomena:  @Html.TextAreaFor(m => m.Napomena, new { @class = "form-control" })
-                        </div>
-
-
-
-
-                        <br />
-
-
-                    </td>
-                    <td style="padding:20px 20px 20px 20px;">
-
-
-                        <br />
-
-
-                        <div class="form-group">
-                            Lijek:  @Html.DropDownListFor(m => m.lijekID, Model._Lijek, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            Količina:  @Html.TextBoxFor(m => m.Kolicina, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            Vrsta:  @Html.TextBoxFor(m => m.Vrsta, new { @class = "form-control" })
-                        </div>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="padding:10px 10px 10px 10px;background-color:white;text-align:center;"> <input type="submit" style="font-size:18px; width:80px; height:40px" value="Snimi" class="btn btn-info" /></td>
-                </tr>
-            </tbody>
-        </table>
-
-
-    }
-</div>
 
 
 

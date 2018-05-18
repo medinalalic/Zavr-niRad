@@ -86,20 +86,27 @@ namespace ZavršniRad_API.Controllers
             return CreatedAtRoute("DefaultApi", new { id = usluga.Id }, usluga);
         }
 
+
         [HttpGet]
-        [Route("api/Usluga/GetUsluge/{naziv?}")]
-        public UslugaVM GetUsluge(string naziv="")
+        [Route("api/Usluga/GetUslugeByNaziv/{naziv?}")]
+        public List<usp_Usluge_ByNaziv_Result> GetUslugeByNaziv(string naziv = "")
+        {
+            return db.usp_Usluge_ByNaziv(naziv).ToList();
+        }
+
+        [HttpGet]
+        [Route("api/Usluga/GetUslugeNeocjenjene/{uslugaID}/{pacijentID}")]
+        public List<usp_Neocjenjene_Result> GetUslugeNeocjenjene(int uslugaID,int pacijentID)
+        {
+            return db.usp_Neocjenjene(uslugaID,pacijentID).ToList();
+        }
+
+        [HttpGet]
+        [Route("api/Usluga/GetAllUsluge")]
+        public List<usp_Usluge_All_Result> GetAllUsluge()
         {
 
-            UslugaVM model = new UslugaVM();
-            model.UslugaLista = db.Uslugas.Where(x => x.Vrsta == naziv).Select(x => new UslugaVM.UslugaInfo
-            {
-                Id = x.Id,
-                Vrsta = x.Vrsta,
-                Slika = x.Slika
-
-            }).ToList();
-            return model;
+            return db.usp_Usluge_All().ToList();
         }
 
 

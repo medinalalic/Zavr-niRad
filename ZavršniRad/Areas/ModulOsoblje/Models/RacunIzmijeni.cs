@@ -17,8 +17,11 @@ namespace ZavršniRad.Areas.ModulOsoblje.Models
         [Required(ErrorMessage = "Datum je obavezno polje!")]
         public DateTime Datum { get; set; }
         public int? pacijentID { get; set; }
-        public List<SelectListItem> pacijenti { get; set; }
+      //  public List<SelectListItem> pacijenti { get; set; }
         public int osobljeID { get; set; }
+        public int pregledID { get; set; }
+
+
 
     }
 }

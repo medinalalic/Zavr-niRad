@@ -37,6 +37,13 @@ namespace ZavršniRad_API.Controllers
             return Ok(pregled);
         }
 
+        [HttpGet]
+        [Route("api/Pregled/Detalji/{pacijentId}/{zubId}")]
+        public List<usp_Zubi_Result> Detalji(int pacijentId,int zubId)
+        {
+            return db.usp_Zubi(pacijentId, zubId).ToList();
+        }
+
         // PUT: api/Pregled/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPregled(int id, Pregled pregled)

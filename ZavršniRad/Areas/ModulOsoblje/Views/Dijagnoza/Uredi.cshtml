@@ -1,0 +1,77 @@
+﻿@using ZavršniRad.Areas.ModulOsoblje.Models;
+@model ZavršniRad.Areas.ModulOsoblje.Models.DijagnozaDodajVM
+@{
+    ViewBag.Title = "Uredi";
+    Layout = null;
+}
+
+@*@using (Html.BeginForm("Snimi", "Dijagnoza", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.Id);
+
+        <div class="row">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });
+
+            }
+
+            <div class="col-md-10" style="margin:20px 20px">
+
+                <label class="control-label">@Html.DisplayNameFor(m => m.Naziv)</label>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Naziv, new { @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="col col-md-12" style="margin:20px 20px">
+                <div class="form-group">
+                    <input type="submit" value="Spasi" class="btn btn-info" style="width:110px;height:40px;margin:20px 20px" />
+                </div>
+            </div>
+        </div>
+
+
+
+    }*@
+
+@using (Html.BeginForm("Snimi", "Dijagnoza"))
+{
+    @Html.HiddenFor(model => model.Id);
+
+    <div class="row" style="margin:10px 10px">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });
+
+        }
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Dodaj / Uredi dijagnozu
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>@Html.DisplayNameFor(m => m.Naziv)</label>
+                                    @Html.TextBoxFor(m => m.Naziv, new { @class = "form-control" })
+                                    @*<p class="help-block">Example block-level help text here.</p>*@
+                                </div>
+
+
+
+
+
+                                <button type="submit" class="btn btn-info">Snimi</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- /.col-lg-6 (nested) -->
+}

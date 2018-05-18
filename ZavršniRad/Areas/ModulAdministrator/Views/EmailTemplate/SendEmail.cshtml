@@ -12,14 +12,13 @@
 
    @Html.HiddenFor(model=>model.pacijentId)
     @Html.AntiForgeryToken();
-    <div class="row" style="margin-left:20px">
+    <div class="row" style="margin:20px 20px;">
         @if (!ViewData.ModelState.IsValid)
         {
             @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });
 
         }
-        <br />
-        <div class="row" style="margin-left:20px">
+        <div class="row" >
 
            
             <label style="font-size:18px;margin-left:20px">Slanje emaila za:</label><br />

@@ -53,7 +53,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
                 Naziv = l.Naziv
 
             };
-            return View("Dodaj", model);
+            return View("Uredi", model);
         }
         public ActionResult Obrisi(int id)
         {
@@ -69,7 +69,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Dodaj", dijagnoza);
+                return View("Uredi", dijagnoza);
             }
             else
             {

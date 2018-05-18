@@ -82,7 +82,7 @@ namespace ZavršniRad.Areas.ModulAdministrator.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("Izmijeni", stomatolog);
+                return PartialView("Izmijeni", stomatolog);
             }
             else
             {

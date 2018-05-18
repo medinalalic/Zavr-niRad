@@ -12,6 +12,8 @@ namespace ZavršniRad_API
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Stomatoloska_MLEntities : DbContext
     {
@@ -46,5 +48,168 @@ namespace ZavršniRad_API
         public virtual DbSet<Usluga> Uslugas { get; set; }
         public virtual DbSet<UspostavljenaDijagnoza> UspostavljenaDijagnozas { get; set; }
         public virtual DbSet<Zub> Zubs { get; set; }
+    
+        public virtual ObjectResult<usp_Usluge_All_Result> usp_Usluge_All()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Usluge_All_Result>("usp_Usluge_All");
+        }
+    
+        public virtual ObjectResult<usp_Usluge_ByNaziv_Result> usp_Usluge_ByNaziv(string naziv)
+        {
+            var nazivParameter = naziv != null ?
+                new ObjectParameter("Naziv", naziv) :
+                new ObjectParameter("Naziv", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Usluge_ByNaziv_Result>("usp_Usluge_ByNaziv", nazivParameter);
+        }
+    
+        public virtual ObjectResult<usp_Zubi_Result> usp_Zubi(Nullable<int> pacijentId, Nullable<int> brojZuba)
+        {
+            var pacijentIdParameter = pacijentId.HasValue ?
+                new ObjectParameter("PacijentId", pacijentId) :
+                new ObjectParameter("PacijentId", typeof(int));
+    
+            var brojZubaParameter = brojZuba.HasValue ?
+                new ObjectParameter("BrojZuba", brojZuba) :
+                new ObjectParameter("BrojZuba", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Zubi_Result>("usp_Zubi", pacijentIdParameter, brojZubaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> esp_Korisnik_Insert(string ime, string prezime, string email, string mobitel, string adresa, string user, string lozinka)
+        {
+            var imeParameter = ime != null ?
+                new ObjectParameter("Ime", ime) :
+                new ObjectParameter("Ime", typeof(string));
+    
+            var prezimeParameter = prezime != null ?
+                new ObjectParameter("Prezime", prezime) :
+                new ObjectParameter("Prezime", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var mobitelParameter = mobitel != null ?
+                new ObjectParameter("Mobitel", mobitel) :
+                new ObjectParameter("Mobitel", typeof(string));
+    
+            var adresaParameter = adresa != null ?
+                new ObjectParameter("Adresa", adresa) :
+                new ObjectParameter("Adresa", typeof(string));
+    
+            var userParameter = user != null ?
+                new ObjectParameter("User", user) :
+                new ObjectParameter("User", typeof(string));
+    
+            var lozinkaParameter = lozinka != null ?
+                new ObjectParameter("Lozinka", lozinka) :
+                new ObjectParameter("Lozinka", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("esp_Korisnik_Insert", imeParameter, prezimeParameter, emailParameter, mobitelParameter, adresaParameter, userParameter, lozinkaParameter);
+        }
+    
+        public virtual int esp_Pacijents_Insert(Nullable<int> id, string jMBG, Nullable<System.DateTime> added)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var jMBGParameter = jMBG != null ?
+                new ObjectParameter("JMBG", jMBG) :
+                new ObjectParameter("JMBG", typeof(string));
+    
+            var addedParameter = added.HasValue ?
+                new ObjectParameter("Added", added) :
+                new ObjectParameter("Added", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("esp_Pacijents_Insert", idParameter, jMBGParameter, addedParameter);
+        }
+    
+        public virtual ObjectResult<usp_Neocjenjene_Result> usp_Neocjenjene(Nullable<int> uslugaId, Nullable<int> pacijentId)
+        {
+            var uslugaIdParameter = uslugaId.HasValue ?
+                new ObjectParameter("UslugaId", uslugaId) :
+                new ObjectParameter("UslugaId", typeof(int));
+    
+            var pacijentIdParameter = pacijentId.HasValue ?
+                new ObjectParameter("PacijentId", pacijentId) :
+                new ObjectParameter("PacijentId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Neocjenjene_Result>("usp_Neocjenjene", uslugaIdParameter, pacijentIdParameter);
+        }
+    
+        public virtual int usp_KorisniciPut(Nullable<int> korisnikID, string ime, string prezime, string email, string telefon, string korisnickoIme, string lozinka, string adresa)
+        {
+            var korisnikIDParameter = korisnikID.HasValue ?
+                new ObjectParameter("KorisnikID", korisnikID) :
+                new ObjectParameter("KorisnikID", typeof(int));
+    
+            var imeParameter = ime != null ?
+                new ObjectParameter("Ime", ime) :
+                new ObjectParameter("Ime", typeof(string));
+    
+            var prezimeParameter = prezime != null ?
+                new ObjectParameter("Prezime", prezime) :
+                new ObjectParameter("Prezime", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var telefonParameter = telefon != null ?
+                new ObjectParameter("Telefon", telefon) :
+                new ObjectParameter("Telefon", typeof(string));
+    
+            var korisnickoImeParameter = korisnickoIme != null ?
+                new ObjectParameter("KorisnickoIme", korisnickoIme) :
+                new ObjectParameter("KorisnickoIme", typeof(string));
+    
+            var lozinkaParameter = lozinka != null ?
+                new ObjectParameter("Lozinka", lozinka) :
+                new ObjectParameter("Lozinka", typeof(string));
+    
+            var adresaParameter = adresa != null ?
+                new ObjectParameter("Adresa", adresa) :
+                new ObjectParameter("Adresa", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_KorisniciPut", korisnikIDParameter, imeParameter, prezimeParameter, emailParameter, telefonParameter, korisnickoImeParameter, lozinkaParameter, adresaParameter);
+        }
+    
+        public virtual ObjectResult<usp_Pacijent_ByIme_Result> usp_Pacijent_ByIme(string ime)
+        {
+            var imeParameter = ime != null ?
+                new ObjectParameter("Ime", ime) :
+                new ObjectParameter("Ime", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Pacijent_ByIme_Result>("usp_Pacijent_ByIme", imeParameter);
+        }
+    
+        public virtual ObjectResult<usp_PacijentiAll_Result> usp_PacijentiAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_PacijentiAll_Result>("usp_PacijentiAll");
+        }
+    
+        public virtual ObjectResult<usp_SlikaPrikaz_Result> usp_SlikaPrikaz(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SlikaPrikaz_Result>("usp_SlikaPrikaz", idParameter);
+        }
+    
+        public virtual ObjectResult<usp_TerminiPretraga_Result> usp_TerminiPretraga(Nullable<System.DateTime> datumOD, Nullable<System.DateTime> datumDO)
+        {
+            var datumODParameter = datumOD.HasValue ?
+                new ObjectParameter("DatumOD", datumOD) :
+                new ObjectParameter("DatumOD", typeof(System.DateTime));
+    
+            var datumDOParameter = datumDO.HasValue ?
+                new ObjectParameter("DatumDO", datumDO) :
+                new ObjectParameter("DatumDO", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TerminiPretraga_Result>("usp_TerminiPretraga", datumODParameter, datumDOParameter);
+        }
     }
 }

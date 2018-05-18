@@ -6,7 +6,7 @@
     Layout = null;
 }
 
-<h3>Pregledi za : @Model.pacijent</h3>
+<h3 style="margin:20px 20px;">Pregledi za : @Model.pacijent</h3>
 
 
 @*<div class="pretragaheadermala" style="margin:20px 20px">
@@ -76,7 +76,7 @@
 
 
                         <td style='white-space: nowrap'>
-                            @Ajax.ActionLink("Detalji", "Detalji", "HistorijaPregleda", new { pregledID = Model.PregledList.FirstOrDefault().Id }, new AjaxOptions() { UpdateTargetId = "detalji" }, new { @class = "btn btn-info" })
+                            @Ajax.ActionLink("Detalji", "Detalji", "HistorijaPregleda", new { pregledID = x.Id }, new AjaxOptions() { UpdateTargetId = "detalji" }, new { @class = "btn btn-info" })
 
 
 

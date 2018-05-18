@@ -82,7 +82,7 @@ namespace ZavršniRad.Areas.ModulAdministrator.Controllers
             {
                 
 
-                return View("Izmijeni", osoblje);
+                return PartialView("Izmijeni", osoblje);
             }
             else
             {

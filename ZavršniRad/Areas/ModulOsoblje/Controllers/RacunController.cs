@@ -43,7 +43,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
             
             Model.Datum = DateTime.Now;
             Model.osobljeID = p.Id;
-            Model.pacijenti = UcitajPacijente();
+           // Model.pacijenti = UcitajPacijente();
             Session["Model"] = Model;
             return View(Model);
             
@@ -136,7 +136,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
                   Datum = r.Datum,
                   osobljeID=p.Id,
                   pacijentID=r.PacijentId,
-                  pacijenti=UcitajPacijente(r.PacijentId)
+                  //pacijenti=UcitajPacijente(r.PacijentId)
              
 
             };

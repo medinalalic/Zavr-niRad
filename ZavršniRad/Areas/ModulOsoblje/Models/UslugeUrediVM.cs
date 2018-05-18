@@ -14,6 +14,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Models
         [Required(ErrorMessage = "Naziv je obavezno polje")]
         [Display(Name = "Naziv")]
         public string Vrsta { get; set; }
+        [Required(ErrorMessage = "Slika je obavezno polje")]
         [Display(Name = "Slika")]
         public byte[] Slika { get; set; }
         public string ImagePath { get; set; }

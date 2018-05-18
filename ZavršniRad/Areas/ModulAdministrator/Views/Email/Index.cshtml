@@ -5,7 +5,7 @@
     Layout = "~/Areas/ModulAdministrator/Views/Shared/_AdminLayout.cshtml";
 }
 <br /><br />
-<div class="container-fluid">
+@*<div class="container-fluid" style="margin:20px 20px;">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -46,10 +46,76 @@
         </tbody>
 
     </table>
-</div>
+</div>*@
 
+@*<div class="panel-body">
+    <div id="izlaz"></div>
+</div>*@
+
+
+  <!-- /.row -->
+<div class="row" style="margin:15px 15px;">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Zahtjevi za registraciju
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Ime</th>
+                                <th>Prezime</th>
+                                <th>Email</th>
+                                <th>Aktiviraj</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (PacijentPrikazVM.PacijentInfo x in Model.pacijent)
+            {
+                                <tr>
+                                    <td> @x.Ime</td>
+
+                                    <td> @x.Prezime</td>
+
+                                    <td>@x.Email</td>
+
+
+
+                                    <td>
+
+
+
+                                        @Ajax.ActionLink("Pošalji e-mail", "SendEmail", "EmailTemplate", new { pacijentId = x.Id, email = x.Email }, new AjaxOptions() { UpdateTargetId = "izlaz" }, new { @class = "btn btn-info" })
+
+
+
+                                    </td>
+
+
+                                </tr>
+
+
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-6 -->
+
+
+
+</div>
 <div class="panel-body">
     <div id="izlaz"></div>
 </div>
-
-

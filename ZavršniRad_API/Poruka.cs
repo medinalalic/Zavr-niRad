@@ -17,8 +17,6 @@ namespace ZavršniRad_API
         public int Id { get; set; }
         public int PacijentId { get; set; }
         public int StomatologId { get; set; }
-        public int From { get; set; }
-        public Nullable<int> To { get; set; }
         public string TekstPoruke { get; set; }
         public System.DateTime Datum { get; set; }
         public bool Procitana { get; set; }

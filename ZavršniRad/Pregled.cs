@@ -20,6 +20,7 @@ namespace ZavršniRad
             this.IzvrsenaUslugas = new HashSet<IzvrsenaUsluga>();
             this.Terapijas = new HashSet<Terapija>();
             this.UspostavljenaDijagnozas = new HashSet<UspostavljenaDijagnoza>();
+            this.Racuns = new HashSet<Racun>();
         }
     
         public int Id { get; set; }
@@ -39,5 +40,7 @@ namespace ZavršniRad
         public virtual ICollection<Terapija> Terapijas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UspostavljenaDijagnoza> UspostavljenaDijagnozas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Racun> Racuns { get; set; }
     }
 }
