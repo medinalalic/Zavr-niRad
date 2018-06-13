@@ -16,6 +16,14 @@
 </head>
 
 <body>
+    <div class="row" style="margin-left:10px;width:600px">
+        @if (TempData["TerminZauzet"] != null)
+        {
+            <p class="alert alert-success" id="successMessage">@TempData["TerminZauzet"]</p>
+        }
+      
+    </div>
+
 
 
     <div style="float:left">
@@ -23,11 +31,8 @@
         @using (Ajax.BeginForm("Snimi", "ZakaziTermin", new AjaxOptions() { UpdateTargetId = "termin" }))
         {
             <br />
-            <div class="row">
-                @if (TempData["TerminZauzet"] != null)
-                {
-                    <p class="alert alert-success" id="successMessage">@TempData["TerminZauzet"]</p>
-                }
+            <div class="row" style="margin-left:5px;width:50%">
+               
                 @if (!ViewData.ModelState.IsValid)
                 {
                     @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });

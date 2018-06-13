@@ -211,5 +211,139 @@ namespace ZavršniRad_API
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TerminiPretraga_Result>("usp_TerminiPretraga", datumODParameter, datumDOParameter);
         }
+    
+        public virtual ObjectResult<usp_ZauzetiTermini_Result> usp_ZauzetiTermini()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ZauzetiTermini_Result>("usp_ZauzetiTermini");
+        }
+    
+        public virtual ObjectResult<usp_DanasnjiTermini_Result> usp_DanasnjiTermini()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_DanasnjiTermini_Result>("usp_DanasnjiTermini");
+        }
+    
+        public virtual ObjectResult<usp_NaredniTermini_Result> usp_NaredniTermini()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_NaredniTermini_Result>("usp_NaredniTermini");
+        }
+    
+        public virtual ObjectResult<usp_ProsliTermini_Result> usp_ProsliTermini()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ProsliTermini_Result>("usp_ProsliTermini");
+        }
+    
+        public virtual ObjectResult<usp_TerminiPonedjeljak_Result> usp_TerminiPonedjeljak(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TerminiPonedjeljak_Result>("usp_TerminiPonedjeljak", dateParameter);
+        }
+    
+        public virtual int esp_IzvUsluga_Insert(Nullable<decimal> cijena, Nullable<int> pregledId, Nullable<int> uslugaId, Nullable<int> zubId)
+        {
+            var cijenaParameter = cijena.HasValue ?
+                new ObjectParameter("Cijena", cijena) :
+                new ObjectParameter("Cijena", typeof(decimal));
+    
+            var pregledIdParameter = pregledId.HasValue ?
+                new ObjectParameter("PregledId", pregledId) :
+                new ObjectParameter("PregledId", typeof(int));
+    
+            var uslugaIdParameter = uslugaId.HasValue ?
+                new ObjectParameter("UslugaId", uslugaId) :
+                new ObjectParameter("UslugaId", typeof(int));
+    
+            var zubIdParameter = zubId.HasValue ?
+                new ObjectParameter("ZubId", zubId) :
+                new ObjectParameter("ZubId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("esp_IzvUsluga_Insert", cijenaParameter, pregledIdParameter, uslugaIdParameter, zubIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> esp_Pregled_Insert(Nullable<System.DateTime> datum, Nullable<System.DateTime> vrijeme, Nullable<int> pacijentID, Nullable<int> stomatologID, Nullable<int> terminID, Nullable<bool> obavljen)
+        {
+            var datumParameter = datum.HasValue ?
+                new ObjectParameter("Datum", datum) :
+                new ObjectParameter("Datum", typeof(System.DateTime));
+    
+            var vrijemeParameter = vrijeme.HasValue ?
+                new ObjectParameter("Vrijeme", vrijeme) :
+                new ObjectParameter("Vrijeme", typeof(System.DateTime));
+    
+            var pacijentIDParameter = pacijentID.HasValue ?
+                new ObjectParameter("PacijentID", pacijentID) :
+                new ObjectParameter("PacijentID", typeof(int));
+    
+            var stomatologIDParameter = stomatologID.HasValue ?
+                new ObjectParameter("StomatologID", stomatologID) :
+                new ObjectParameter("StomatologID", typeof(int));
+    
+            var terminIDParameter = terminID.HasValue ?
+                new ObjectParameter("TerminID", terminID) :
+                new ObjectParameter("TerminID", typeof(int));
+    
+            var obavljenParameter = obavljen.HasValue ?
+                new ObjectParameter("Obavljen", obavljen) :
+                new ObjectParameter("Obavljen", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("esp_Pregled_Insert", datumParameter, vrijemeParameter, pacijentIDParameter, stomatologIDParameter, terminIDParameter, obavljenParameter);
+        }
+    
+        public virtual int esp_Terapija_Insert(Nullable<int> vrsta, Nullable<int> kolicina, Nullable<int> pregledId, Nullable<int> lijekId)
+        {
+            var vrstaParameter = vrsta.HasValue ?
+                new ObjectParameter("Vrsta", vrsta) :
+                new ObjectParameter("Vrsta", typeof(int));
+    
+            var kolicinaParameter = kolicina.HasValue ?
+                new ObjectParameter("Kolicina", kolicina) :
+                new ObjectParameter("Kolicina", typeof(int));
+    
+            var pregledIdParameter = pregledId.HasValue ?
+                new ObjectParameter("PregledId", pregledId) :
+                new ObjectParameter("PregledId", typeof(int));
+    
+            var lijekIdParameter = lijekId.HasValue ?
+                new ObjectParameter("LijekId", lijekId) :
+                new ObjectParameter("LijekId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("esp_Terapija_Insert", vrstaParameter, kolicinaParameter, pregledIdParameter, lijekIdParameter);
+        }
+    
+        public virtual int esp_UspDijag_Insert(Nullable<int> intenzitet, string napomena, Nullable<int> pregledId, Nullable<int> dijagnozaId, Nullable<int> zubId)
+        {
+            var intenzitetParameter = intenzitet.HasValue ?
+                new ObjectParameter("Intenzitet", intenzitet) :
+                new ObjectParameter("Intenzitet", typeof(int));
+    
+            var napomenaParameter = napomena != null ?
+                new ObjectParameter("Napomena", napomena) :
+                new ObjectParameter("Napomena", typeof(string));
+    
+            var pregledIdParameter = pregledId.HasValue ?
+                new ObjectParameter("PregledId", pregledId) :
+                new ObjectParameter("PregledId", typeof(int));
+    
+            var dijagnozaIdParameter = dijagnozaId.HasValue ?
+                new ObjectParameter("DijagnozaId", dijagnozaId) :
+                new ObjectParameter("DijagnozaId", typeof(int));
+    
+            var zubIdParameter = zubId.HasValue ?
+                new ObjectParameter("ZubId", zubId) :
+                new ObjectParameter("ZubId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("esp_UspDijag_Insert", intenzitetParameter, napomenaParameter, pregledIdParameter, dijagnozaIdParameter, zubIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_Prijedlozi_Result> usp_Prijedlozi(Nullable<int> stomatologID)
+        {
+            var stomatologIDParameter = stomatologID.HasValue ?
+                new ObjectParameter("stomatologID", stomatologID) :
+                new ObjectParameter("stomatologID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Prijedlozi_Result>("usp_Prijedlozi", stomatologIDParameter);
+        }
     }
 }

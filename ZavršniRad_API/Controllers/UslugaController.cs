@@ -70,7 +70,22 @@ namespace ZavršniRad_API.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        [HttpGet]
+        [Route("api/Usluga/GetUslugeDrop")]
+        public UslugaNazivVM GetUslugeDrop()
+        {
 
+            UslugaNazivVM model = new UslugaNazivVM();
+            model.usluge = db.Uslugas.Select(x => new UslugaNazivVM.UslugaInfo
+            {
+                Id = x.Id,
+                Naziv = x.Vrsta,
+               
+
+            }).ToList();
+            return model;
+
+        }
         // POST: api/Usluga
         [ResponseType(typeof(Usluga))]
         public IHttpActionResult PostUsluga(Usluga usluga)

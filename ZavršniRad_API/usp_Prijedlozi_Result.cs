@@ -11,15 +11,11 @@ namespace ZavršniRad_API
 {
     using System;
     
-    public partial class usp_Pacijent_ByIme_Result
+    public partial class usp_Prijedlozi_Result
     {
+        public string IPPacijent { get; set; }
+        public string TekstPoruke { get; set; }
+        public string IPStomatolog { get; set; }
         public int Id { get; set; }
-        public string JMBG { get; set; }
-        public Nullable<System.DateTime> AddedOn { get; set; }
-        public byte[] Slika { get; set; }
-        public string Ime { get; set; }
-        public string Prezime { get; set; }
-        public string Email { get; set; }
-        public string Mobitel { get; set; }
     }
 }

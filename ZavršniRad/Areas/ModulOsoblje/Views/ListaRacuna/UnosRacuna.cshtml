@@ -52,7 +52,7 @@
 {
     @Html.HiddenFor(model => model.Id);
 
-    <div class="row" style="margin:10px 10px">
+    <div class="row" style="margin-left:11px">
         @if (!ViewData.ModelState.IsValid)
         {
             @Html.ValidationSummary(string.Empty, new { @class = "text-danger" });

@@ -131,9 +131,9 @@ namespace ZavršniRad.Areas.ModulPacijent.Controllers
              
                 foreach (var x in lista)
                 {
-                    if (terminDB.Datum == x.Datum)
+                    if (terminDB.Datum.Date == x.Datum.Date)
                     {
-                        if (terminDB.Vrijeme == x.Vrijeme)
+                        if (terminDB.Vrijeme.TimeOfDay == x.Vrijeme.TimeOfDay)
                         {
                             TempData["TerminZauzet"] = "Žao nam je taj termin je zauzet!";
 

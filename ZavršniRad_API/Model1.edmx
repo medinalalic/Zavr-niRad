@@ -134,6 +134,7 @@
           <Property Name="Datum" Type="datetime" Nullable="false" />
           <Property Name="OsobljeId" Type="int" />
           <Property Name="PacijentId" Type="int" />
+          <Property Name="PregledId" Type="int" />
         </EntityType>
         <EntityType Name="Stomatologs">
           <Key>
@@ -202,6 +203,18 @@
           <Property Name="BrojZuba" Type="int" Nullable="false" />
           <Property Name="NazivZuba" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK__Racuns__PregledI__1F2E9E6D">
+          <End Role="Pregleds" Type="Self.Pregleds" Multiplicity="0..1" />
+          <End Role="Racuns" Type="Self.Racuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregleds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Racuns">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId">
           <End Role="Pregleds" Type="Self.Pregleds" Multiplicity="1" />
           <End Role="IzvrsenaUslugas" Type="Self.IzvrsenaUslugas" Multiplicity="*" />
@@ -478,6 +491,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_DanasnjiTermini" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML" />
+        <Function Name="usp_NaredniTermini" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML" />
         <Function Name="usp_Neocjenjene" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
           <Parameter Name="UslugaId" Type="int" Mode="In" />
           <Parameter Name="PacijentId" Type="int" Mode="In" />
@@ -486,8 +501,15 @@
           <Parameter Name="Ime" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="usp_PacijentiAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML" />
+        <Function Name="usp_Prijedlozi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
+          <Parameter Name="stomatologID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_ProsliTermini" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML" />
         <Function Name="usp_SlikaPrikaz" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
           <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_TerminiPonedjeljak" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
+          <Parameter Name="date" Type="datetime" Mode="In" />
         </Function>
         <Function Name="usp_TerminiPretraga" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
           <Parameter Name="DatumOD" Type="datetime" Mode="In" />
@@ -497,9 +519,16 @@
         <Function Name="usp_Usluge_ByNaziv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
           <Parameter Name="Naziv" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="usp_ZauzetiTermini" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML" />
         <Function Name="usp_Zubi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Stomatoloska_ML">
           <Parameter Name="PacijentId" Type="int" Mode="In" />
           <Parameter Name="BrojZuba" Type="int" Mode="In" />
+        </Function>
+        <Function Name="esp_IzvUsluga_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Cijena" Type="decimal" Mode="In" />
+          <Parameter Name="PregledId" Type="int" Mode="In" />
+          <Parameter Name="UslugaId" Type="int" Mode="In" />
+          <Parameter Name="ZubId" Type="int" Mode="In" />
         </Function>
         <Function Name="esp_Korisnik_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Ime" Type="nvarchar" Mode="In" />
@@ -514,6 +543,27 @@
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="JMBG" Type="nvarchar" Mode="In" />
           <Parameter Name="Added" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="esp_Pregled_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Datum" Type="datetime" Mode="In" />
+          <Parameter Name="Vrijeme" Type="datetime" Mode="In" />
+          <Parameter Name="PacijentID" Type="int" Mode="In" />
+          <Parameter Name="StomatologID" Type="int" Mode="In" />
+          <Parameter Name="TerminID" Type="int" Mode="In" />
+          <Parameter Name="Obavljen" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="esp_Terapija_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Vrsta" Type="int" Mode="In" />
+          <Parameter Name="Kolicina" Type="int" Mode="In" />
+          <Parameter Name="PregledId" Type="int" Mode="In" />
+          <Parameter Name="LijekId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="esp_UspDijag_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Intenzitet" Type="int" Mode="In" />
+          <Parameter Name="Napomena" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PregledId" Type="int" Mode="In" />
+          <Parameter Name="DijagnozaId" Type="int" Mode="In" />
+          <Parameter Name="ZubId" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_KorisniciPut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="KorisnikID" Type="int" Mode="In" />
@@ -546,6 +596,10 @@
           <EntitySet Name="Uslugas" EntityType="Self.Uslugas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UspostavljenaDijagnozas" EntityType="Self.UspostavljenaDijagnozas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zubs" EntityType="Self.Zubs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Racuns__PregledI__1F2E9E6D" Association="Self.FK__Racuns__PregledI__1F2E9E6D">
+            <End Role="Pregleds" EntitySet="Pregleds" />
+            <End Role="Racuns" EntitySet="Racuns" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId" Association="Self.FK_dbo_IzvrsenaUslugas_dbo_Pregleds_PregledId">
             <End Role="Pregleds" EntitySet="Pregleds" />
             <End Role="IzvrsenaUslugas" EntitySet="IzvrsenaUslugas" />
@@ -791,6 +845,7 @@
           <NavigationProperty Name="Termin" Relationship="Self.FK_dbo_Pregleds_dbo_Termins_TerminId" FromRole="Pregleds" ToRole="Termins" />
           <NavigationProperty Name="Terapijas" Relationship="Self.FK_dbo_Terapijas_dbo_Pregleds_PregledId" FromRole="Pregleds" ToRole="Terapijas" />
           <NavigationProperty Name="UspostavljenaDijagnozas" Relationship="Self.FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId" FromRole="Pregleds" ToRole="UspostavljenaDijagnozas" />
+          <NavigationProperty Name="Racuns" Relationship="Stomatoloska_MLModel.FK__Racuns__PregledI__1F2E9E6D" FromRole="Pregled" ToRole="Racun" />
         </EntityType>
         <EntityType Name="Racun">
           <Key>
@@ -804,6 +859,8 @@
           <Property Name="PacijentId" Type="Int32" />
           <NavigationProperty Name="Osoblje" Relationship="Self.FK_dbo_Racuns_dbo_Osobljes_OsobljeId" FromRole="Racuns" ToRole="Osobljes" />
           <NavigationProperty Name="Pacijent" Relationship="Self.FK_dbo_Racuns_dbo_Pacijents_PacijentId" FromRole="Racuns" ToRole="Pacijents" />
+          <Property Name="PregledId" Type="Int32" />
+          <NavigationProperty Name="Pregled" Relationship="Stomatoloska_MLModel.FK__Racuns__PregledI__1F2E9E6D" FromRole="Racun" ToRole="Pregled" />
         </EntityType>
         <EntityType Name="Stomatolog">
           <Key>
@@ -1322,6 +1379,47 @@
             <Parameter Name="DatumOD" Mode="In" Type="DateTime" />
             <Parameter Name="DatumDO" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <AssociationSet Name="FK__Racuns__PregledI__1F2E9E6D" Association="Stomatoloska_MLModel.FK__Racuns__PregledI__1F2E9E6D">
+            <End Role="Pregled" EntitySet="Pregleds" />
+            <End Role="Racun" EntitySet="Racuns" />
+          </AssociationSet>
+          <FunctionImport Name="usp_ZauzetiTermini" ReturnType="Collection(Stomatoloska_MLModel.usp_ZauzetiTermini_Result)" />
+          <FunctionImport Name="usp_DanasnjiTermini" ReturnType="Collection(Stomatoloska_MLModel.usp_DanasnjiTermini_Result)" />
+          <FunctionImport Name="usp_NaredniTermini" ReturnType="Collection(Stomatoloska_MLModel.usp_NaredniTermini_Result)" />
+          <FunctionImport Name="usp_ProsliTermini" ReturnType="Collection(Stomatoloska_MLModel.usp_ProsliTermini_Result)" />
+          <FunctionImport Name="usp_TerminiPonedjeljak" ReturnType="Collection(Stomatoloska_MLModel.usp_TerminiPonedjeljak_Result)">
+          <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="esp_IzvUsluga_Insert">
+            <Parameter Name="Cijena" Mode="In" Type="Decimal" />
+            <Parameter Name="PregledId" Mode="In" Type="Int32" />
+            <Parameter Name="UslugaId" Mode="In" Type="Int32" />
+            <Parameter Name="ZubId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="esp_Pregled_Insert" ReturnType="Collection(Decimal)">
+            <Parameter Name="Datum" Mode="In" Type="DateTime" />
+            <Parameter Name="Vrijeme" Mode="In" Type="DateTime" />
+            <Parameter Name="PacijentID" Mode="In" Type="Int32" />
+            <Parameter Name="StomatologID" Mode="In" Type="Int32" />
+            <Parameter Name="TerminID" Mode="In" Type="Int32" />
+            <Parameter Name="Obavljen" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="esp_Terapija_Insert">
+            <Parameter Name="Vrsta" Mode="In" Type="Int32" />
+            <Parameter Name="Kolicina" Mode="In" Type="Int32" />
+            <Parameter Name="PregledId" Mode="In" Type="Int32" />
+            <Parameter Name="LijekId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="esp_UspDijag_Insert">
+            <Parameter Name="Intenzitet" Mode="In" Type="Int32" />
+            <Parameter Name="Napomena" Mode="In" Type="String" />
+            <Parameter Name="PregledId" Mode="In" Type="Int32" />
+            <Parameter Name="DijagnozaId" Mode="In" Type="Int32" />
+            <Parameter Name="ZubId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Prijedlozi" ReturnType="Collection(Stomatoloska_MLModel.usp_Prijedlozi_Result)">
+          <Parameter Name="stomatologID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_Usluge_All_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1356,14 +1454,8 @@
           <Property Type="Binary" Name="Slika" Nullable="true" />
           <Property Type="String" Name="Ime" Nullable="true" />
           <Property Type="String" Name="Prezime" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="usp_PacijentiAll_Result">
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="JMBG" Nullable="true" />
-          <Property Type="DateTime" Name="AddedOn" Nullable="true" Precision="23" />
-          <Property Type="Binary" Name="Slika" Nullable="true" />
-          <Property Type="String" Name="Ime" Nullable="true" />
-          <Property Type="String" Name="Prezime" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" />
+          <Property Type="String" Name="Mobitel" Nullable="true" />
         </ComplexType>
         <ComplexType Name="usp_SlikaPrikaz_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1378,6 +1470,63 @@
           <Property Type="String" Name="RazlogPosjete" Nullable="true" />
           <Property Type="String" Name="Ime" Nullable="true" />
           <Property Type="String" Name="Prezime" Nullable="true" />
+        </ComplexType>
+        <Association Name="FK__Racuns__PregledI__1F2E9E6D">
+          <End Type="Stomatoloska_MLModel.Pregled" Role="Pregled" Multiplicity="0..1" />
+          <End Type="Stomatoloska_MLModel.Racun" Role="Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregled">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_ZauzetiTermini_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="Datum" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Vrijeme" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_DanasnjiTermini_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="Datum" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Vrijeme" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_NaredniTermini_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="Datum" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Vrijeme" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_ProsliTermini_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="Datum" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Vrijeme" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_TerminiPonedjeljak_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="Vrijeme" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Pacijent" Nullable="true" />
+          <Property Type="Boolean" Name="Odobren" Nullable="false" />
+          <Property Type="Int32" Name="PacijentId" Nullable="false" />
+          <Property Type="DateTime" Name="Datum" Nullable="false" Precision="23" />
+          <Property Type="String" Name="RazlogPosjete" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_PacijentiAll_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="JMBG" Nullable="true" />
+          <Property Type="DateTime" Name="AddedOn" Nullable="true" Precision="23" />
+          <Property Type="Binary" Name="Slika" Nullable="true" />
+          <Property Type="String" Name="Ime" Nullable="true" />
+          <Property Type="String" Name="Prezime" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" />
+          <Property Type="String" Name="Mobitel" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Prijedlozi_Result">
+          <Property Type="String" Name="IPPacijent" Nullable="true" />
+          <Property Type="String" Name="TekstPoruke" Nullable="true" />
+          <Property Type="String" Name="IPStomatolog" Nullable="true" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1518,6 +1667,7 @@
           <EntitySetMapping Name="Racuns">
             <EntityTypeMapping TypeName="Stomatoloska_MLModel.Racun">
               <MappingFragment StoreEntitySet="Racuns">
+                <ScalarProperty Name="PregledId" ColumnName="PregledId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Uplaćeno" ColumnName="Uplaćeno" />
                 <ScalarProperty Name="Cijena" ColumnName="Cijena" />
@@ -1655,6 +1805,8 @@
                 <ScalarProperty Name="Slika" ColumnName="Slika" />
                 <ScalarProperty Name="Ime" ColumnName="Ime" />
                 <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobitel" ColumnName="Mobitel" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1667,6 +1819,8 @@
                 <ScalarProperty Name="Slika" ColumnName="Slika" />
                 <ScalarProperty Name="Ime" ColumnName="Ime" />
                 <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobitel" ColumnName="Mobitel" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1689,6 +1843,69 @@
                 <ScalarProperty Name="RazlogPosjete" ColumnName="RazlogPosjete" />
                 <ScalarProperty Name="Ime" ColumnName="Ime" />
                 <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ZauzetiTermini" FunctionName="Stomatoloska_MLModel.Store.usp_ZauzetiTermini">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_ZauzetiTermini_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Vrijeme" ColumnName="Vrijeme" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_DanasnjiTermini" FunctionName="Stomatoloska_MLModel.Store.usp_DanasnjiTermini">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_DanasnjiTermini_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Vrijeme" ColumnName="Vrijeme" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_NaredniTermini" FunctionName="Stomatoloska_MLModel.Store.usp_NaredniTermini">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_NaredniTermini_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Vrijeme" ColumnName="Vrijeme" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ProsliTermini" FunctionName="Stomatoloska_MLModel.Store.usp_ProsliTermini">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_ProsliTermini_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Vrijeme" ColumnName="Vrijeme" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TerminiPonedjeljak" FunctionName="Stomatoloska_MLModel.Store.usp_TerminiPonedjeljak">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_TerminiPonedjeljak_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vrijeme" ColumnName="Vrijeme" />
+                <ScalarProperty Name="Pacijent" ColumnName="Pacijent" />
+                <ScalarProperty Name="Odobren" ColumnName="Odobren" />
+                <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="RazlogPosjete" ColumnName="RazlogPosjete" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="esp_IzvUsluga_Insert" FunctionName="Stomatoloska_MLModel.Store.esp_IzvUsluga_Insert" />
+          <FunctionImportMapping FunctionImportName="esp_Pregled_Insert" FunctionName="Stomatoloska_MLModel.Store.esp_Pregled_Insert" />
+          <FunctionImportMapping FunctionImportName="esp_Terapija_Insert" FunctionName="Stomatoloska_MLModel.Store.esp_Terapija_Insert" />
+          <FunctionImportMapping FunctionImportName="esp_UspDijag_Insert" FunctionName="Stomatoloska_MLModel.Store.esp_UspDijag_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_Prijedlozi" FunctionName="Stomatoloska_MLModel.Store.usp_Prijedlozi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Stomatoloska_MLModel.usp_Prijedlozi_Result">
+                <ScalarProperty Name="IPPacijent" ColumnName="IPPacijent" />
+                <ScalarProperty Name="TekstPoruke" ColumnName="TekstPoruke" />
+                <ScalarProperty Name="IPStomatolog" ColumnName="IPStomatolog" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

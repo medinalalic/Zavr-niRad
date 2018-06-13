@@ -9,47 +9,63 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ZavršniRad_API;
+using ZavršniRad_API.ViewModel;
 
 namespace ZavršniRad_API.Controllers
 {
-    public class PorukaController : ApiController
+    public class LijekController : ApiController
     {
         private Stomatoloska_MLEntities db = new Stomatoloska_MLEntities();
 
-        // GET: api/Poruka
-        public IQueryable<Poruka> GetPorukas()
+        // GET: api/Lijek
+        public IQueryable<Lijek> GetLijeks()
         {
-            return db.Porukas;
+            return db.Lijeks;
         }
 
-        // GET: api/Poruka/5
-        [ResponseType(typeof(Poruka))]
-        public IHttpActionResult GetPoruka(int id)
+        // GET: api/Lijek/5
+        [ResponseType(typeof(Lijek))]
+        public IHttpActionResult GetLijek(int id)
         {
-            Poruka poruka = db.Porukas.Find(id);
-            if (poruka == null)
+            Lijek lijek = db.Lijeks.Find(id);
+            if (lijek == null)
             {
                 return NotFound();
             }
 
-            return Ok(poruka);
+            return Ok(lijek);
         }
+        [HttpGet]
+        [Route("api/Lijek/GetLijekDrop")]
+        public LijekVM GetLijekDrop()
+        {
 
-        // PUT: api/Poruka/5
+            LijekVM model = new LijekVM();
+            model.lijekovi = db.Lijeks.Select(x => new LijekVM.LijekInfo
+            {
+                Id = x.Id,
+                Naziv = x.Naziv,
+
+
+            }).ToList();
+            return model;
+
+        }
+        // PUT: api/Lijek/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPoruka(int id, Poruka poruka)
+        public IHttpActionResult PutLijek(int id, Lijek lijek)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != poruka.Id)
+            if (id != lijek.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(poruka).State = EntityState.Modified;
+            db.Entry(lijek).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +73,7 @@ namespace ZavršniRad_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PorukaExists(id))
+                if (!LijekExists(id))
                 {
                     return NotFound();
                 }
@@ -69,42 +85,36 @@ namespace ZavršniRad_API.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        [HttpGet]
-        [Route("api/Poruka/GetPrijedloge/{stomatologID}")]
-        public List<usp_Prijedlozi_Result> GetPrijedloge(int stomatologID)
-        {
 
-            return db.usp_Prijedlozi(stomatologID).ToList();
-        }
-        // POST: api/Poruka
-        [ResponseType(typeof(Poruka))]
-        public IHttpActionResult PostPoruka(Poruka poruka)
+        // POST: api/Lijek
+        [ResponseType(typeof(Lijek))]
+        public IHttpActionResult PostLijek(Lijek lijek)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Porukas.Add(poruka);
+            db.Lijeks.Add(lijek);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = poruka.Id }, poruka);
+            return CreatedAtRoute("DefaultApi", new { id = lijek.Id }, lijek);
         }
 
-        // DELETE: api/Poruka/5
-        [ResponseType(typeof(Poruka))]
-        public IHttpActionResult DeletePoruka(int id)
+        // DELETE: api/Lijek/5
+        [ResponseType(typeof(Lijek))]
+        public IHttpActionResult DeleteLijek(int id)
         {
-            Poruka poruka = db.Porukas.Find(id);
-            if (poruka == null)
+            Lijek lijek = db.Lijeks.Find(id);
+            if (lijek == null)
             {
                 return NotFound();
             }
 
-            db.Porukas.Remove(poruka);
+            db.Lijeks.Remove(lijek);
             db.SaveChanges();
 
-            return Ok(poruka);
+            return Ok(lijek);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,9 +126,9 @@ namespace ZavršniRad_API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool PorukaExists(int id)
+        private bool LijekExists(int id)
         {
-            return db.Porukas.Count(e => e.Id == id) > 0;
+            return db.Lijeks.Count(e => e.Id == id) > 0;
         }
     }
 }

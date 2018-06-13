@@ -48,6 +48,7 @@
         <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_Terapijas_dbo_Pregleds_PregledId" ManuallyRouted="false" />
         <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_UspostavljenaDijagnozas_dbo_Pregleds_PregledId" ManuallyRouted="false" />
         <AssociationConnector Association="Stomatoloska_MLModel.FK_dbo_UspostavljenaDijagnozas_dbo_Zubs_ZubId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stomatoloska_MLModel.FK__Racuns__PregledI__1F2E9E6D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

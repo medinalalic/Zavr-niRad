@@ -35,10 +35,30 @@ namespace ZavršniRad_API.Controllers
 
             return Ok(korisnik);
         }
-      
-      
+        [HttpPost]
+        [Route("api/Korisnik/IzmjenaPodatka")]
+        public IHttpActionResult IzmjeniPodatke(KorisniciVM k)
+        {
+            Korisnik korisnik = new Korisnik();
+            korisnik.Id = k.Id;
+            korisnik.Ime = k.Ime;
+            korisnik.Prezime = k.Prezime;
+            korisnik.Lozinka = k.Lozinka;
+            korisnik.KorisnickoIme = k.KorisnickoIme;
+            korisnik.Email = k.Email;
+            korisnik.Mobitel = k.Mobitel;
+            korisnik.Aktivan = true;
+            korisnik.Adresa = k.Adresa;
+            
+            db.Entry(korisnik).State = EntityState.Modified;
+            db.SaveChanges();
+
+
+            return Ok();
+        }
+
         // PUT: api/Korisnik/5
-       
+
         [ResponseType(typeof(void))]
         [Route("api/Korisnik/Put/{korisnik}")]
 

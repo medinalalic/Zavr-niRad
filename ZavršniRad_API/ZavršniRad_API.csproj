@@ -153,13 +153,17 @@
     </Content>
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AutentifikacijaController.cs" />
+    <Compile Include="Controllers\DijagnozaController.cs" />
     <Compile Include="Controllers\KorisnikController.cs" />
+    <Compile Include="Controllers\LijekController.cs" />
     <Compile Include="Controllers\OcjenaController.cs" />
     <Compile Include="Controllers\PacijentController.cs" />
     <Compile Include="Controllers\PorukaController.cs" />
@@ -243,6 +247,12 @@
     <Compile Include="UspostavljenaDijagnoza.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_DanasnjiTermini_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_NaredniTermini_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_Neocjenjene_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -252,7 +262,16 @@
     <Compile Include="usp_Pacijent_ByIme_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_Prijedlozi_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_ProsliTermini_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_SlikaPrikaz_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_TerminiPonedjeljak_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_TerminiPretraga_Result.cs">
@@ -264,14 +283,26 @@
     <Compile Include="usp_Usluge_ByNaziv_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_ZauzetiTermini_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_Zubi_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CetvrtakVM.cs" />
+    <Compile Include="ViewModel\DijagnozaDropVM.cs" />
     <Compile Include="ViewModel\KorisniciVM.cs" />
+    <Compile Include="ViewModel\LijekVM.cs" />
     <Compile Include="ViewModel\PacijentVM.cs" />
+    <Compile Include="ViewModel\PetakVM.cs" />
+    <Compile Include="ViewModel\PonedjeljakVM.cs" />
+    <Compile Include="ViewModel\PregledPostVM.cs" />
     <Compile Include="ViewModel\PregledVM.cs" />
+    <Compile Include="ViewModel\SrijedaVM.cs" />
     <Compile Include="ViewModel\TerminVM.cs" />
+    <Compile Include="ViewModel\UslugaNazivVM.cs" />
     <Compile Include="ViewModel\UslugaVM.cs" />
+    <Compile Include="ViewModel\UtorakVM.cs" />
     <Compile Include="Zub.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -303,6 +334,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

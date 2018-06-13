@@ -20,8 +20,10 @@ namespace ZavršniRad_API
         public System.DateTime Datum { get; set; }
         public Nullable<int> OsobljeId { get; set; }
         public Nullable<int> PacijentId { get; set; }
+        public Nullable<int> PregledId { get; set; }
     
         public virtual Osoblje Osoblje { get; set; }
         public virtual Pacijent Pacijent { get; set; }
+        public virtual Pregled Pregled { get; set; }
     }
 }

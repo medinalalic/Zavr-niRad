@@ -19,5 +19,7 @@ namespace ZavršniRad_API
         public byte[] Slika { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
+        public string Email { get; set; }
+        public string Mobitel { get; set; }
     }
 }

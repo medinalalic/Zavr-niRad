@@ -57,7 +57,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
             model.Kraj = endDate;
             model.Da = startDate.ToString();
             model._Ponedjeljak = ctx.Termins
-                .Where(x => x.Datum >= dat && x.Datum <= dat && x.Vrijeme != null)
+                .Where(x =>  x.Datum.Year.Equals(dat.Year) && x.Datum.Month.Equals(dat.Month) && x.Datum.Day.Equals(dat.Day))
                 .Select(
                 a => new AktivniTerminiVM.Ponedjeljak
                 {
@@ -72,7 +72,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
             
 
             model._Utorak = ctx.Termins
-               .Where(x => x.Datum >= utorak && x.Datum <= utorak && x.Vrijeme != null)
+               .Where(x => x.Datum.Year.Equals(utorak.Year) && x.Datum.Month.Equals(utorak.Month) && x.Datum.Day.Equals(utorak.Day))
                .Select(
                a => new AktivniTerminiVM.Utorak
                {
@@ -87,7 +87,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
                }).ToList();
 
             model._Srijeda = ctx.Termins
-              .Where(x => x.Datum >= srijeda && x.Datum <= srijeda && x.Vrijeme != null)
+              .Where( x => x.Datum.Year.Equals(srijeda.Year) && x.Datum.Month.Equals(srijeda.Month) && x.Datum.Day.Equals(srijeda.Day))
               .Select(
               a => new AktivniTerminiVM.Srijeda
               {
@@ -101,7 +101,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
                   Napomena = a.RazlogPosjete
               }).ToList();
             model._Cetvrtak = ctx.Termins
-              .Where(x => x.Datum >= cetvrtak && x.Datum <= cetvrtak && x.Vrijeme != null)
+              .Where(x => x.Datum.Year.Equals(cetvrtak.Year) && x.Datum.Month.Equals(cetvrtak.Month) && x.Datum.Day.Equals(cetvrtak.Day))
               .Select(
               a => new AktivniTerminiVM.Cetvrtak
               {
@@ -117,7 +117,7 @@ namespace ZavršniRad.Areas.ModulOsoblje.Controllers
 
 
             model._Petak = ctx.Termins
-              .Where(x => x.Datum >= petak && x.Datum <= petak && x.Vrijeme != null)
+              .Where(x => x.Datum.Year.Equals(petak.Year) && x.Datum.Month.Equals(petak.Month) && x.Datum.Day.Equals(petak.Day))
               .Select(
               a => new AktivniTerminiVM.Petak
               {

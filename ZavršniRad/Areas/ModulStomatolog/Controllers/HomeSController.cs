@@ -19,9 +19,10 @@ namespace ZavršniRad.Areas.ModulStomatolog.Controllers
         Stomatoloska_MLEntities1 ctx = new Stomatoloska_MLEntities1();
         public ActionResult Index()
         {
-            var day1 = DateTime.Today;
+            var day1 = DateTime.Now;
             ZakazaniTermini Model = new ZakazaniTermini();
-            Model.termin = ctx.Termins.ToList().Where(x => x.Datum == day1 && x.Vrijeme != null).OrderBy(x => x.Vrijeme)
+            Model.termin = ctx.Termins.ToList().Where(x => x.Datum.Year.Equals(day1.Year) && x.Datum.Month.Equals(day1.Month) && x.Datum.Day.Equals(day1.Day))
+              
                .Select(x => new ZakazaniTermini.TerminInfo
                {
                    Id = x.Id,
