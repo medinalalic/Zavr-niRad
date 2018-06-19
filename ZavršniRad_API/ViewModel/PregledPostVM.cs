@@ -20,7 +20,7 @@ namespace ZavršniRad_API.ViewModel
         public int LijekId { get; set; }
         public int DijagnozaId { get; set; }
 
-        public decimal Cijena { get; set; }
+        public string  Cijena { get; set; }
 
 
 

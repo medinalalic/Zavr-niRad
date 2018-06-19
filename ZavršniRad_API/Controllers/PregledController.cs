@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -104,14 +105,19 @@ namespace ZavršniRad_API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            pregled.Id = Convert.ToInt32(db.esp_Pregled_Insert(DateTime.Now,DateTime.Now,
-                pregled.PacijentId,pregled.StomatologId,pregled.TerminId,pregled.IsObavljen).FirstOrDefault());
-           
-            db.esp_IzvUsluga_Insert(pregled.Cijena, pregled.Id, pregled.UslugaId, pregled.ZubId);
+
+        
+    
+            pregled.Id = Convert.ToInt32(db.esp_Pregled_Insert(DateTime.Now, DateTime.Now,
+     pregled.PacijentId, pregled.StomatologId, pregled.TerminId, pregled.IsObavljen).FirstOrDefault());
+
+            db.esp_IzvUsluga_Insert(decimal.Parse(pregled.Cijena, CultureInfo.InvariantCulture), pregled.Id, pregled.UslugaId, pregled.ZubId);
+
             db.esp_Terapija_Insert(1, 1, pregled.Id, pregled.LijekId);
             db.esp_UspDijag_Insert(1, "nova napomena", pregled.Id, pregled.DijagnozaId, pregled.ZubId);
+        
            
-
+          
             return CreatedAtRoute("DefaultApi", new { id = pregled.Id }, pregled);
         }
 
