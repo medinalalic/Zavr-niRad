@@ -29,7 +29,11 @@ namespace ZavršniRad.Areas.ModulAdministrator.Controllers
 
         public ActionResult SnimiPristupniPodaci(UrediProfilVM model)
         {
+            if (!ModelState.IsValid)
+            {
 
+                return View("IzmjenaPristupnihPodataka", model);
+            }
             Korisnik lp = (Korisnik)ControllerContext.HttpContext.Session["logirani_korisnik"];
             Osoblje DBAdmin = ctx.Osobljes.Where(x => x.Id == lp.Id && lp.IsAdmin==true).Include(x => x.Korisnik).FirstOrDefault();
 

@@ -32,6 +32,11 @@ namespace ZavršniRad.Areas.ModulPacijent.Controllers
 
         public ActionResult SnimiPristupniPodaci(UrediProfilVM model)
         {
+            if (!ModelState.IsValid)
+            {
+
+                return View("IzmjenaPristupnihPodataka", model);
+            }
 
             Korisnik lp = (Korisnik)ControllerContext.HttpContext.Session["logirani_korisnik"];
             Pacijent DBPacijent = ctx.Pacijents.Where(x => x.Id == lp.Id).Include(x=>x.Korisnik).FirstOrDefault();
