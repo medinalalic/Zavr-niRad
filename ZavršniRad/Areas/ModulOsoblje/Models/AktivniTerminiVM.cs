@@ -10,6 +10,14 @@ namespace ZavršniRad.Areas.ModulStomatolog.Models
         public int Id { get; set; }
         public DateTime Pocetak { get; set; }
         public DateTime Kraj { get; set; }
+        public string Pon { get; set; }
+        public string Uto { get; set; }
+
+        public string Sri { get; set; }
+        public string Cet { get; set; }
+        public string Pet { get; set; }
+
+
         public DateTime? From { get; set; }
         public DateTime? To { get; set; }
         public string Da { get; set; }

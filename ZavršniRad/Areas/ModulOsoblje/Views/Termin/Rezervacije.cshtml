@@ -8,32 +8,48 @@
 <br />
 <br />
 
+<div style="margin-left:10px">
+    <h5>Termini za sedmicu: <b> @Model.Pocetak.Date.ToString("dd-MM-yyyy") / @Model.Kraj.Date.ToString("dd-MM-yyyy")</b></h5>
 
+</div>
+<div style="margin-left:350px;display:inline">
+    @Html.ActionLink("<", "BackRezervacije", "Termin", new { area = "ModulOsoblje" }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Trenutna sedmica", "Rezervacije", "Termin", new { area = "ModulOsoblje" }, new { @class = "btn btn-info" })
+
+
+    @Html.ActionLink(">", "NextRezervacije", "Termin", new { area = "ModulOsoblje" }, new { @class = "btn btn-info" })
+
+</div>
+<br />
+<br />
     <div class="container">
         <div class="row">
             <div class="col col-md-2">
                 @if (Model._Ponedjeljak == null)
             {
                     <p>
-                        Nema pregleda
+                        Nema termina
                     </p>
                 }
                 else
                 {
-                    <table class="table">
+                    <table class="table table-striped">
+                      
                         <thead>
                             <tr>
-                                <th>Ponedjeljak</th>
+                                <th>Ponedjeljak <br /> @Model.Pon
+                                </th>
 
                             </tr>
+                        
                         </thead>
                         <tbody>
-                            @foreach (AktivniTerminiVM.Ponedjeljak item in Model._Ponedjeljak)
-                            {
-                               
+                           @foreach (AktivniTerminiVM.Ponedjeljak item in Model._Ponedjeljak)
+                           {
+
                                     <tr>
                                         <td>
-                                       @item.Vrijeme.ToString("dd/MM/yyyy HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
+                                       @item.Vrijeme.ToString("HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
                                             @if (item.Odobren == true)
                                             {
 
@@ -72,10 +88,10 @@
                 }
                 else
                 {
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Utorak</th>
+                                <th>Utorak <br /> @Model.Uto</th>
 
                             </tr>
                         </thead>
@@ -85,7 +101,7 @@
 
                                 <tr>
                                     <td>
-                                        @item.Vrijeme.ToString("dd/MM/yyyy HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
+                                        @item.Vrijeme.ToString("HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
 
                                         @if (item.Odobren == true)
                                         {
@@ -114,29 +130,30 @@
                 }
 
             </div>
-
+          
             <div class="col col-md-2">
                 @if (Model._Srijeda == null)
             {
                     <p>
-                        Nema pregleda
+                        Nema termina
                     </p>
                 }
                 else
                 {
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Srijeda</th>
+                                <th>Srijeda <br /> @Model.Sri</th>
 
                             </tr>
+                        
                         </thead>
                         <tbody>
                             @foreach (AktivniTerminiVM.Srijeda item in Model._Srijeda)
                             {
                                 <tr>
                                     <td>
-                                          @item.Vrijeme.ToString("dd/MM/yyyy HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
+                                          @item.Vrijeme.ToString("HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
 
                                         @if (item.Odobren == true)
                                         {
@@ -173,10 +190,10 @@
                 }
                 else
                 {
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Četvrtak</th>
+                                <th>Četvrtak <br /> @Model.Cet</th>
 
                             </tr>
                         </thead>
@@ -184,7 +201,7 @@
                             @foreach (AktivniTerminiVM.Cetvrtak item in Model._Cetvrtak)
                             {
                                 <tr>
-                                    <td>  @item.Vrijeme.ToString("dd/MM/yyyy HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
+                                    <td>  @item.Vrijeme.ToString("HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
 
                                         @if (item.Odobren == true)
                                         {
@@ -223,10 +240,10 @@
                 }
                 else
                 {
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Petak</th>
+                                <th>Petak <br /> @Model.Pet</th>
 
                             </tr>
                         </thead>
@@ -236,7 +253,7 @@
 
                                 <tr>
                                     <td>
-                                          @item.Vrijeme.ToString("dd/MM/yyyy HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
+                                          @item.Vrijeme.ToString("HH:mm") h <br /> @item.Pacijent <br /> @item.Napomena <br />
 
                                         @if (item.Odobren == true)
                                         {
