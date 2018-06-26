@@ -193,13 +193,78 @@ namespace ZavršniRad_API.Controllers
         }
         public static DateTime PosljedniDanSedmice(DateTime date)
         {
+            
             DateTime ldowDate = PrviDanSedmice(date).AddDays(6);
             
             return ldowDate;
         }
-
-        public static DateTime PrviDanSedmice(DateTime date)
+        [HttpGet]
+        [Route("api/Termin/DatumiSedmiceTrenutne")]
+        public TrenutnaDatumiVM DatumiSedmiceTrenutne()
         {
+            TrenutnaDatumiVM model = new TrenutnaDatumiVM();
+
+            DateTime date = DateTime.Now;
+            DayOfWeek fdow = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+            int offset = fdow - date.DayOfWeek;
+            DateTime fdowDate = date.AddDays(offset+1);
+            model.Pon = fdowDate;
+            model.Uto = model.Pon.AddDays(1);
+            model.Sri = model.Uto.AddDays(1);
+            model.Cet = model.Sri.AddDays(1);
+            model.Pet = model.Cet.AddDays(1);
+            model.Sub = model.Pet.AddDays(1);
+            model.Ned = model.Sub.AddDays(1);
+
+            return model;
+        }
+
+        [HttpGet]
+        [Route("api/Termin/DatumiNaredneSedmice")]
+        public TrenutnaDatumiVM DatumiNaredneSedmice()
+        {
+            TrenutnaDatumiVM model = new TrenutnaDatumiVM();
+            var da = PrviDanSedmice(DateTime.Now);
+            var dae = Convert.ToDateTime(da);
+            var date = dae.Date.AddDays(7).AddHours(0).AddMinutes(0).AddSeconds(0);
+            var startDate = PrviDanSedmice(date).AddDays(1);
+
+            model.Pon = startDate;
+            model.Uto = model.Pon.AddDays(1);
+            model.Sri = model.Uto.AddDays(1);
+            model.Cet = model.Sri.AddDays(1);
+            model.Pet = model.Cet.AddDays(1);
+            model.Sub = model.Pet.AddDays(1);
+            model.Ned = model.Sub.AddDays(1);
+
+            return model;
+        }
+
+        [HttpGet]
+        [Route("api/Termin/DatumiProsleSedmice")]
+        public TrenutnaDatumiVM DatumiProsleSedmice()
+        {
+            TrenutnaDatumiVM model = new TrenutnaDatumiVM();
+            var da = PrviDanSedmice(DateTime.Now);
+            var dae = Convert.ToDateTime(da);
+            var date = dae.Date.AddDays(-7).AddHours(0).AddMinutes(0).AddSeconds(0);
+
+            var startDate = PrviDanSedmice(date).AddDays(1);
+
+            model.Pon = startDate;
+            model.Uto = model.Pon.AddDays(1);
+            model.Sri = model.Uto.AddDays(1);
+            model.Cet = model.Sri.AddDays(1);
+            model.Pet = model.Cet.AddDays(1);
+            model.Sub = model.Pet.AddDays(1);
+            model.Ned = model.Sub.AddDays(1);
+
+            return model;
+        }
+
+        public static  DateTime PrviDanSedmice(DateTime date)
+        {
+            
             DayOfWeek fdow = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
             int offset = fdow - date.DayOfWeek;
             DateTime fdowDate = date.AddDays(offset);

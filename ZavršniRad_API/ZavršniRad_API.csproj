@@ -301,6 +301,7 @@
     <Compile Include="ViewModel\PregledVM.cs" />
     <Compile Include="ViewModel\SrijedaVM.cs" />
     <Compile Include="ViewModel\TerminVM.cs" />
+    <Compile Include="ViewModel\TrenutnaDatumiVM.cs" />
     <Compile Include="ViewModel\UslugaNazivVM.cs" />
     <Compile Include="ViewModel\UslugaVM.cs" />
     <Compile Include="ViewModel\UtorakVM.cs" />
