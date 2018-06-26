@@ -16,5 +16,6 @@ namespace ZavršniRad_API
         public int Id { get; set; }
         public string Vrsta { get; set; }
         public byte[] Slika { get; set; }
+        public int Ocjena { get; set; }
     }
 }

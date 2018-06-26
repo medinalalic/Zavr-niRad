@@ -1425,11 +1425,13 @@
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Vrsta" Nullable="true" />
           <Property Type="Binary" Name="Slika" Nullable="true" />
+          <Property Type="Int32" Name="Ocjena" Nullable="false" />
         </ComplexType>
         <ComplexType Name="usp_Usluge_ByNaziv_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Vrsta" Nullable="true" />
           <Property Type="Binary" Name="Slika" Nullable="true" />
+          <Property Type="Int32" Name="Ocjena" Nullable="false" />
         </ComplexType>
         <ComplexType Name="usp_Zubi_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1446,6 +1448,7 @@
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Vrsta" Nullable="true" />
           <Property Type="Binary" Name="Slika" Nullable="true" />
+          <Property Type="Int32" Name="Ocjena" Nullable="false" />
         </ComplexType>
         <ComplexType Name="usp_Pacijent_ByIme_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1757,6 +1760,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
                 <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="Ocjena" ColumnName="Ocjena" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1766,6 +1770,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
                 <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="Ocjena" ColumnName="Ocjena" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1792,6 +1797,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
                 <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="Ocjena" ColumnName="Ocjena" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

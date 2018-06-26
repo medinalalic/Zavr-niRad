@@ -25,14 +25,14 @@
     <div class="container">
         <div class="row">
             <div class="col col-md-2">
-                @if (Model._Ponedjeljak == null)
+            @if (Model._Ponedjeljak == null)
             {
-                    <p>
-                        Nema termina
-                    </p>
-                }
-                else
-                {
+                <p>
+                      Nema termina
+                </p>
+            }
+            else
+            {
                     <table class="table table-striped">
                       
                         <thead>
@@ -44,6 +44,7 @@
                         
                         </thead>
                         <tbody>
+
                            @foreach (AktivniTerminiVM.Ponedjeljak item in Model._Ponedjeljak)
                            {
 
@@ -71,10 +72,10 @@
                                     </tr>
                                 
 
-                            }
+                            } 
                         </tbody>
                     </table>
-                }
+                    }
 
             </div>
 
@@ -83,11 +84,10 @@
                 @if (Model._Utorak == null)
             {
                     <p>
-                        Nema pregleda
+                        Nema termina
                     </p>
                 }
-                else
-                {
+                else { 
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -96,6 +96,7 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach (AktivniTerminiVM.Utorak item in Model._Utorak)
                             {
 
@@ -124,11 +125,12 @@
 
                                     </td>
                                 </tr>
-                            }
+    }
+
                         </tbody>
                     </table>
-                }
 
+                }
             </div>
           
             <div class="col col-md-2">
@@ -185,7 +187,7 @@
                 @if (Model._Cetvrtak == null)
             {
                     <p>
-                        Nema pregleda
+                        Nema termina
                     </p>
                 }
                 else
@@ -235,7 +237,7 @@
                 @if (Model._Petak == null)
             {
                     <p>
-                        Nema pregleda
+                        Nema termina
                     </p>
                 }
                 else
