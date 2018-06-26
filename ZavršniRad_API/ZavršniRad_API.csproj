@@ -293,6 +293,7 @@
     <Compile Include="ViewModel\DijagnozaDropVM.cs" />
     <Compile Include="ViewModel\KorisniciVM.cs" />
     <Compile Include="ViewModel\LijekVM.cs" />
+    <Compile Include="ViewModel\OcjenaVM.cs" />
     <Compile Include="ViewModel\PacijentVM.cs" />
     <Compile Include="ViewModel\PetakVM.cs" />
     <Compile Include="ViewModel\PonedjeljakVM.cs" />

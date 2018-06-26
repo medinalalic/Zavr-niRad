@@ -345,5 +345,26 @@ namespace ZavršniRad_API
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Prijedlozi_Result>("usp_Prijedlozi", stomatologIDParameter);
         }
+    
+        public virtual int esp_Ocjena_Insert(Nullable<System.DateTime> datum, Nullable<int> ocjenaInt, Nullable<int> uslugaID, Nullable<int> pacijentId)
+        {
+            var datumParameter = datum.HasValue ?
+                new ObjectParameter("Datum", datum) :
+                new ObjectParameter("Datum", typeof(System.DateTime));
+    
+            var ocjenaIntParameter = ocjenaInt.HasValue ?
+                new ObjectParameter("OcjenaInt", ocjenaInt) :
+                new ObjectParameter("OcjenaInt", typeof(int));
+    
+            var uslugaIDParameter = uslugaID.HasValue ?
+                new ObjectParameter("UslugaID", uslugaID) :
+                new ObjectParameter("UslugaID", typeof(int));
+    
+            var pacijentIdParameter = pacijentId.HasValue ?
+                new ObjectParameter("PacijentId", pacijentId) :
+                new ObjectParameter("PacijentId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("esp_Ocjena_Insert", datumParameter, ocjenaIntParameter, uslugaIDParameter, pacijentIdParameter);
+        }
     }
 }

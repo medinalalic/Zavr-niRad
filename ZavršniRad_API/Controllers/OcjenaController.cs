@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ZavršniRad_API;
+using ZavršniRad_API.ViewModel;
 
 namespace ZavršniRad_API.Controllers
 {
@@ -69,17 +70,18 @@ namespace ZavršniRad_API.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
+        [HttpPost]
         // POST: api/Ocjena
         [ResponseType(typeof(Ocjena))]
-        public IHttpActionResult PostOcjena(Ocjena ocjena)
+        public IHttpActionResult PostOcjena(OcjenaVM ocjena)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Ocjenas.Add(ocjena);
+            db.esp_Ocjena_Insert(DateTime.Now, ocjena.OcjenaInt, ocjena.UslugaId, ocjena.PacijentId);
+
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = ocjena.Id }, ocjena);
