@@ -297,6 +297,7 @@
     <Compile Include="ViewModel\PacijentVM.cs" />
     <Compile Include="ViewModel\PetakVM.cs" />
     <Compile Include="ViewModel\PonedjeljakVM.cs" />
+    <Compile Include="ViewModel\PorukaVM.cs" />
     <Compile Include="ViewModel\PregledPostVM.cs" />
     <Compile Include="ViewModel\PregledVM.cs" />
     <Compile Include="ViewModel\SrijedaVM.cs" />

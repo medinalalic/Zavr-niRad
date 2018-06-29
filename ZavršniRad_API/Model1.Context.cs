@@ -366,5 +366,30 @@ namespace ZavršniRad_API
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("esp_Ocjena_Insert", datumParameter, ocjenaIntParameter, uslugaIDParameter, pacijentIdParameter);
         }
+    
+        public virtual int esp_Prijedlog_Insert(Nullable<int> pacijentId, Nullable<int> stomatologId, string tekstPoruke, Nullable<System.DateTime> datum, Nullable<bool> procitana)
+        {
+            var pacijentIdParameter = pacijentId.HasValue ?
+                new ObjectParameter("PacijentId", pacijentId) :
+                new ObjectParameter("PacijentId", typeof(int));
+    
+            var stomatologIdParameter = stomatologId.HasValue ?
+                new ObjectParameter("StomatologId", stomatologId) :
+                new ObjectParameter("StomatologId", typeof(int));
+    
+            var tekstPorukeParameter = tekstPoruke != null ?
+                new ObjectParameter("TekstPoruke", tekstPoruke) :
+                new ObjectParameter("TekstPoruke", typeof(string));
+    
+            var datumParameter = datum.HasValue ?
+                new ObjectParameter("Datum", datum) :
+                new ObjectParameter("Datum", typeof(System.DateTime));
+    
+            var procitanaParameter = procitana.HasValue ?
+                new ObjectParameter("Procitana", procitana) :
+                new ObjectParameter("Procitana", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("esp_Prijedlog_Insert", pacijentIdParameter, stomatologIdParameter, tekstPorukeParameter, datumParameter, procitanaParameter);
+        }
     }
 }

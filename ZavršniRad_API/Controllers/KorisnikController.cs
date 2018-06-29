@@ -68,9 +68,10 @@ namespace ZavršniRad_API.Controllers
                 korisnik.Mobitel, korisnik.KorisnickoIme, korisnik.Lozinka, korisnik.Adresa);
         }
 
+        [HttpPost]
         // POST: api/Korisnik
         [ResponseType(typeof(Korisnik))]
-        public IHttpActionResult PostKorisnik(Korisnik korisnik)
+        public IHttpActionResult PostKorisnik(KorisniciVM korisnik)
         {
             if (!ModelState.IsValid)
             {

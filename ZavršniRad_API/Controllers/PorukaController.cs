@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ZavršniRad_API;
+using ZavršniRad_API.ViewModel;
 
 namespace ZavršniRad_API.Controllers
 {
@@ -76,16 +77,17 @@ namespace ZavršniRad_API.Controllers
 
             return db.usp_Prijedlozi(stomatologID).ToList();
         }
+        [HttpPost]
         // POST: api/Poruka
         [ResponseType(typeof(Poruka))]
-        public IHttpActionResult PostPoruka(Poruka poruka)
+        public IHttpActionResult PostPoruka(PorukaVM poruka)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Porukas.Add(poruka);
+            db.esp_Prijedlog_Insert(poruka.PacijentId, poruka.StomatologId, poruka.TekstPoruke, DateTime.Now, false);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = poruka.Id }, poruka);
