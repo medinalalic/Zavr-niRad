@@ -7,8 +7,10 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using ZavršniRad.Helper;
 using ZavršniRad_API;
 using ZavršniRad_API.ViewModel;
 using static ZavršniRad_API.ViewModel.PonedjeljakVM;
@@ -126,6 +128,73 @@ namespace ZavršniRad_API.Controllers
         {
             return db.usp_DanasnjiTermini().ToList();
         }
+
+        [HttpGet]
+        [Route(@"api/Termin/TerminRazlogDatum/{datum}/{razlog}")]
+        public SlobodniVM TerminRazlogDatum(string datum, string razlog)
+        {
+
+            SlobodniVM model = new SlobodniVM();
+            List<string> SlobodnihTermina = new List<string>();
+
+            List<string> satnice = new List<string> { "09:00", "09:30", "10:00","10:30",
+            "11:00","11:30","12:00","12:30","13:00","15:00","15:30","16:00","16:30"};
+
+            var terminis = satnice
+              .Select(i =>
+              {
+                  TimeSpan result;
+                  if (TimeSpan.TryParse(i, out result))
+                      return new Nullable<TimeSpan>(result);
+                  return null;
+              })
+              .Where(x => x.HasValue)
+              .ToList();
+
+            var date = DateTime.ParseExact(datum,
+               "yyyy-MM-dd'T'HH:mm:ss",
+               CultureInfo.InvariantCulture);
+            DateTime d = date;
+
+            if (terminis != null)
+            {
+                foreach (var x in terminis)
+                {
+                    
+                    d = date.Date + x.Value;
+                    DateTime vrijeme = date.Date + x.Value;
+                    if (slobodan(d))
+                    {
+                        SlobodnihTermina.Add(x.ToString());
+                    }
+                }
+
+            }
+            model.Razlog = razlog;
+            model.satnice = SlobodnihTermina;
+            model.Datum = d;
+            return model;
+
+        }
+
+        public bool slobodan(DateTime datum)
+        {
+
+            int b = (from term in db.Termins
+                     where datum.Day == term.Vrijeme.Day && datum.Month==term.Vrijeme.Month
+                     && datum.Year==term.Vrijeme.Year && datum.Hour==term.Vrijeme.Hour
+                     && datum.Minute==term.Vrijeme.Minute
+                     select term.Id).Count();
+
+
+            if (b == 0)
+                return true;
+            else
+                return false;
+        }
+
+
+
         [HttpGet]
         [Route("api/Termin/GetNaredni")]
         public List<usp_NaredniTermini_Result> GetNaredni()

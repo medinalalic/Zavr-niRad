@@ -143,12 +143,12 @@
     <Content Include="Global.asax" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="scripts\ai.0.22.9-build00167.js" />
@@ -202,10 +202,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model1.Designer.cs">
+    <Compile Include="Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Ocjena.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -300,6 +300,7 @@
     <Compile Include="ViewModel\PorukaVM.cs" />
     <Compile Include="ViewModel\PregledPostVM.cs" />
     <Compile Include="ViewModel\PregledVM.cs" />
+    <Compile Include="ViewModel\SlobodniVM.cs" />
     <Compile Include="ViewModel\SrijedaVM.cs" />
     <Compile Include="ViewModel\TerminVM.cs" />
     <Compile Include="ViewModel\TrenutnaDatumiVM.cs" />
@@ -316,12 +317,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Model1.edmx">
+    <EntityDeploy Include="Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Content Include="Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\api.medina-lalic.app.fit.ba - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
@@ -340,6 +341,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZavršniRad\ZavršniRad.csproj">
+      <Project>{03A9B3D6-8C6E-48E5-8694-CD7885CD7F00}</Project>
+      <Name>ZavršniRad</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
