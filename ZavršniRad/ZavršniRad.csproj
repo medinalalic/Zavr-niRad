@@ -673,6 +673,7 @@
     <Content Include="Areas\ModulOsoblje\Views\ListaRacuna\Pregledi.cshtml" />
     <Content Include="Areas\ModulOsoblje\Views\ListaRacuna\UnosRacuna.cshtml" />
     <Content Include="Areas\ModulOsoblje\Views\ListaRacuna\PregledajRacune.cshtml" />
+    <Content Include="Areas\ModulPacijent\Views\ZakaziTermin\TerminRazlogDatum.cshtml" />
     <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\medina-lalic.app.fit.ba - Web Deploy %284%29.pubxml" />
@@ -846,6 +847,7 @@
     <Compile Include="Areas\ModulPacijent\Controllers\ZakaziTerminController.cs" />
     <Compile Include="Areas\ModulPacijent\Models\HistorijaVM.cs" />
     <Compile Include="Areas\ModulPacijent\Models\RegistracijaVM.cs" />
+    <Compile Include="Areas\ModulPacijent\Models\SlobodniVM.cs" />
     <Compile Include="Areas\ModulPacijent\Models\TerminIzmijeniVM.cs" />
     <Compile Include="Areas\ModulPacijent\Models\TerminListaVM.cs" />
     <Compile Include="Areas\ModulPacijent\Models\UrediProfilVM.cs" />

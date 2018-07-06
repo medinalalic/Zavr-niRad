@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,29 +17,7 @@ namespace ZavršniRad.Areas.ModulPacijent.Controllers
     {
         Stomatoloska_MLEntities1 ctx = new Stomatoloska_MLEntities1();
         // GET: ModulPacijent/ZakaziTermin
-        //public ActionResult Index()
-        //{
-        //    Korisnik k = Autentifikacija.GetLogiraniKorisnik(HttpContext);
-
-        //    ZakaziTerminVM Model = new ZakaziTerminVM();
-        //    Model.termin = ctx.Termin.Where(x => x.PacijentId == k.Pacijent.Id)
-        //           .Select(x => new ZakaziTerminVM.TerminInfo
-        //        {
-        //            Id = x.Id,
-        //            Razlog = x.RazlogPosjete,
-        //            Odobren = x.Odobren,
-        //            Datum = x.Datum,
-        //            Vrijeme = x.Vrijeme,
-        //            Ime = k.Pacijent.Korisnik.Ime,
-        //            Prezime = k.Pacijent.Korisnik.Prezime,
-        //            PacijentId=k.Pacijent.Id
-
-        //        }).ToList();
-            
-        //    return View(Model);
-
-
-        //}
+       
         public ActionResult Index(int? page, DateTime? from, DateTime? to)
         {
             Korisnik k = Autentifikacija.GetLogiraniKorisnik(HttpContext);
@@ -71,7 +50,65 @@ namespace ZavršniRad.Areas.ModulPacijent.Controllers
             return View("Dodaj", model);
 
         }
+        public ActionResult TerminRazlogDatum(DateTime datum,string razlog)
+        {
+            
+                SlobodniVM model = new SlobodniVM();
+                Korisnik k = Autentifikacija.GetLogiraniKorisnik(HttpContext);
+                List<string> SlobodnihTermina = new List<string>();
 
+                List<string> satnice = new List<string> { "09:00", "09:30", "10:00","10:30",
+            "11:00","11:30","12:00","12:30","13:00","15:00","15:30","16:00","16:30"};
+
+                var terminis = satnice
+                  .Select(i =>
+                  {
+                      TimeSpan result;
+                      if (TimeSpan.TryParse(i, out result))
+                          return new Nullable<TimeSpan>(result);
+                      return null;
+                  })
+                  .Where(x => x.HasValue)
+                  .ToList();
+
+
+
+
+                if (terminis != null)
+                {
+                    foreach (var x in terminis)
+                    {
+
+                        datum = datum.Date + x.Value;
+                        DateTime vrijeme = datum.Date + x.Value;
+                        if (slobodan(datum))
+                        {
+                            SlobodnihTermina.Add(x.ToString());
+                        }
+                    }
+
+                }
+                model.Razlog = razlog;
+                model.satnice = SlobodnihTermina;
+                model.PacijentId = k.Id;
+                model.Datum = datum;
+                return View(model);
+               
+        }
+
+        public bool slobodan(DateTime datum)
+        {
+            
+            int b = (from term in ctx.Termins
+                    where datum==term.Vrijeme 
+                     select term.Id).Count() ;
+          
+
+            if (b == 0)
+                return true;
+            else
+                return false;
+        }
         public ActionResult ZauzetiTermini(int? page)
         {
             IPagedList<Termin> op;
@@ -100,66 +137,86 @@ namespace ZavršniRad.Areas.ModulPacijent.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Snimi(TerminIzmijeniVM termin)
+        public ActionResult Snimi(DateTime datum,string razlog,string vrijeme)
         {
             Korisnik k = Autentifikacija.GetLogiraniKorisnik(HttpContext);
             Termin terminDB;
-            if (!ModelState.IsValid)
-            {
-               return PartialView("Dodaj", termin);
-            }
-            else
-            {
-                if (termin.Id == 0)
-                {
+          
                     terminDB = new Termin();
                     ctx.Termins.Add(terminDB);
-                }
-                else
-                {
-                    terminDB = ctx.Termins.Find(termin.Id);
-                }
 
+            TimeSpan time = TimeSpan.Parse(vrijeme);
+            
+            TimeSpan ts = new TimeSpan(time.Ticks);
+            datum = datum.Date + ts;
 
-
-                terminDB.RazlogPosjete = termin.Razlog;
-                terminDB.Datum = termin.Datum;
+            terminDB.RazlogPosjete = razlog;
+                terminDB.Datum =datum;
                 terminDB.Odobren = false;
-                terminDB.Vrijeme = termin.Vrijeme;
+                terminDB.Vrijeme = datum;
                 terminDB.PacijentId = k.Pacijent.Id;
-                var lista = ctx.Termins.Where(a=>a.Datum >= DateTime.Today);
-             
-                foreach (var x in lista)
-                {
-                    if (terminDB.Datum.Date == x.Datum.Date)
-                    {
-                        if (terminDB.Vrijeme.TimeOfDay == x.Vrijeme.TimeOfDay)
-                        {
-                            TempData["TerminZauzet"] = "Žao nam je taj termin je zauzet!";
-
-                            return RedirectToAction("Dodaj");
-                       }
-                        else
-                        {
-                            ctx.Termins.Add(terminDB);
-                        }
-                    }
-                    else
-                    {
-                        ctx.Termins.Add(terminDB);
-                    }
-                 
-                }
+                 ctx.Termins.Add(terminDB);
+               
                 ctx.SaveChanges();
                 return RedirectToAction("Index");
 
 
 
             }
-        }
 
-     
 
-       
+
+        //public ActionResult Snimi(SlobodniVM termin)
+        //{
+        //    Korisnik k = Autentifikacija.GetLogiraniKorisnik(HttpContext);
+        //    Termin terminDB;
+
+        //    if (termin.Id == 0)
+        //    {
+        //        terminDB = new Termin();
+        //        ctx.Termins.Add(terminDB);
+        //    }
+        //    else
+        //    {
+        //        terminDB = ctx.Termins.Find(termin.Id);
+        //    }
+
+
+
+        //    terminDB.RazlogPosjete = termin.Razlog;
+        //    terminDB.Datum = termin.Datum;
+        //    terminDB.Odobren = false;
+        //    terminDB.Vrijeme = termin.Vrijeme;
+        //    terminDB.PacijentId = k.Pacijent.Id;
+        //    var lista = ctx.Termins.Where(a => a.Datum >= DateTime.Today);
+
+        //    foreach (var x in lista)
+        //    {
+        //        if (terminDB.Datum.Date == x.Datum.Date)
+        //        {
+        //            if (terminDB.Vrijeme.TimeOfDay == x.Vrijeme.TimeOfDay)
+        //            {
+        //                TempData["TerminZauzet"] = "Žao nam je taj termin je zauzet!";
+
+        //                return RedirectToAction("Dodaj");
+        //            }
+        //            else
+        //            {
+        //                ctx.Termins.Add(terminDB);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ctx.Termins.Add(terminDB);
+        //        }
+
+        //    }
+        //    ctx.SaveChanges();
+        //    return RedirectToAction("Index");
+
+
+
+        //}
+
     }
 }

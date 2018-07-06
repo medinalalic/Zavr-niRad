@@ -16,19 +16,11 @@
 </head>
 
 <body>
-    <div class="row" style="margin-left:10px;width:600px">
-        @if (TempData["TerminZauzet"] != null)
-        {
-            <p class="alert alert-success" id="successMessage">@TempData["TerminZauzet"]</p>
-        }
-      
-    </div>
-
-
+   
 
     <div style="float:left">
-
-        @using (Ajax.BeginForm("Snimi", "ZakaziTermin", new AjaxOptions() { UpdateTargetId = "termin" }))
+       
+        @using (Ajax.BeginForm("TerminRazlogDatum", "ZakaziTermin", new AjaxOptions() { UpdateTargetId = "termindva" },new { datum=Model.Datum,razlog=Model.Razlog,m=Model}))
         {
             <br />
             <div class="row" style="margin-left:5px;width:50%">
@@ -52,16 +44,17 @@
                                 <form role="form">
                                     <div class="form-group">
                                         <label>@Html.DisplayNameFor(m => m.Razlog)</label>
-                                        @Html.TextBoxFor(model => model.Razlog, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Razlog)
+                                        @Html.TextAreaFor(model => model.Razlog, new { @class = "form-control",@required=true,@title="text" })
+                                       
                                         @*<p class="help-block">Example block-level help text here.</p>*@
                                     </div>
                                     <div class="form-group">
                                         <label>Datum</label>
                                         @Html.TextBoxFor(model => model.Datum, new { @id = "datum", @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Datum)
+                                       
                                     </div>
-                                    <div class="form-group">
+                                   
+                                    @*<div class="form-group">
                                         <label>Vrijeme</label>
                                         @Html.DropDownListFor(m => m.Vrijeme, new List<SelectListItem>
                                 {
@@ -79,17 +72,22 @@
                                 new SelectListItem{ Text="16:00", Value = "16:00" },
                                 new SelectListItem{ Text="16:30", Value = "16:30" }
                               }, new { @class = "form-control" })
-                                    </div>
+                                    </div>*@
 
-
-                                    <button type="submit" class="btn btn-info">Snimi</button>
+                                 
+                                   
+                                    <button type="submit" class="btn btn-info">Provjeri slobodne satnice</button>
+                                    
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <p id="error"></p>
+            <p id="error">
+
+            </p>
+
             <br />
 
         <!-- /.col-lg-6 (nested) -->
@@ -97,12 +95,13 @@
 
 
     </div>
-    <div style="display:inline-block">
-       @{ Html.RenderAction("ZauzetiTermini", "ZakaziTermin"); }
+   <div style="display:inline-block" @*id="termindva"*@>
+       @*@{ Html.RenderAction("ZauzetiTermini", "ZakaziTermin"); }*@
 
     </div>
    
 
+   
 
 <script src="~/scripts/jquery-3.3.1.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
