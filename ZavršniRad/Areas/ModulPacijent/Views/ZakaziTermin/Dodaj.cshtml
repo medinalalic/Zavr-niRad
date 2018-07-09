@@ -18,7 +18,7 @@
 <body>
    
 
-    <div style="float:left">
+    <div style="float:left;margin-left:12px">
        
         @using (Ajax.BeginForm("TerminRazlogDatum", "ZakaziTermin", new AjaxOptions() { UpdateTargetId = "termindva" },new { datum=Model.Datum,razlog=Model.Razlog,m=Model}))
         {

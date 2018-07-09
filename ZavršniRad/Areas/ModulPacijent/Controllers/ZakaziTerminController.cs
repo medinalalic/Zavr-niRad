@@ -98,11 +98,10 @@ namespace ZavršniRad.Areas.ModulPacijent.Controllers
 
         public bool slobodan(DateTime datum)
         {
-            
-            int b = (from term in ctx.Termins
-                    where datum==term.Vrijeme 
-                     select term.Id).Count() ;
-          
+            int b = ctx.Termins.Where(a => datum.Day == a.Vrijeme.Day && datum.Month == a.Vrijeme.Month
+                      && datum.Year == a.Vrijeme.Year && datum.Hour == a.Vrijeme.Hour
+                      && datum.Minute == a.Vrijeme.Minute).Count();
+
 
             if (b == 0)
                 return true;

@@ -155,14 +155,14 @@ namespace ZavršniRad_API.Controllers
                "yyyy-MM-dd'T'HH:mm:ss",
                CultureInfo.InvariantCulture);
             DateTime d = date;
-
+            DateTime vrijeme = date;
             if (terminis != null)
             {
                 foreach (var x in terminis)
                 {
                     
                     d = date.Date + x.Value;
-                    DateTime vrijeme = date.Date + x.Value;
+                    vrijeme = date.Date + x.Value;
                     if (slobodan(d))
                     {
                         SlobodnihTermina.Add(x.ToString());
@@ -173,20 +173,17 @@ namespace ZavršniRad_API.Controllers
             model.Razlog = razlog;
             model.satnice = SlobodnihTermina;
             model.Datum = d;
+            model.Vrijeme = vrijeme;
             return model;
 
         }
 
         public bool slobodan(DateTime datum)
         {
-
-            int b = (from term in db.Termins
-                     where datum.Day == term.Vrijeme.Day && datum.Month==term.Vrijeme.Month
-                     && datum.Year==term.Vrijeme.Year && datum.Hour==term.Vrijeme.Hour
-                     && datum.Minute==term.Vrijeme.Minute
-                     select term.Id).Count();
-
-
+           int b = db.Termins.Where(a => datum.Day == a.Vrijeme.Day && datum.Month == a.Vrijeme.Month
+                      && datum.Year == a.Vrijeme.Year && datum.Hour == a.Vrijeme.Hour
+                      && datum.Minute == a.Vrijeme.Minute).Count();
+            
             if (b == 0)
                 return true;
             else

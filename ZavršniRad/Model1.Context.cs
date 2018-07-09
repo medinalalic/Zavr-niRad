@@ -20,6 +20,7 @@ namespace ZavršniRad
         public Stomatoloska_MLEntities1()
             : base("name=Stomatoloska_MLEntities1")
         {
+            Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
